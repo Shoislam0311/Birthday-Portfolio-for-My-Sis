@@ -43,8 +43,8 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => {
           style={{ transformOrigin: 'center bottom' }}
         >
           <div className="relative">
-            <div 
-              className="w-4 h-8 rounded-full bg-gradient-to-t from-orange-400 to-yellow-300"
+            <div
+              className="w-4 h-8 rounded-full bg-gradient-to-t from-gold-600 to-gold-300 glow-gold"
             />
             <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-2 h-4 rounded-full bg-white opacity-80" />
           </div>
@@ -52,16 +52,16 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => {
       )}
       
       <div className="w-3 h-12 rounded-sm overflow-hidden relative z-0">
-        <div className="w-full h-full bg-gradient-to-t from-neutral-400 to-neutral-200">
+        <div className="w-full h-full bg-gradient-to-t from-charcoal-400 to-charcoal-200">
           <div className="h-full w-full flex flex-col justify-evenly">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="w-full h-0.5 bg-white/60" />
+              <div key={i} className="w-full h-0.5 bg-gold-500/40" />
             ))}
           </div>
         </div>
       </div>
       
-      <div className="w-1 h-2 bg-neutral-800 -mt-12 mb-12" />
+      <div className="w-1 h-2 bg-charcoal-800 -mt-12 mb-12" />
     </div>
   );
 };
@@ -97,8 +97,8 @@ const BirthdayCake = () => {
       
       if (newState.every(c => !c)) {
         setAllCandlesBlown(true);
-        
-        // Simple confetti
+
+        // Premium confetti
         const duration = 2000;
         const end = Date.now() + duration;
 
@@ -108,14 +108,14 @@ const BirthdayCake = () => {
             angle: 60,
             spread: 55,
             origin: { x: 0 },
-            colors: ['#0f766e', '#14b8a6'],
+            colors: ['#D4AF37', '#E1C68D', '#C0C0C0'],
           });
           confetti({
             particleCount: 3,
             angle: 120,
             spread: 55,
             origin: { x: 1 },
-            colors: ['#0f766e', '#14b8a6'],
+            colors: ['#D4AF37', '#E1C68D', '#C0C0C0'],
           });
 
           if (Date.now() < end) {
@@ -138,7 +138,7 @@ const BirthdayCake = () => {
     <div ref={cakeRef} className="relative flex flex-col items-center opacity-0">
       {allCandlesBlown && (
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 whitespace-nowrap">
-          <span className="text-3xl md:text-4xl font-bold text-teal-600">
+          <span className="font-serif-display text-3xl md:text-4xl font-semibold text-gradient-gold">
             Make a Wish!
           </span>
         </div>
@@ -153,30 +153,30 @@ const BirthdayCake = () => {
 
       {/* Cake */}
       <div className="relative">
-        <div 
+        <div
           className="relative w-48 h-32 md:w-60 md:h-40 rounded-t-full overflow-hidden"
           style={{
-            background: 'linear-gradient(180deg, #fecaca 0%, #fda4af 50%, #fb7185 100%)',
-            boxShadow: '0 8px 24px rgba(251, 113, 133, 0.3)',
+            background: 'linear-gradient(180deg, #9C7B27 0%, #80611F 50%, #644717 100%)',
+            boxShadow: '0 8px 24px rgba(212, 175, 55, 0.3)',
           }}
         >
           {/* Frosting */}
-          <div 
+          <div
             className="absolute top-0 left-0 right-0 h-12 rounded-t-full"
             style={{
-              background: 'linear-gradient(180deg, #fff 0%, #f8fafc 100%)',
+              background: 'linear-gradient(180deg, #F5ECD7 0%, #EBD9B2 100%)',
             }}
           />
-          
+
           {/* Simple decoration */}
-          <div className="absolute top-16 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white/80" />
+          <div className="absolute top-16 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-gold-500/80 glow-gold" />
         </div>
 
         {/* Simple Plate */}
-        <div 
-          className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-56 h-6 rounded-full bg-neutral-200"
+        <div
+          className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-56 h-6 rounded-full bg-platinum-200 border border-gold-500/20"
           style={{
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
           }}
         />
       </div>
@@ -184,15 +184,15 @@ const BirthdayCake = () => {
       {/* Instructions */}
       <div className="mt-8 text-center">
         {!allCandlesBlown ? (
-          <p className="text-neutral-600 text-sm flex items-center gap-2">
-            <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+          <p className="text-platinum-300 text-sm flex items-center gap-2">
+            <span className="w-2 h-2 bg-gold-400 rounded-full glow-gold"></span>
             Click the candles to blow them out
           </p>
         ) : (
           <div className="mt-4">
             <RainbowButton
               onClick={resetCake}
-              className="flex items-center gap-2 mx-auto"
+              className="flex items-center gap-2 mx-auto shadow-premium glow-gold"
             >
               <RotateCcw className="w-4 h-4" />
               Light Candles Again
@@ -248,7 +248,7 @@ const Cake = () => {
         particleCount: 50,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#0f766e', '#14b8a6'],
+        colors: ['#D4AF37', '#E1C68D', '#C0C0C0', '#F5ECD7'],
       });
     }, 1000);
   }, []);
@@ -256,25 +256,25 @@ const Cake = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-neutral-50 flex items-center justify-center"
+      className="relative w-full py-24 bg-charcoal-100 flex items-center justify-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Header */}
-        <div ref={headerRef} className="mb-12 opacity-0">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-neutral-300" />
-            <Sparkles className="w-5 h-5 text-neutral-600" />
-            <span className="text-sm font-medium uppercase tracking-wider text-neutral-500">The Finale</span>
-            <Sparkles className="w-5 h-5 text-neutral-600" />
-            <div className="w-8 h-px bg-neutral-300" />
+        <div ref={headerRef} className="mb-16 opacity-0">
+          <div className="inline-flex items-center gap-4 mb-8">
+            <div className="w-12 h-px divider-premium" />
+            <Sparkles className="w-5 h-5 text-gold-400" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-gold-400">The Finale</span>
+            <Sparkles className="w-5 h-5 text-gold-400" />
+            <div className="w-12 h-px divider-premium" />
           </div>
-          
-          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-4">
-            Make a <span className="text-teal-600">Wish</span>
+
+          <h2 className="font-serif-display text-4xl md:text-6xl font-semibold text-white mb-6">
+            Make a <span className="text-gradient-gold">Wish</span>
           </h2>
-          
-          <p className="text-neutral-600 max-w-xl mx-auto">
+
+          <p className="font-serif-body text-platinum-300 max-w-xl mx-auto text-lg leading-relaxed">
             It&apos;s time to celebrate! Blow out the candles and make your birthday wish come true.
           </p>
         </div>
@@ -283,13 +283,13 @@ const Cake = () => {
         <BirthdayCake />
 
         {/* Message */}
-        <div ref={messageRef} className="mt-16 opacity-0">
-          <div className="bg-white rounded-lg border border-neutral-200 p-8 max-w-lg mx-auto shadow-minimal">
-            <CakeIcon className="w-10 h-10 text-teal-600 mx-auto mb-4" />
-            <p className="text-neutral-800 text-lg mb-2">
+        <div ref={messageRef} className="mt-20 opacity-0">
+          <div className="card-premium p-10 max-w-lg mx-auto">
+            <CakeIcon className="w-10 h-10 text-gold-400 mx-auto mb-4 glow-gold" />
+            <p className="text-platinum-100 text-lg mb-3 font-serif-body">
               Wishing you a day filled with love, laughter, and lots of cake!
             </p>
-            <p className="text-teal-600 font-medium text-xl">
+            <p className="text-gradient-gold font-medium text-2xl font-serif-display">
               Happy Birthday, Bubu!
             </p>
           </div>

@@ -47,12 +47,12 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
   return (
     <p 
       ref={containerRef}
-      className="text-base md:text-lg text-neutral-700 leading-relaxed"
-      style={{ fontFamily: "'Inter', sans-serif", lineHeight: 1.8 }}
+      className="font-serif-body text-lg md:text-xl text-platinum-200 leading-relaxed"
+      style={{ lineHeight: 2 }}
     >
       {displayText}
       {started && displayText.length < text.length && (
-        <span className="animate-pulse text-teal-600">|</span>
+        <span className="animate-pulse text-gold-400">|</span>
       )}
     </p>
   );
@@ -119,38 +119,38 @@ const Wish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-white flex items-center"
+      className="relative w-full py-24 bg-charcoal-100 flex items-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-12 opacity-0">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-neutral-300" />
-            <Gift className="w-5 h-5 text-neutral-600" />
-            <span className="text-sm font-medium uppercase tracking-wider text-neutral-500">A Special Message</span>
-            <Gift className="w-5 h-5 text-neutral-600" />
-            <div className="w-8 h-px bg-neutral-300" />
+          <div className="inline-flex items-center gap-4 mb-8">
+            <div className="w-12 h-px divider-premium" />
+            <Gift className="w-5 h-5 text-gold-400" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-gold-400">A Special Message</span>
+            <Gift className="w-5 h-5 text-gold-400" />
+            <div className="w-12 h-px divider-premium" />
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-4">
-            A Wish For <span className="text-teal-600">You</span>
+          <h2 className="font-serif-display text-4xl md:text-6xl font-semibold text-white mb-6">
+            A Wish For <span className="text-gradient-gold">You</span>
           </h2>
         </div>
 
         {/* Simple Heart Icon */}
-        <div ref={heartRef} className="flex justify-center mb-12 opacity-0">
-          <div className="relative w-16 h-16 md:w-20 md:h-20">
-            <Heart className="w-full h-full text-teal-600 fill-teal-600" />
+        <div ref={heartRef} className="flex justify-center mb-16 opacity-0">
+          <div className="relative w-20 h-20 md:w-24 md:h-24">
+            <Heart className="w-full h-full text-gold-400 fill-gold-400 glow-gold" />
           </div>
         </div>
 
         {/* Wish Card */}
         <div ref={cardRef} className="relative opacity-0">
           <MagicCard 
-            className="p-8 md:p-12 shadow-2xl border-neutral-200/50 bg-white/80 backdrop-blur-sm"
-            gradientFrom="rgba(15, 118, 110, 0.1)"
-            gradientTo="rgba(20, 184, 166, 0.1)"
+            className="p-10 md:p-14 card-premium bg-charcoal-200/50 backdrop-blur-sm"
+            gradientFrom="rgba(212, 175, 55, 0.1)"
+            gradientTo="rgba(192, 192, 192, 0.05)"
             gradientSize={400}
           >
             {/* Bengali Wish */}
@@ -160,15 +160,15 @@ const Wish = () => {
             
             {/* Simple Divider */}
             <div className="flex items-center gap-4 my-8">
-              <div className="flex-1 h-px bg-neutral-200" />
-              <Heart className="w-4 h-4 text-teal-600 fill-teal-600 animate-pulse" />
-              <div className="flex-1 h-px bg-neutral-200" />
+              <div className="flex-1 h-px divider-premium-thick" />
+              <Heart className="w-4 h-4 text-gold-400 fill-gold-400 animate-pulse" />
+              <div className="flex-1 h-px divider-premium-thick" />
             </div>
             
             {/* Signature */}
             <div className="text-right">
-              <p className="text-xl font-bold text-neutral-900 tracking-tight">With Love,</p>
-              <p className="text-teal-600 font-medium mt-1">Your Brother</p>
+              <p className="text-xl font-semibold text-platinum-100 tracking-tight">With Love,</p>
+              <p className="text-gold-400 font-medium mt-2">Your Brother</p>
             </div>
           </MagicCard>
         </div>

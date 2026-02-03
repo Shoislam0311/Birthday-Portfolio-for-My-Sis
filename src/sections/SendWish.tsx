@@ -154,13 +154,13 @@ const SendWish = () => {
       // Show success state
       setIsSubmitting(false);
       setIsSubmitted(true);
-      
-      // Simple confetti celebration
+
+      // Premium confetti celebration
       confetti({
         particleCount: 100,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#0f766e', '#14b8a6'],
+        colors: ['#D4AF37', '#E1C68D', '#C0C0C0', '#F5ECD7'],
         disableForReducedMotion: true
       });
     } catch (error) {
@@ -197,25 +197,25 @@ const SendWish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-white flex items-center"
+      className="relative w-full py-24 bg-charcoal-100 flex items-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-12 opacity-0">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-neutral-300" />
-            <Heart className="w-5 h-5 text-neutral-600" />
-            <span className="text-sm font-medium uppercase tracking-wider text-neutral-500">Send Your Love</span>
-            <Heart className="w-5 h-5 text-neutral-600" />
-            <div className="w-8 h-px bg-neutral-300" />
+          <div className="inline-flex items-center gap-4 mb-8">
+            <div className="w-12 h-px divider-premium" />
+            <Heart className="w-5 h-5 text-gold-400" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-gold-400">Send Your Love</span>
+            <Heart className="w-5 h-5 text-gold-400" />
+            <div className="w-12 h-px divider-premium" />
           </div>
-          
-          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-4">
-            Send a <span className="text-teal-600">Wish</span>
+
+          <h2 className="font-serif-display text-4xl md:text-6xl font-semibold text-white mb-6">
+            Send a <span className="text-gradient-gold">Wish</span>
           </h2>
-          
-          <p className="text-neutral-600 max-w-md mx-auto">
+
+          <p className="font-serif-body text-platinum-300 max-w-md mx-auto text-lg">
             Write your heartfelt birthday message and send it directly to Bubu's email.
           </p>
         </div>
@@ -225,17 +225,17 @@ const SendWish = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="relative bg-white rounded-xl border border-neutral-200 p-8 md:p-10 opacity-0 shadow-2xl overflow-hidden"
+            className="relative card-premium rounded-xl p-8 md:p-12 opacity-0 overflow-hidden"
           >
             <BorderBeam size={300} duration={12} delay={9} />
-            
+
             {/* Name Field */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-bold text-platinum-200 mb-2 tracking-wide">
                 Your Name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gold-400/60" />
                 <input
                   type="text"
                   name="name"
@@ -243,25 +243,25 @@ const SendWish = () => {
                   onChange={handleChange}
                   placeholder="Enter your name"
                   maxLength={MAX_NAME_LENGTH}
-                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-white placeholder-platinum-500/50 focus:outline-none focus:ring-2 transition-all ${
                     errors.name
-                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                      : 'border-neutral-300 focus:border-teal-500 focus:ring-teal-500/20'
+                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20 bg-charcoal-200'
+                      : 'border-gold-500/20 focus:border-gold-500 focus:ring-gold-500/20 bg-charcoal-200/50'
                   }`}
                 />
               </div>
               {errors.name && (
-                <p className="mt-2 text-sm text-red-600">{errors.name}</p>
+                <p className="mt-2 text-sm text-red-400">{errors.name}</p>
               )}
             </div>
 
             {/* Email Field */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-bold text-platinum-200 mb-2 tracking-wide">
                 Your Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gold-400/60" />
                 <input
                   type="email"
                   name="email"
@@ -269,25 +269,25 @@ const SendWish = () => {
                   onChange={handleChange}
                   placeholder="Enter your email"
                   maxLength={MAX_EMAIL_LENGTH}
-                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-white placeholder-platinum-500/50 focus:outline-none focus:ring-2 transition-all ${
                     errors.email
-                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                      : 'border-neutral-300 focus:border-teal-500 focus:ring-teal-500/20'
+                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20 bg-charcoal-200'
+                      : 'border-gold-500/20 focus:border-gold-500 focus:ring-gold-500/20 bg-charcoal-200/50'
                   }`}
                 />
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-2 text-sm text-red-400">{errors.email}</p>
               )}
             </div>
 
             {/* Wish Field */}
             <div className="mb-8">
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-bold text-platinum-200 mb-2 tracking-wide">
                 Your Birthday Wish
               </label>
               <div className="relative">
-                <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-neutral-400" />
+                <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-gold-400/60" />
                 <textarea
                   name="wish"
                   value={formData.wish}
@@ -295,17 +295,17 @@ const SendWish = () => {
                   rows={5}
                   placeholder="Write your heartfelt birthday message..."
                   maxLength={MAX_WISH_LENGTH}
-                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 transition-all resize-none ${
+                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-white placeholder-platinum-500/50 focus:outline-none focus:ring-2 transition-all resize-none ${
                     errors.wish
-                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                      : 'border-neutral-300 focus:border-teal-500 focus:ring-teal-500/20'
+                      ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20 bg-charcoal-200'
+                      : 'border-gold-500/20 focus:border-gold-500 focus:ring-gold-500/20 bg-charcoal-200/50'
                   }`}
                 />
               </div>
               {errors.wish && (
-                <p className="mt-2 text-sm text-red-600">{errors.wish}</p>
+                <p className="mt-2 text-sm text-red-400">{errors.wish}</p>
               )}
-              <p className="mt-2 text-xs text-neutral-500 text-right">
+              <p className="mt-2 text-xs text-platinum-500/60 text-right">
                 {formData.wish.length}/{MAX_WISH_LENGTH} characters
               </p>
             </div>
@@ -314,11 +314,11 @@ const SendWish = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 rounded-lg font-medium text-white transition-all hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-teal-600"
+              className="w-full py-3 rounded-lg font-bold text-charcoal-100 transition-all hover:shadow-premium hover:glow-gold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 btn-premium"
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-gold-500/30 border-t-gold-500 rounded-full animate-spin" />
                   Sending...
                 </>
               ) : (
@@ -330,19 +330,19 @@ const SendWish = () => {
             </button>
 
             {/* Note */}
-            <p className="text-center text-neutral-500 text-sm mt-4">
+            <p className="text-center text-platinum-500/60 text-sm mt-4">
               Your email will be sent automatically
             </p>
           </form>
         ) : (
-          <div className="bg-white rounded-lg border border-neutral-200 p-10 text-center shadow-minimal">
-            <div className="w-16 h-16 rounded-full bg-teal-600 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-8 h-8 text-white" />
+          <div className="card-premium rounded-xl p-12 text-center">
+            <div className="w-16 h-16 rounded-full bg-gold-500 flex items-center justify-center mx-auto mb-6 glow-gold">
+              <CheckCircle className="w-8 h-8 text-charcoal-100" />
             </div>
-            <h3 className="text-2xl font-bold text-neutral-900 mb-2">
+            <h3 className="font-serif-display text-2xl font-semibold text-white mb-3">
               Wish Sent!
             </h3>
-            <p className="text-neutral-600 mb-8">
+            <p className="text-platinum-300 mb-8 font-serif-body">
               Your warm wish has been sent to Bubu! Thank you for sharing your love.
             </p>
             <button
@@ -350,7 +350,7 @@ const SendWish = () => {
                 setIsSubmitted(false);
                 setFormData({ name: '', email: '', wish: '' });
               }}
-              className="mt-6 text-teal-600 hover:text-teal-700 text-sm font-medium transition-colors"
+              className="mt-6 text-gold-400 hover:text-gold-300 text-sm font-bold uppercase tracking-wider transition-colors"
             >
               Send another wish
             </button>

@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <div className="relative bg-white min-h-screen text-neutral-900 overflow-x-hidden">
+    <div className="relative bg-charcoal-100 min-h-screen text-white overflow-x-hidden">
       {/* Custom Cursor */}
       <CustomCursor />
       
@@ -39,7 +39,8 @@ function App() {
       
       {/* Subtle Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-50/50 to-white" />
+        <div className="absolute inset-0 bg-gradient-to-br from-charcoal-100 via-charcoal-200 to-charcoal-100" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-500/5 via-transparent to-transparent" />
       </div>
       
       {/* Main Content */}
@@ -52,7 +53,7 @@ function App() {
       </main>
       
       {/* Fixed Navigation */}
-      <nav className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
+      <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6">
         {['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
           <button
             key={section}
@@ -63,16 +64,16 @@ function App() {
             className="group relative flex items-center justify-end"
             aria-label={`Go to ${section}`}
           >
-            <span className="absolute right-8 text-xs text-neutral-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            <span className="absolute right-10 text-xs text-gold-400/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium tracking-wide">
               {section}
             </span>
-            <div className="w-2 h-2 rounded-full bg-neutral-300 group-hover:bg-teal-600 group-hover:scale-150 transition-all duration-300" />
+            <div className="w-2 h-2 rounded-full bg-gold-600/30 group-hover:bg-gold-400 group-hover:scale-150 group-hover:glow-gold transition-all duration-500" />
           </button>
         ))}
       </nav>
       <Analytics />
       <SpeedInsights />
-      <Toaster position="bottom-center" theme="light" />
+      <Toaster position="bottom-center" theme="dark" />
     </div>
   );
 }
