@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { Volume2, VolumeX, Music, Play, Pause } from 'lucide-react';
 
 interface MusicPlayerProps {
@@ -21,31 +21,75 @@ const tracks = [
   },
 ];
 
+// Generate random values for visualizer bars once (outside component to avoid linting issues)
+const generateVisualizerBars = () => {
+  return [...Array(6)].map(() => ({
+    height: 20 + Math.random() * 80,
+    duration: 0.3 + Math.random() * 0.2
+  }));
+};
+
 const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
-  const [showPlayer, setShowPlayer] = useState(false);
+  
+  // Generate random values for visualizer bars once
+  const visualizerBars = useMemo(() => generateVisualizerBars(), []);
+
+  const nextTrack = () => {
+    setCurrentTrack((prev) => (prev + 1) % tracks.length);
+    // No need to set isPlaying to false since we want continuous playback
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      }
+    }, 100);
+  };
 
   useEffect(() => {
     audioRef.current = new Audio(tracks[currentTrack].url);
-    audioRef.current.loop = true;
+    audioRef.current.loop = false; // Disable individual track looping
     audioRef.current.volume = 0.4;
+
+    // Add event listener for when track ends
+    const handleTrackEnd = () => {
+      nextTrack();
+    };
+
+    // Add event listener for play events to update state
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    // Add event listener for pause events to update state
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+
+    if (audioRef.current) {
+      audioRef.current.addEventListener('ended', handleTrackEnd);
+      audioRef.current.addEventListener('play', handlePlay);
+      audioRef.current.addEventListener('pause', handlePause);
+    }
+
+    // Auto-start if enabled and this is the first track
+    if (enabled && currentTrack === 0 && audioRef.current) {
+      audioRef.current.play().catch(() => {});
+    }
 
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
+        audioRef.current.removeEventListener('ended', handleTrackEnd);
+        audioRef.current.removeEventListener('play', handlePlay);
+        audioRef.current.removeEventListener('pause', handlePause);
         audioRef.current = null;
       }
     };
-  }, [currentTrack]);
-
-  useEffect(() => {
-    if (enabled) {
-      setShowPlayer(true);
-    }
-  }, [enabled]);
+  }, [currentTrack, enabled]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -71,18 +115,7 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
     }
   };
 
-  const nextTrack = () => {
-    setCurrentTrack((prev) => (prev + 1) % tracks.length);
-    setIsPlaying(false);
-    setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.play().catch(() => {});
-        setIsPlaying(true);
-      }
-    }, 100);
-  };
-
-  if (!showPlayer) return null;
+  if (!enabled) return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -140,15 +173,15 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
       {/* Visualizer */}
       {isPlaying && !isMuted && (
         <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex items-end gap-1 h-6">
-          {[...Array(6)].map((_, i) => (
+          {visualizerBars.map((bar, i) => (
             <div
               key={i}
               className="w-1 rounded-full animate-bar"
               style={{
                 background: 'linear-gradient(to top, #b026ff, #ff2d95)',
-                height: `${20 + Math.random() * 80}%`,
+                height: `${bar.height}%`,
                 animationDelay: `${i * 0.1}s`,
-                animationDuration: `${0.3 + Math.random() * 0.2}s`,
+                animationDuration: `${bar.duration}s`,
               }}
             />
           ))}
