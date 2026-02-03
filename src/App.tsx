@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Toaster } from 'sonner';
 
 // Sections
 import Hero from './sections/Hero';
@@ -70,6 +71,7 @@ function App() {
       </nav>
       <Analytics />
       <SpeedInsights />
+      <Toaster position="bottom-center" theme="dark" />
     </div>
   );
 }

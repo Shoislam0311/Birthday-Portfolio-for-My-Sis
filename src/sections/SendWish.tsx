@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import confetti from 'canvas-confetti';
+import { toast } from 'sonner';
 import { Send, User, Mail, MessageSquare, Heart, Sparkles, CheckCircle } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,11 +14,12 @@ const MAX_WISH_LENGTH = 500;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Security: Sanitize user input to prevent header injection and other attacks
-const sanitizeInput = (input: string): string => {
-  return input
-    .replace(/[<>]/g, '') // Remove potential HTML tags
-    .replace(/[\r\n]/g, ' ') // Normalize line breaks to prevent header injection
-    .trim();
+const sanitizeInput = (input: string, allowNewlines = false): string => {
+  let sanitized = input.replace(/[<>]/g, ''); // Remove potential HTML tags
+  if (!allowNewlines) {
+    sanitized = sanitized.replace(/[\r\n]/g, ' '); // Normalize line breaks
+  }
+  return sanitized.trim();
 };
 
 interface FormErrors {
@@ -97,7 +100,7 @@ const SendWish = () => {
     }
 
     // Validate wish: required, length limit
-    const sanitizedWish = sanitizeInput(formData.wish);
+    const sanitizedWish = sanitizeInput(formData.wish, true);
     if (!sanitizedWish) {
       newErrors.wish = 'Please write a birthday wish';
     } else if (sanitizedWish.length > MAX_WISH_LENGTH) {
@@ -121,7 +124,7 @@ const SendWish = () => {
     // Security: Use sanitized inputs for mailto link
     const sanitizedName = sanitizeInput(formData.name);
     const sanitizedEmail = sanitizeInput(formData.email).toLowerCase();
-    const sanitizedWish = sanitizeInput(formData.wish);
+    const sanitizedWish = sanitizeInput(formData.wish, true);
 
     // Prepare email content
     const subject = `Happy Birthday Wish for Zuyairia from ${sanitizedName}`;
@@ -150,6 +153,15 @@ const SendWish = () => {
       // Show success state
       setIsSubmitting(false);
       setIsSubmitted(true);
+      
+      // Trigger confetti celebration
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#b026ff', '#ff2d95', '#00d4ff', '#ffd700'],
+        disableForReducedMotion: true
+      });
     } catch (error) {
       console.error('Error sending wish:', error);
       setIsSubmitting(false);
@@ -159,7 +171,7 @@ const SendWish = () => {
       // Given the celebratory nature, maybe falling back to mailto would be safer if ajax fails?
       // But the user specifically asked for "without manual selection".
       // Let's assume it works or just alert.
-      alert("Something went wrong. Please try again or contact us directly.");
+      toast.error("Something went wrong. Please try again later.");
     }
   };
 
@@ -341,12 +353,9 @@ const SendWish = () => {
             <h3 className="text-2xl font-playfair font-bold text-white mb-2">
               Wish Sent!
             </h3>
-            <p className="text-white/60 mb-6">
+            <p className="text-white/60 mb-8">
               Your warm wish has been sent to Zuyairia! Thank you for sharing your love.
             </p>
-            <div className="glass-card rounded-xl py-3 px-6 inline-block">
-              <span className="text-gradient font-space">zuyairiaislam5@gmail.com</span>
-            </div>
             <button
               onClick={() => {
                 setIsSubmitted(false);
