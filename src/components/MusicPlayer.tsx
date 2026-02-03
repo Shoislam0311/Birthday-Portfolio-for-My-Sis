@@ -102,49 +102,49 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
   if (!enabled) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-8 right-8 z-50">
       {/* Main Player */}
-      <div className="bg-white rounded-lg border border-neutral-200 p-3 flex items-center gap-3 shadow-minimal">
+      <div className="card-premium p-4 flex items-center gap-4">
         {/* Simple Icon */}
-        <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center">
-          <Music className="w-4 h-4 text-white" />
+        <div className="w-10 h-10 rounded-full bg-gold-500 flex items-center justify-center shadow-premium glow-gold">
+          <Music className="w-5 h-5 text-charcoal-100" />
         </div>
 
         {/* Track Info */}
         <div className="hidden sm:block">
-          <p className="text-xs text-neutral-500 uppercase tracking-wider">Now Playing</p>
-          <p className="text-sm text-neutral-700 font-medium">{tracks[currentTrack].name}</p>
+          <p className="text-xs text-gold-400/60 uppercase tracking-[0.2em]">Now Playing</p>
+          <p className="text-sm text-platinum-100 font-medium">{tracks[currentTrack].name}</p>
         </div>
 
         {/* Controls */}
         <div className="flex items-center gap-2">
           <button
             onClick={togglePlay}
-            className="w-8 h-8 rounded-full border border-neutral-300 hover:border-teal-600 flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full border border-gold-500/30 hover:border-gold-500 hover:bg-gold-500/10 flex items-center justify-center transition-all"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
-            {isPlaying ? <Pause className="w-3 h-3 text-neutral-600" /> : <Play className="w-3 h-3 text-neutral-600 ml-0.5" />}
+            {isPlaying ? <Pause className="w-3.5 h-3.5 text-gold-400" /> : <Play className="w-3.5 h-3.5 text-gold-400 ml-0.5" />}
           </button>
 
           <button
             onClick={nextTrack}
-            className="w-8 h-8 rounded-full border border-neutral-300 hover:border-teal-600 flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full border border-gold-500/30 hover:border-gold-500 hover:bg-gold-500/10 flex items-center justify-center transition-all"
             aria-label="Next track"
           >
-            <svg className="w-3 h-3 text-neutral-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-3.5 h-3.5 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 4l10 8-10 8V4z" />
               <path d="M19 5v14" />
             </svg>
           </button>
 
-          <div className="w-px h-4 bg-neutral-300 mx-1" />
+          <div className="w-px h-5 bg-gold-500/20 mx-2" />
 
           <button
             onClick={toggleMute}
-            className="w-8 h-8 rounded-full border border-neutral-300 hover:border-teal-600 flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full border border-gold-500/30 hover:border-gold-500 hover:bg-gold-500/10 flex items-center justify-center transition-all"
             aria-label={isMuted ? 'Unmute' : 'Mute'}
           >
-            {isMuted ? <VolumeX className="w-3 h-3 text-neutral-600" /> : <Volume2 className="w-3 h-3 text-neutral-600" />}
+            {isMuted ? <VolumeX className="w-3.5 h-3.5 text-gold-400" /> : <Volume2 className="w-3.5 h-3.5 text-gold-400" />}
           </button>
         </div>
       </div>

@@ -45,24 +45,24 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[100] bg-charcoal-100 flex flex-col items-center justify-center"
     >
       {/* Content */}
       <div ref={textRef} className="text-center">
         <BlurIn
           word="Celebrating Bubu"
-          className="text-4xl md:text-6xl font-black text-neutral-900 mb-4"
+          className="font-serif-display text-5xl md:text-7xl font-semibold text-white mb-6 text-gradient-premium"
         />
-        <p className="text-teal-600 font-medium tracking-[0.3em] uppercase text-xs">
+        <p className="text-gold-400/60 font-light tracking-[0.4em] uppercase text-xs">
           Please wait a moment
         </p>
       </div>
 
       {/* Simple Progress Bar */}
-      <div className="mt-12 w-64 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
+      <div className="mt-16 w-80 h-1 bg-gold-500/10 rounded-full overflow-hidden">
         <div
           ref={progressRef}
-          className="h-full rounded-full bg-gradient-to-r from-teal-600 to-teal-400 shadow-[0_0_10px_rgba(20,184,166,0.5)]"
+          className="h-full rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 glow-gold"
           style={{
             width: '0%',
           }}
