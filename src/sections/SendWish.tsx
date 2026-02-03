@@ -123,20 +123,44 @@ const SendWish = () => {
     const sanitizedEmail = sanitizeInput(formData.email).toLowerCase();
     const sanitizedWish = sanitizeInput(formData.wish);
 
-    // Create mailto link with the wish
+    // Prepare email content
     const subject = `Happy Birthday Wish for Zuyairia from ${sanitizedName}`;
-    const body = `Dear Zuyairia,\n\n${sanitizedWish}\n\nWith love,\n${sanitizedName}\n${sanitizedEmail}`;
 
-    const mailtoLink = `mailto:zuyairiaislam5@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: sanitizedName,
+          email: sanitizedEmail,
+          message: sanitizedWish,
+          _subject: subject,
+          _captcha: "false",
+          _template: "table"
+        })
+      });
 
-    // Open email client
-    window.location.href = mailtoLink;
+      if (!response.ok) {
+        throw new Error('Failed to send wish');
+      }
 
-    // Show success state
-    setTimeout(() => {
+      // Show success state
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1000);
+    } catch (error) {
+      console.error('Error sending wish:', error);
+      setIsSubmitting(false);
+      // Optional: show error to user or fallback to mailto
+      // For now, we'll just show the success state to keep the experience positive 
+      // (or maybe show an error state if we want to be strict)
+      // Given the celebratory nature, maybe falling back to mailto would be safer if ajax fails?
+      // But the user specifically asked for "without manual selection".
+      // Let's assume it works or just alert.
+      alert("Something went wrong. Please try again or contact us directly.");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -306,7 +330,7 @@ const SendWish = () => {
 
             {/* Note */}
             <p className="text-center text-white/30 text-xs mt-4">
-              This will open your email client to send the message
+              Your email will be sent automatically
             </p>
           </form>
         ) : (
@@ -318,7 +342,7 @@ const SendWish = () => {
               Wish Sent!
             </h3>
             <p className="text-white/60 mb-6">
-              Your email client should have opened. If not, you can manually send your wish to:
+              Your warm wish has been sent to Zuyairia! Thank you for sharing your love.
             </p>
             <div className="glass-card rounded-xl py-3 px-6 inline-block">
               <span className="text-gradient font-space">zuyairiaislam5@gmail.com</span>
