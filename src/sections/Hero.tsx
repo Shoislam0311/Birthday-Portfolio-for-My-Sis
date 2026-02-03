@@ -134,7 +134,7 @@ const Hero = () => {
     }
   };
 
-  const name = 'ZUYAIRIA';
+  const name = 'Bubu';
 
   return (
     <section
@@ -175,7 +175,7 @@ const Hero = () => {
           className="inline-flex items-center gap-2 glass-card rounded-full px-5 py-2 mb-8 opacity-0"
         >
           <Sparkles className="w-4 h-4 text-purple-400" />
-          <span className="text-sm font-space tracking-widest uppercase text-white/70">February 17, 2025</span>
+          <span className="text-sm font-space tracking-widest uppercase text-white/70">February 17, 2026</span>
           <Sparkles className="w-4 h-4 text-pink-400" />
         </div>
 
