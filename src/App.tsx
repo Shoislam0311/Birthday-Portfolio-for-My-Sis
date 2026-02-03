@@ -27,22 +27,22 @@ function App() {
   };
 
   return (
-    <div className="relative bg-charcoal-100 min-h-screen text-white overflow-x-hidden">
+    <div className="relative bg-luxury-black min-h-screen text-white overflow-x-hidden">
       {/* Custom Cursor */}
       <CustomCursor />
-      
+
       {/* Loading Screen */}
       {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
-      
+
       {/* Background Music Player */}
       <MusicPlayer enabled={musicEnabled} />
-      
+
       {/* Subtle Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-charcoal-100 via-charcoal-200 to-charcoal-100" />
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-500/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-luxury-blue/5 via-transparent to-transparent" />
       </div>
-      
+
       {/* Main Content */}
       <main className="relative z-10">
         <Hero />
@@ -51,7 +51,7 @@ function App() {
         <Cake />
         <SendWish />
       </main>
-      
+
       {/* Fixed Navigation */}
       <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6">
         {['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
@@ -64,10 +64,10 @@ function App() {
             className="group relative flex items-center justify-end"
             aria-label={`Go to ${section}`}
           >
-            <span className="absolute right-10 text-xs text-gold-400/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium tracking-wide">
+            <span className="absolute right-10 text-xs text-luxury-blue/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium tracking-wide">
               {section}
             </span>
-            <div className="w-2 h-2 rounded-full bg-gold-600/30 group-hover:bg-gold-400 group-hover:scale-150 group-hover:glow-gold transition-all duration-500" />
+            <div className="w-2 h-2 rounded-full bg-luxury-grey group-hover:bg-luxury-blue group-hover:w-4 transition-all duration-200" />
           </button>
         ))}
       </nav>

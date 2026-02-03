@@ -64,13 +64,13 @@ const CustomCursor = () => {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-6 h-6 -ml-3 -mt-3 rounded-full border border-gold-500/30 pointer-events-none z-[9999] opacity-0 hidden md:block"
-        style={{ willChange: 'transform', boxShadow: '0 0 20px rgba(212, 175, 55, 0.2)' }}
+        className="fixed top-0 left-0 w-6 h-6 -ml-3 -mt-3 rounded-full border border-luxury-blue/50 pointer-events-none z-[9999] opacity-0 hidden md:block"
+        style={{ willChange: 'transform', boxShadow: '0 0 20px rgba(0, 102, 255, 0.2)' }}
       />
       <div
         ref={cursorDotRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 -ml-0.75 -mt-0.75 rounded-full bg-gold-500 pointer-events-none z-[9999] opacity-0 hidden md:block"
-        style={{ willChange: 'transform', boxShadow: '0 0 10px rgba(212, 175, 55, 0.5)' }}
+        className="fixed top-0 left-0 w-1.5 h-1.5 -ml-0.75 -mt-0.75 rounded-full bg-white pointer-events-none z-[9999] opacity-0 hidden md:block"
+        style={{ willChange: 'transform', boxShadow: '0 0 10px rgba(0, 102, 255, 0.5)' }}
       />
     </>
   );
