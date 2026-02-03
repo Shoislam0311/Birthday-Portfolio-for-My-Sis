@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Camera } from 'lucide-react';
+import { Camera, Heart } from 'lucide-react';
+import Marquee from '@/components/ui/marquee';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,66 +28,43 @@ const photos = [
   { id: 18, src: 'https://i.imgur.com/EvpJbQ8.png', caption: 'Birthday Girl' },
 ];
 
-const PhotoCard = ({ photo, index }: { photo: typeof photos[0]; index: number }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  useEffect(() => {
-    if (!cardRef.current) return;
-
-    gsap.fromTo(
-      cardRef.current,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        delay: index * 0.05,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 90%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
-  }, [index]);
-
   return (
-    <div
-      ref={cardRef}
-      className="relative cursor-pointer opacity-0 group"
-    >
-      <div className="relative overflow-hidden rounded-lg border-minimal bg-white transition-all duration-300 hover:shadow-minimal-lg hover:-translate-y-1">
+    <div className="relative w-64 md:w-80 flex-shrink-0 cursor-pointer group">
+      <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
         {/* Image Container */}
-        <div className="relative aspect-[4/5] overflow-hidden">
+        <div className="relative aspect-[3/4] overflow-hidden">
           {!imageLoaded && (
-            <div className="absolute inset-0 bg-neutral-100 flex items-center justify-center">
-              <Camera className="w-6 h-6 text-neutral-400" />
+            <div className="absolute inset-0 bg-neutral-100 animate-pulse flex items-center justify-center">
+              <Camera className="w-8 h-8 text-neutral-300" />
             </div>
           )}
           <img
             src={photo.src}
             alt={photo.caption}
-            className={`w-full h-full object-cover transition-all duration-500 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            } group-hover:scale-105`}
+            className={`w-full h-full object-cover transition-all duration-700 ${
+              imageLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
+            } group-hover:scale-110`}
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
           />
           
-          {/* Simple Caption Overlay */}
-          <div className="absolute inset-0 bg-black/60 flex items-end p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <p className="text-white text-sm font-medium">
+          {/* Overlay Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          
+          {/* Caption */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+            <p className="text-white text-lg font-semibold tracking-tight">
               {photo.caption}
             </p>
+            <div className="flex items-center gap-2 mt-2">
+              <div className="h-px w-8 bg-teal-500" />
+              <span className="text-teal-400 text-xs font-bold uppercase tracking-widest">Memory</span>
+            </div>
           </div>
         </div>
-      </div>
-      
-      {/* Simple Index Number */}
-      <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-teal-600 text-white text-xs font-medium flex items-center justify-center shadow-minimal">
-        {index + 1}
       </div>
     </div>
   );
@@ -99,67 +77,99 @@ const Gallery = () => {
   useEffect(() => {
     gsap.fromTo(
       headerRef.current,
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 50 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
+        duration: 1,
+        ease: 'expo.out',
         scrollTrigger: {
           trigger: headerRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
+          start: 'top 85%',
         },
       }
     );
   }, []);
 
+  const firstRow = photos.slice(0, photos.length / 2);
+  const secondRow = photos.slice(photos.length / 2);
+
   return (
     <section
+      id="gallery"
       ref={sectionRef}
-      className="relative w-full py-24 bg-neutral-50"
+      className="relative w-full py-32 bg-white overflow-hidden"
     >
+      {/* Background decoration */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-50 rounded-full blur-3xl opacity-50 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-50 rounded-full blur-3xl opacity-50 translate-y-1/2" />
+
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 w-full">
         {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-16 opacity-0">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-neutral-300" />
-            <Camera className="w-5 h-5 text-neutral-600" />
-            <span className="text-sm font-medium uppercase tracking-wider text-neutral-500">Photo Gallery</span>
-            <Camera className="w-5 h-5 text-neutral-600" />
-            <div className="w-8 h-px bg-neutral-300" />
+        <div ref={headerRef} className="text-center mb-24 px-4 opacity-0">
+          <div className="inline-flex items-center gap-4 mb-6">
+            <div className="w-12 h-px bg-teal-200" />
+            <Camera className="w-6 h-6 text-teal-600" />
+            <span className="text-sm font-bold uppercase tracking-[0.2em] text-teal-600">Visual Journey</span>
+            <Camera className="w-6 h-6 text-teal-600" />
+            <div className="w-12 h-px bg-teal-200" />
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
-            Memories
+          <h2 className="text-5xl md:text-7xl font-extrabold text-neutral-900 mb-8 tracking-tighter">
+            Our Precious <span className="text-teal-600">Moments</span>
           </h2>
           
-          <p className="text-neutral-600 max-w-xl mx-auto text-lg">
-            A collection of moments that tell your story. Each photo holds a memory, each memory holds a feeling.
+          <p className="text-neutral-500 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
+            Every picture tells a story of laughter, growth, and the beautiful bond we share. 
+            Scroll to see the highlights of our journey together.
           </p>
         </div>
 
-        {/* Photo Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6">
-          {photos.map((photo, index) => (
-            <PhotoCard key={photo.id} photo={photo} index={index} />
-          ))}
+        {/* Photo Marquees */}
+        <div className="relative flex flex-col gap-8 md:gap-12">
+          <Marquee pauseOnHover className="[--duration:60s]">
+            {firstRow.map((photo) => (
+              <PhotoCard key={photo.id} photo={photo} />
+            ))}
+          </Marquee>
+          <Marquee reverse pauseOnHover className="[--duration:60s]">
+            {secondRow.map((photo) => (
+              <PhotoCard key={photo.id} photo={photo} />
+            ))}
+          </Marquee>
+          
+          {/* Fading Edges Overlay */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-white" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white" />
         </div>
 
-        {/* Stats */}
-        <div className="mt-16 flex justify-center gap-12">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-teal-600">{photos.length}</div>
-            <div className="text-sm text-neutral-500 uppercase tracking-wider mt-1">Photos</div>
+        {/* Stats & Interactive element */}
+        <div className="mt-32 flex flex-col items-center gap-12 px-4">
+          <div className="flex flex-wrap justify-center gap-12 md:gap-24">
+            <div className="text-center group">
+              <div className="text-5xl md:text-7xl font-black text-neutral-900 group-hover:text-teal-600 transition-colors duration-300">
+                {photos.length}
+              </div>
+              <div className="text-xs font-bold text-neutral-400 uppercase tracking-[0.3em] mt-3">Frames</div>
+            </div>
+            <div className="text-center group">
+              <div className="text-5xl md:text-7xl font-black text-neutral-900 group-hover:text-teal-600 transition-colors duration-300 italic">
+                ∞
+              </div>
+              <div className="text-xs font-bold text-neutral-400 uppercase tracking-[0.3em] mt-3">Laughter</div>
+            </div>
+            <div className="text-center group">
+              <div className="text-5xl md:text-7xl font-black text-neutral-900 group-hover:text-teal-600 transition-colors duration-300">
+                1
+              </div>
+              <div className="text-xs font-bold text-neutral-400 uppercase tracking-[0.3em] mt-3">Queen</div>
+            </div>
           </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-neutral-600">∞</div>
-            <div className="text-sm text-neutral-500 uppercase tracking-wider mt-1">Memories</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-neutral-600">1</div>
-            <div className="text-sm text-neutral-500 uppercase tracking-wider mt-1">Birthday Girl</div>
+          
+          <div className="flex items-center gap-3 px-6 py-3 bg-neutral-900 text-white rounded-full text-sm font-medium animate-bounce shadow-xl">
+            <Heart className="w-4 h-4 text-teal-400 fill-teal-400" />
+            <span>Keep scrolling, there's more!</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import BlurIn from '@/components/ui/blur-in';
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -25,8 +26,8 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     // Text entrance
     tl.fromTo(
       textRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+      { opacity: 0 },
+      { opacity: 1, duration: 0.1 }
     );
 
     // Progress bar
@@ -47,27 +48,21 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
       className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center"
     >
       {/* Content */}
-      <div ref={textRef} className="text-center opacity-0">
-        {/* Simple Logo */}
-        <div className="mb-8">
-          <div className="w-16 h-16 rounded-full bg-teal-600 flex items-center justify-center mx-auto">
-            <span className="text-2xl font-bold text-white">B</span>
-          </div>
-        </div>
-
-        <p className="text-neutral-600 text-sm font-medium mb-2">
-          Loading Experience
-        </p>
-        <p className="text-neutral-400 text-xs">
-          For Bubu
+      <div ref={textRef} className="text-center">
+        <BlurIn
+          word="Celebrating Bubu"
+          className="text-4xl md:text-6xl font-black text-neutral-900 mb-4"
+        />
+        <p className="text-teal-600 font-medium tracking-[0.3em] uppercase text-xs">
+          Please wait a moment
         </p>
       </div>
 
       {/* Simple Progress Bar */}
-      <div className="mt-8 w-48 h-1 bg-neutral-200 rounded-full overflow-hidden">
+      <div className="mt-12 w-64 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
         <div
           ref={progressRef}
-          className="h-full rounded-full bg-teal-600"
+          className="h-full rounded-full bg-gradient-to-r from-teal-600 to-teal-400 shadow-[0_0_10px_rgba(20,184,166,0.5)]"
           style={{
             width: '0%',
           }}

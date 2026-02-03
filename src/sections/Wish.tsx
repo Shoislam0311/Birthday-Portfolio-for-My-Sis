@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Gift, Heart } from 'lucide-react';
+import { MagicCard } from '@/components/ui/magic-card';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -146,7 +147,12 @@ const Wish = () => {
 
         {/* Wish Card */}
         <div ref={cardRef} className="relative opacity-0">
-          <div className="relative bg-white rounded-lg border border-neutral-200 p-8 md:p-12 shadow-minimal">
+          <MagicCard 
+            className="p-8 md:p-12 shadow-2xl border-neutral-200/50 bg-white/80 backdrop-blur-sm"
+            gradientFrom="rgba(15, 118, 110, 0.1)"
+            gradientTo="rgba(20, 184, 166, 0.1)"
+            gradientSize={400}
+          >
             {/* Bengali Wish */}
             <div className="mb-8">
               <TypewriterText text={bengaliWish} delay={300} />
@@ -155,16 +161,16 @@ const Wish = () => {
             {/* Simple Divider */}
             <div className="flex items-center gap-4 my-8">
               <div className="flex-1 h-px bg-neutral-200" />
-              <Heart className="w-4 h-4 text-teal-600 fill-teal-600" />
+              <Heart className="w-4 h-4 text-teal-600 fill-teal-600 animate-pulse" />
               <div className="flex-1 h-px bg-neutral-200" />
             </div>
             
             {/* Signature */}
             <div className="text-right">
-              <p className="text-lg font-medium text-neutral-900">With Love,</p>
-              <p className="text-neutral-600 mt-1">Your Brother</p>
+              <p className="text-xl font-bold text-neutral-900 tracking-tight">With Love,</p>
+              <p className="text-teal-600 font-medium mt-1">Your Brother</p>
             </div>
-          </div>
+          </MagicCard>
         </div>
       </div>
     </section>
