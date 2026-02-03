@@ -47,7 +47,8 @@ function ChartContainer({
   >["children"]
 }) {
   const uniqueId = React.useId()
-  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`
+  // Sanitize id to prevent CSS injection by ensuring it only contains alphanumeric characters, hyphens, and underscores.
+  const chartId = `chart-${(id || uniqueId).replace(/[^a-zA-Z0-9-_]/g, "")}`
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -90,7 +91,13 @@ ${colorConfig
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
+
+    // Sanitize key and color to prevent CSS injection
+    const safeKey = key.replace(/[^a-zA-Z0-9-_]/g, "")
+    const safeColor =
+      typeof color === "string" ? color.replace(/[;{}]/g, "") : color
+
+    return color ? `  --color-${safeKey}: ${safeColor};` : null
   })
   .join("\n")}
 }
