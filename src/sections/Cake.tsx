@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import confetti from 'canvas-confetti';
 import { Cake as CakeIcon, Sparkles, RotateCcw } from 'lucide-react';
+import { RainbowButton } from '@/components/ui/rainbow-button';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -189,13 +190,13 @@ const BirthdayCake = () => {
           </p>
         ) : (
           <div className="mt-4">
-            <button
+            <RainbowButton
               onClick={resetCake}
-              className="flex items-center gap-2 mx-auto px-6 py-2 rounded-lg border border-teal-600 text-teal-600 text-sm font-medium transition-all hover:bg-teal-50"
+              className="flex items-center gap-2 mx-auto"
             >
               <RotateCcw className="w-4 h-4" />
               Light Candles Again
-            </button>
+            </RainbowButton>
           </div>
         )}
       </div>

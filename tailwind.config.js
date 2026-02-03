@@ -91,6 +91,49 @@ module.exports = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        "shimmer-btn-shimmer-slide": {
+          to: {
+            transform: "translate(calc(100cqw - 100%))",
+          },
+        },
+        "shimmer-btn-spin-around": {
+          "0%": {
+            transform: "translateZ(0) rotate(0)",
+          },
+          "15%, 35%": {
+            transform: "translateZ(0) rotate(90deg)",
+          },
+          "40%, 60%": {
+            transform: "translateZ(0) rotate(180deg)",
+          },
+          "65%, 85%": {
+            transform: "translateZ(0) rotate(270deg)",
+          },
+          "90%, 100%": {
+            transform: "translateZ(0) rotate(360deg)",
+          },
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
+        rainbow: {
+          "0%": { "background-position": "0%" },
+          "100%": { "background-position": "200%" },
+        },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         "fade-in": {
           "0%": { 
             opacity: "0",
@@ -126,6 +169,13 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        grid: "grid 15s linear infinite",
+        "shimmer-btn-shimmer-slide": "shimmer-btn-shimmer-slide var(--speed) ease-in-out infinite alternate",
+        "shimmer-btn-spin-around": "shimmer-btn-spin-around calc(var(--speed) * 2) infinite linear",
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        rainbow: "rainbow 2s linear infinite",
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
         "fade-in": "fade-in 0.6s ease-out forwards",
         "slide-in-left": "slide-in-left 0.6s ease-out forwards",
         "slide-in-right": "slide-in-right 0.6s ease-out forwards",

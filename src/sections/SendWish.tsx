@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import confetti from 'canvas-confetti';
 import { toast } from 'sonner';
 import { Send, User, Mail, MessageSquare, Heart, CheckCircle } from 'lucide-react';
+import { BorderBeam } from '@/components/ui/border-beam';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -224,8 +225,10 @@ const SendWish = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="bg-white rounded-lg border border-neutral-200 p-8 md:p-10 opacity-0 shadow-minimal"
+            className="relative bg-white rounded-xl border border-neutral-200 p-8 md:p-10 opacity-0 shadow-2xl overflow-hidden"
           >
+            <BorderBeam size={300} duration={12} delay={9} />
+            
             {/* Name Field */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-neutral-700 mb-2">
