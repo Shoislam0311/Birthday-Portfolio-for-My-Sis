@@ -5,6 +5,26 @@ import { Send, User, Mail, MessageSquare, Heart, Sparkles, CheckCircle } from 'l
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Security: Input validation constants to prevent abuse and ensure data integrity
+const MAX_NAME_LENGTH = 50;
+const MAX_EMAIL_LENGTH = 100;
+const MAX_WISH_LENGTH = 500;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Security: Sanitize user input to prevent header injection and other attacks
+const sanitizeInput = (input: string): string => {
+  return input
+    .replace(/[<>]/g, '') // Remove potential HTML tags
+    .replace(/[\r\n]/g, ' ') // Normalize line breaks to prevent header injection
+    .trim();
+};
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  wish?: string;
+}
+
 const SendWish = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -16,6 +36,7 @@ const SendWish = () => {
     email: '',
     wish: '',
   });
+  const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
     gsap.fromTo(
@@ -51,16 +72,63 @@ const SendWish = () => {
     );
   }, []);
 
+  // Security: Validate form inputs before submission
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Validate name: required, length limit, no special characters
+    const sanitizedName = sanitizeInput(formData.name);
+    if (!sanitizedName) {
+      newErrors.name = 'Name is required';
+    } else if (sanitizedName.length > MAX_NAME_LENGTH) {
+      newErrors.name = `Name must be ${MAX_NAME_LENGTH} characters or less`;
+    } else if (!/^[\p{L}\p{M}\s'-]+$/u.test(sanitizedName)) {
+      newErrors.name = 'Name contains invalid characters';
+    }
+
+    // Validate email: required, format, length limit
+    const sanitizedEmail = sanitizeInput(formData.email).toLowerCase();
+    if (!sanitizedEmail) {
+      newErrors.email = 'Email is required';
+    } else if (sanitizedEmail.length > MAX_EMAIL_LENGTH) {
+      newErrors.email = `Email must be ${MAX_EMAIL_LENGTH} characters or less`;
+    } else if (!EMAIL_REGEX.test(sanitizedEmail)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Validate wish: required, length limit
+    const sanitizedWish = sanitizeInput(formData.wish);
+    if (!sanitizedWish) {
+      newErrors.wish = 'Please write a birthday wish';
+    } else if (sanitizedWish.length > MAX_WISH_LENGTH) {
+      newErrors.wish = `Wish must be ${MAX_WISH_LENGTH} characters or less`;
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Security: Validate inputs before processing
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
+    // Security: Use sanitized inputs for mailto link
+    const sanitizedName = sanitizeInput(formData.name);
+    const sanitizedEmail = sanitizeInput(formData.email).toLowerCase();
+    const sanitizedWish = sanitizeInput(formData.wish);
+
     // Create mailto link with the wish
-    const subject = `Happy Birthday Wish for Zuyairia from ${formData.name}`;
-    const body = `Dear Zuyairia,\n\n${formData.wish}\n\nWith love,\n${formData.name}\n${formData.email}`;
-    
+    const subject = `Happy Birthday Wish for Zuyairia from ${sanitizedName}`;
+    const body = `Dear Zuyairia,\n\n${sanitizedWish}\n\nWith love,\n${sanitizedName}\n${sanitizedEmail}`;
+
     const mailtoLink = `mailto:zuyairiaislam5@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
+
     // Open email client
     window.location.href = mailtoLink;
 
@@ -72,10 +140,27 @@ const SendWish = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+
+    // Security: Enforce length limits during typing
+    let maxLength = MAX_WISH_LENGTH;
+    if (name === 'name') maxLength = MAX_NAME_LENGTH;
+    if (name === 'email') maxLength = MAX_EMAIL_LENGTH;
+
+    const truncatedValue = value.slice(0, maxLength);
+
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: truncatedValue,
     }));
+
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
   };
 
   return (
@@ -127,11 +212,18 @@ const SendWish = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required
                   placeholder="Enter your name"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                  maxLength={MAX_NAME_LENGTH}
+                  className={`w-full bg-white/5 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                    errors.name
+                      ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20'
+                      : 'border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20'
+                  }`}
                 />
               </div>
+              {errors.name && (
+                <p className="mt-2 text-sm text-red-400 font-space">{errors.name}</p>
+              )}
             </div>
 
             {/* Email Field */}
@@ -146,11 +238,18 @@ const SendWish = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
                   placeholder="Enter your email"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                  maxLength={MAX_EMAIL_LENGTH}
+                  className={`w-full bg-white/5 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                    errors.email
+                      ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20'
+                      : 'border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20'
+                  }`}
                 />
               </div>
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-400 font-space">{errors.email}</p>
+              )}
             </div>
 
             {/* Wish Field */}
@@ -164,12 +263,22 @@ const SendWish = () => {
                   name="wish"
                   value={formData.wish}
                   onChange={handleChange}
-                  required
                   rows={5}
                   placeholder="Write your heartfelt birthday message..."
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all resize-none"
+                  maxLength={MAX_WISH_LENGTH}
+                  className={`w-full bg-white/5 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all resize-none ${
+                    errors.wish
+                      ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20'
+                      : 'border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20'
+                  }`}
                 />
               </div>
+              {errors.wish && (
+                <p className="mt-2 text-sm text-red-400 font-space">{errors.wish}</p>
+              )}
+              <p className="mt-2 text-xs text-white/30 font-space text-right">
+                {formData.wish.length}/{MAX_WISH_LENGTH} characters
+              </p>
             </div>
 
             {/* Submit Button */}
