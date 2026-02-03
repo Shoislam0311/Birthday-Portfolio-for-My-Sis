@@ -2,6 +2,7 @@ import { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Sections
 import Hero from './sections/Hero';
@@ -68,6 +69,7 @@ function App() {
         ))}
       </nav>
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
