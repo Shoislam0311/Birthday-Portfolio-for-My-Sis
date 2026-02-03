@@ -33,35 +33,35 @@ const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
 
   return (
     <div className="relative w-64 md:w-80 flex-shrink-0 cursor-pointer group">
-      <div className="relative overflow-hidden rounded-2xl border border-gold-500/20 bg-charcoal-200 transition-all duration-700 group-hover:shadow-premium-lg group-hover:-translate-y-3 card-premium-hover">
+      <div className="relative overflow-hidden rounded-2xl border border-luxury-blue/20 bg-black transition-all duration-300 group-hover:shadow-blue-glow group-hover:-translate-y-3 group-hover:scale-102">
         {/* Image Container */}
         <div className="relative aspect-[3/4] overflow-hidden">
           {!imageLoaded && (
-            <div className="absolute inset-0 bg-charcoal-300 animate-pulse flex items-center justify-center">
-              <Camera className="w-8 h-8 text-gold-500/30" />
+            <div className="absolute inset-0 bg-black animate-pulse flex items-center justify-center">
+              <Camera className="w-8 h-8 text-luxury-blue/30" />
             </div>
           )}
           <img
             src={photo.src}
             alt={photo.caption}
-            className={`w-full h-full object-cover transition-all duration-700 ${
+            className={`w-full h-full object-cover transition-all duration-300 ${
               imageLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
-            } group-hover:scale-110`}
+            } group-hover:scale-105`}
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
           />
-          
+
           {/* Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-100/95 via-charcoal-100/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
           {/* Caption */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
             <p className="text-white text-lg font-semibold tracking-tight font-serif-display">
               {photo.caption}
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <div className="h-px w-8 bg-gold-500" />
-              <span className="text-gold-400 text-xs font-bold uppercase tracking-widest">Memory</span>
+              <div className="h-px w-8 bg-luxury-blue" />
+              <span className="text-luxury-blue text-xs font-bold uppercase tracking-widest">Memory</span>
             </div>
           </div>
         </div>
@@ -98,30 +98,30 @@ const Gallery = () => {
     <section
       id="gallery"
       ref={sectionRef}
-      className="relative w-full py-32 bg-charcoal-100 overflow-hidden"
+      className="relative w-full py-32 bg-luxury-black overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl opacity-60 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl opacity-60 translate-y-1/2" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-luxury-blue/5 rounded-full blur-3xl opacity-60 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-luxury-blue/5 rounded-full blur-3xl opacity-60 translate-y-1/2" />
 
       {/* Content */}
       <div className="relative z-10 w-full">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-24 px-4 opacity-0">
           <div className="inline-flex items-center gap-4 mb-8">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
-            <Camera className="w-6 h-6 text-gold-400" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-gold-400">Visual Journey</span>
-            <Camera className="w-6 h-6 text-gold-400" />
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-luxury-blue to-transparent" />
+            <Camera className="w-6 h-6 text-luxury-blue" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">Visual Journey</span>
+            <Camera className="w-6 h-6 text-luxury-blue" />
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-luxury-blue to-transparent" />
           </div>
-          
+
           <h2 className="font-serif-display text-5xl md:text-7xl font-semibold text-white mb-8 tracking-tight">
-            Our Precious <span className="text-gradient-gold">Moments</span>
+            Our Precious <span className="text-gradient-blue">Moments</span>
           </h2>
-          
-          <p className="font-serif-body text-platinum-300 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">
-            Every picture tells a story of laughter, growth, and the beautiful bond we share. 
+
+          <p className="font-serif-body text-white/80 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">
+            Every picture tells a story of laughter, growth, and the beautiful bond we share.
             Scroll to see the highlights of our journey together.
           </p>
         </div>
@@ -138,38 +138,38 @@ const Gallery = () => {
               <PhotoCard key={photo.id} photo={photo} />
             ))}
           </Marquee>
-          
+
           {/* Fading Edges Overlay */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-charcoal-100" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-charcoal-100" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-luxury-black" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-luxury-black" />
         </div>
 
         {/* Stats & Interactive element */}
         <div className="mt-32 flex flex-col items-center gap-12 px-4">
           <div className="flex flex-wrap justify-center gap-12 md:gap-24">
             <div className="text-center group">
-              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-gold-400 transition-colors duration-500">
+              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-luxury-blue transition-colors duration-300">
                 {photos.length}
               </div>
-              <div className="text-xs font-bold text-gold-400/60 uppercase tracking-[0.4em] mt-3">Frames</div>
+              <div className="text-xs font-bold text-luxury-blue/60 uppercase tracking-[0.4em] mt-3">Frames</div>
             </div>
             <div className="text-center group">
-              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-gold-400 transition-colors duration-500 italic">
+              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-luxury-blue transition-colors duration-300 italic">
                 ∞
               </div>
-              <div className="text-xs font-bold text-gold-400/60 uppercase tracking-[0.4em] mt-3">Laughter</div>
+              <div className="text-xs font-bold text-luxury-blue/60 uppercase tracking-[0.4em] mt-3">Laughter</div>
             </div>
             <div className="text-center group">
-              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-gold-400 transition-colors duration-500">
+              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-luxury-blue transition-colors duration-300">
                 1
               </div>
-              <div className="text-xs font-bold text-gold-400/60 uppercase tracking-[0.4em] mt-3">Queen</div>
+              <div className="text-xs font-bold text-luxury-blue/60 uppercase tracking-[0.4em] mt-3">Queen</div>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3 px-6 py-3 card-premium rounded-full text-sm font-medium">
-            <Heart className="w-4 h-4 text-gold-400 fill-gold-400" />
-            <span className="text-platinum-200">Keep scrolling, there's more!</span>
+            <Heart className="w-4 h-4 text-luxury-blue fill-luxury-blue" />
+            <span className="text-white/80">Keep scrolling, there's more!</span>
           </div>
         </div>
       </div>

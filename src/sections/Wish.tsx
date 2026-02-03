@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Gift, Heart } from 'lucide-react';
+import { Gift } from 'lucide-react';
 import { MagicCard } from '@/components/ui/magic-card';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,7 +17,7 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
         if (entries[0].isIntersecting && !started) {
           setStarted(true);
           let index = 0;
-          
+
           const timer = setTimeout(() => {
             const interval = setInterval(() => {
               if (index <= text.length) {
@@ -26,11 +26,11 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
               } else {
                 clearInterval(interval);
               }
-            }, 30);
-            
+            }, 50); // Slower typewriter speed (50ms)
+
             return () => clearInterval(interval);
           }, delay);
-          
+
           return () => clearTimeout(timer);
         }
       },
@@ -45,14 +45,14 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
   }, [text, delay, started]);
 
   return (
-    <p 
+    <p
       ref={containerRef}
-      className="font-serif-body text-lg md:text-xl text-platinum-200 leading-relaxed"
+      className="font-serif-body text-lg md:text-xl text-black leading-relaxed"
       style={{ lineHeight: 2 }}
     >
       {displayText}
       {started && displayText.length < text.length && (
-        <span className="animate-pulse text-gold-400">|</span>
+        <span className="animate-pulse text-luxury-blue">|</span>
       )}
     </p>
   );
@@ -119,56 +119,56 @@ const Wish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-charcoal-100 flex items-center"
+      className="relative w-full py-24 bg-luxury-white flex items-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-12 opacity-0">
           <div className="inline-flex items-center gap-4 mb-8">
-            <div className="w-12 h-px divider-premium" />
-            <Gift className="w-5 h-5 text-gold-400" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-gold-400">A Special Message</span>
-            <Gift className="w-5 h-5 text-gold-400" />
-            <div className="w-12 h-px divider-premium" />
+            <div className="w-12 h-px bg-luxury-blue" />
+            <Gift className="w-5 h-5 text-luxury-blue" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">A Special Message</span>
+            <Gift className="w-5 h-5 text-luxury-blue" />
+            <div className="w-12 h-px bg-luxury-blue" />
           </div>
-          
-          <h2 className="font-serif-display text-4xl md:text-6xl font-semibold text-white mb-6">
-            A Wish For <span className="text-gradient-gold">You</span>
+
+          <h2 className="font-serif-display text-4xl md:text-6xl font-semibold text-black mb-6">
+            A Wish For <span className="text-gradient-blue">You</span>
           </h2>
         </div>
 
-        {/* Simple Heart Icon */}
+        {/* Animated Blue Underline */}
         <div ref={heartRef} className="flex justify-center mb-16 opacity-0">
-          <div className="relative w-20 h-20 md:w-24 md:h-24">
-            <Heart className="w-full h-full text-gold-400 fill-gold-400 glow-gold" />
+          <div className="relative w-32 h-1">
+            <div className="absolute inset-0 bg-luxury-blue glow-blue" />
           </div>
         </div>
 
         {/* Wish Card */}
         <div ref={cardRef} className="relative opacity-0">
-          <MagicCard 
-            className="p-10 md:p-14 card-premium bg-charcoal-200/50 backdrop-blur-sm"
-            gradientFrom="rgba(212, 175, 55, 0.1)"
-            gradientTo="rgba(192, 192, 192, 0.05)"
+          <MagicCard
+            className="p-10 md:p-14 card-premium bg-white/50 backdrop-blur-sm"
+            gradientFrom="rgba(0, 102, 255, 0.05)"
+            gradientTo="rgba(0, 102, 255, 0.02)"
             gradientSize={400}
           >
             {/* Bengali Wish */}
             <div className="mb-8">
               <TypewriterText text={bengaliWish} delay={300} />
             </div>
-            
+
             {/* Simple Divider */}
             <div className="flex items-center gap-4 my-8">
-              <div className="flex-1 h-px divider-premium-thick" />
-              <Heart className="w-4 h-4 text-gold-400 fill-gold-400 animate-pulse" />
-              <div className="flex-1 h-px divider-premium-thick" />
+              <div className="flex-1 h-px bg-luxury-blue" />
+              <div className="w-4 h-4 border-2 border-luxury-blue rounded-full" />
+              <div className="flex-1 h-px bg-luxury-blue" />
             </div>
-            
+
             {/* Signature */}
             <div className="text-right">
-              <p className="text-xl font-semibold text-platinum-100 tracking-tight">With Love,</p>
-              <p className="text-gold-400 font-medium mt-2">Your Brother</p>
+              <p className="text-xl font-semibold text-black tracking-tight">With Love,</p>
+              <p className="text-luxury-blue font-medium mt-2">Your Brother</p>
             </div>
           </MagicCard>
         </div>
