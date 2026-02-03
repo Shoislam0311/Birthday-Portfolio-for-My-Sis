@@ -29,7 +29,6 @@ const photos = [
 
 const PhotoCard = ({ photo, index }: { photo: typeof photos[0]; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -37,14 +36,13 @@ const PhotoCard = ({ photo, index }: { photo: typeof photos[0]; index: number })
 
     gsap.fromTo(
       cardRef.current,
-      { opacity: 0, y: 60, scale: 0.9 },
+      { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
-        scale: 1,
-        duration: 0.8,
-        delay: index * 0.08,
-        ease: 'power3.out',
+        duration: 0.6,
+        delay: index * 0.05,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: cardRef.current,
           start: 'top 90%',
@@ -54,90 +52,40 @@ const PhotoCard = ({ photo, index }: { photo: typeof photos[0]; index: number })
     );
   }, [index]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / 25;
-    const y = (e.clientY - rect.top - rect.height / 2) / 25;
-    
-    gsap.to(cardRef.current, {
-      rotateY: x,
-      rotateX: -y,
-      duration: 0.3,
-      ease: 'power2.out',
-    });
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    gsap.to(cardRef.current, {
-      rotateY: 0,
-      rotateX: 0,
-      duration: 0.5,
-      ease: 'elastic.out(1, 0.5)',
-    });
-    setIsHovered(false);
-  };
-
   return (
     <div
       ref={cardRef}
       className="relative cursor-pointer opacity-0 group"
-      style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
     >
-      <div 
-        className="relative overflow-hidden rounded-2xl glass-card transition-all duration-500 group-hover:neon-border"
-      >
+      <div className="relative overflow-hidden rounded-lg border-minimal bg-white transition-all duration-300 hover:shadow-minimal-lg hover:-translate-y-1">
         {/* Image Container */}
         <div className="relative aspect-[4/5] overflow-hidden">
           {!imageLoaded && (
-            <div className="absolute inset-0 bg-white/5 animate-pulse flex items-center justify-center">
-              <Camera className="w-8 h-8 text-white/20" />
+            <div className="absolute inset-0 bg-neutral-100 flex items-center justify-center">
+              <Camera className="w-6 h-6 text-neutral-400" />
             </div>
           )}
           <img
             src={photo.src}
             alt={photo.caption}
-            className={`w-full h-full object-cover transition-all duration-700 ${
+            className={`w-full h-full object-cover transition-all duration-500 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
-            } ${isHovered ? 'scale-110' : 'scale-100'}`}
+            } group-hover:scale-105`}
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
           />
           
-          {/* Gradient Overlay */}
-          <div 
-            className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 ${
-              isHovered ? 'opacity-100' : 'opacity-60'
-            }`}
-          />
-          
-          {/* Caption */}
-          <div className="absolute bottom-0 left-0 right-0 p-4">
-            <p className={`font-script text-xl text-white transition-all duration-300 ${
-              isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-80'
-            }`}>
+          {/* Simple Caption Overlay */}
+          <div className="absolute inset-0 bg-black/60 flex items-end p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="text-white text-sm font-medium">
               {photo.caption}
             </p>
           </div>
-          
-          {/* Glow Effect on Hover */}
-          <div 
-            className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${
-              isHovered ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              background: 'radial-gradient(circle at 50% 50%, rgba(176, 38, 255, 0.2) 0%, transparent 70%)',
-            }}
-          />
         </div>
       </div>
       
-      {/* Index Number */}
-      <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-xs font-bold shadow-lg">
+      {/* Simple Index Number */}
+      <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-teal-600 text-white text-xs font-medium flex items-center justify-center shadow-minimal">
         {index + 1}
       </div>
     </div>
@@ -151,12 +99,12 @@ const Gallery = () => {
   useEffect(() => {
     gsap.fromTo(
       headerRef.current,
-      { opacity: 0, y: 50 },
+      { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power3.out',
+        duration: 0.8,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: headerRef.current,
           start: 'top 80%',
@@ -169,25 +117,25 @@ const Gallery = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen py-24 overflow-hidden"
+      className="relative w-full py-24 bg-neutral-50"
     >
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-16 opacity-0">
           <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent to-purple-500" />
-            <Camera className="w-5 h-5 text-purple-400" />
-            <span className="text-sm font-space tracking-[0.3em] uppercase text-white/50">Photo Gallery</span>
-            <Camera className="w-5 h-5 text-pink-400" />
-            <div className="w-12 h-px bg-gradient-to-l from-transparent to-pink-500" />
+            <div className="w-8 h-px bg-neutral-300" />
+            <Camera className="w-5 h-5 text-neutral-600" />
+            <span className="text-sm font-medium uppercase tracking-wider text-neutral-500">Photo Gallery</span>
+            <Camera className="w-5 h-5 text-neutral-600" />
+            <div className="w-8 h-px bg-neutral-300" />
           </div>
           
-          <h2 className="text-5xl md:text-7xl font-playfair font-bold mb-6">
-            <span className="text-gradient">Memories</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
+            Memories
           </h2>
           
-          <p className="text-white/50 max-w-xl mx-auto text-lg font-light">
+          <p className="text-neutral-600 max-w-xl mx-auto text-lg">
             A collection of moments that tell your story. Each photo holds a memory, each memory holds a feeling.
           </p>
         </div>
@@ -202,16 +150,16 @@ const Gallery = () => {
         {/* Stats */}
         <div className="mt-16 flex justify-center gap-12">
           <div className="text-center">
-            <div className="text-4xl font-playfair font-bold text-gradient">{photos.length}</div>
-            <div className="text-sm text-white/40 font-space uppercase tracking-wider mt-1">Photos</div>
+            <div className="text-3xl font-bold text-teal-600">{photos.length}</div>
+            <div className="text-sm text-neutral-500 uppercase tracking-wider mt-1">Photos</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-playfair font-bold text-gradient-gold">∞</div>
-            <div className="text-sm text-white/40 font-space uppercase tracking-wider mt-1">Memories</div>
+            <div className="text-3xl font-bold text-neutral-600">∞</div>
+            <div className="text-sm text-neutral-500 uppercase tracking-wider mt-1">Memories</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-playfair font-bold text-pink-400">1</div>
-            <div className="text-sm text-white/40 font-space uppercase tracking-wider mt-1">Birthday Girl</div>
+            <div className="text-3xl font-bold text-neutral-600">1</div>
+            <div className="text-sm text-neutral-500 uppercase tracking-wider mt-1">Birthday Girl</div>
           </div>
         </div>
       </div>

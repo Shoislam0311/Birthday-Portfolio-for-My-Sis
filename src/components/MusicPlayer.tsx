@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Volume2, VolumeX, Music, Play, Pause } from 'lucide-react';
 
 interface MusicPlayerProps {
@@ -21,26 +21,14 @@ const tracks = [
   },
 ];
 
-// Generate random values for visualizer bars once (outside component to avoid linting issues)
-const generateVisualizerBars = () => {
-  return [...Array(6)].map(() => ({
-    height: 20 + Math.random() * 80,
-    duration: 0.3 + Math.random() * 0.2
-  }));
-};
-
 const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
-  
-  // Generate random values for visualizer bars once
-  const visualizerBars = useMemo(() => generateVisualizerBars(), []);
 
   const nextTrack = () => {
     setCurrentTrack((prev) => (prev + 1) % tracks.length);
-    // No need to set isPlaying to false since we want continuous playback
     setTimeout(() => {
       if (audioRef.current) {
         audioRef.current.play().catch(() => {});
@@ -51,20 +39,17 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
 
   useEffect(() => {
     audioRef.current = new Audio(tracks[currentTrack].url);
-    audioRef.current.loop = false; // Disable individual track looping
+    audioRef.current.loop = false;
     audioRef.current.volume = 0.4;
 
-    // Add event listener for when track ends
     const handleTrackEnd = () => {
       nextTrack();
     };
 
-    // Add event listener for play events to update state
     const handlePlay = () => {
       setIsPlaying(true);
     };
 
-    // Add event listener for pause events to update state
     const handlePause = () => {
       setIsPlaying(false);
     };
@@ -75,7 +60,6 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
       audioRef.current.addEventListener('pause', handlePause);
     }
 
-    // Auto-start if enabled and this is the first track
     if (enabled && currentTrack === 0 && audioRef.current) {
       audioRef.current.play().catch(() => {});
     }
@@ -120,83 +104,50 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {/* Main Player */}
-      <div className="glass-card rounded-2xl p-4 flex items-center gap-4 shadow-2xl">
-        {/* Album Art / Icon */}
-        <div 
-          className="w-12 h-12 rounded-xl flex items-center justify-center"
-          style={{
-            background: 'linear-gradient(135deg, #b026ff 0%, #ff2d95 100%)',
-          }}
-        >
-          <Music className={`w-6 h-6 text-white ${isPlaying ? 'animate-pulse' : ''}`} />
+      <div className="bg-white rounded-lg border border-neutral-200 p-3 flex items-center gap-3 shadow-minimal">
+        {/* Simple Icon */}
+        <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center">
+          <Music className="w-4 h-4 text-white" />
         </div>
 
         {/* Track Info */}
         <div className="hidden sm:block">
-          <p className="text-xs text-white/50 font-space uppercase tracking-wider">Now Playing</p>
-          <p className="text-sm text-white font-medium">{tracks[currentTrack].name}</p>
+          <p className="text-xs text-neutral-500 uppercase tracking-wider">Now Playing</p>
+          <p className="text-sm text-neutral-700 font-medium">{tracks[currentTrack].name}</p>
         </div>
 
         {/* Controls */}
         <div className="flex items-center gap-2">
           <button
             onClick={togglePlay}
-            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full border border-neutral-300 hover:border-teal-600 flex items-center justify-center transition-colors"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
-            {isPlaying ? <Pause className="w-4 h-4 text-white" /> : <Play className="w-4 h-4 text-white ml-0.5" />}
+            {isPlaying ? <Pause className="w-3 h-3 text-neutral-600" /> : <Play className="w-3 h-3 text-neutral-600 ml-0.5" />}
           </button>
 
           <button
             onClick={nextTrack}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full border border-neutral-300 hover:border-teal-600 flex items-center justify-center transition-colors"
             aria-label="Next track"
           >
-            <svg className="w-4 h-4 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-3 h-3 text-neutral-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 4l10 8-10 8V4z" />
               <path d="M19 5v14" />
             </svg>
           </button>
 
-          <div className="w-px h-6 bg-white/10 mx-1" />
+          <div className="w-px h-4 bg-neutral-300 mx-1" />
 
           <button
             onClick={toggleMute}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full border border-neutral-300 hover:border-teal-600 flex items-center justify-center transition-colors"
             aria-label={isMuted ? 'Unmute' : 'Mute'}
           >
-            {isMuted ? <VolumeX className="w-4 h-4 text-white/70" /> : <Volume2 className="w-4 h-4 text-white/70" />}
+            {isMuted ? <VolumeX className="w-3 h-3 text-neutral-600" /> : <Volume2 className="w-3 h-3 text-neutral-600" />}
           </button>
         </div>
       </div>
-
-      {/* Visualizer */}
-      {isPlaying && !isMuted && (
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex items-end gap-1 h-6">
-          {visualizerBars.map((bar, i) => (
-            <div
-              key={i}
-              className="w-1 rounded-full animate-bar"
-              style={{
-                background: 'linear-gradient(to top, #b026ff, #ff2d95)',
-                height: `${bar.height}%`,
-                animationDelay: `${i * 0.1}s`,
-                animationDuration: `${bar.duration}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      <style>{`
-        @keyframes bar {
-          0%, 100% { height: 20%; }
-          50% { height: 100%; }
-        }
-        .animate-bar {
-          animation: bar ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 };
