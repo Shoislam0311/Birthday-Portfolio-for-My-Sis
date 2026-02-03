@@ -64,12 +64,12 @@ const CustomCursor = () => {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-8 h-8 -ml-4 -mt-4 rounded-full border-2 border-gold/50 pointer-events-none z-[9999] mix-blend-difference opacity-0 hidden md:block"
+        className="fixed top-0 left-0 w-6 h-6 -ml-3 -mt-3 rounded-full border border-teal-600/30 pointer-events-none z-[9999] opacity-0 hidden md:block"
         style={{ willChange: 'transform' }}
       />
       <div
         ref={cursorDotRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 -ml-0.75 -mt-0.75 rounded-full bg-gold pointer-events-none z-[9999] opacity-0 hidden md:block"
+        className="fixed top-0 left-0 w-1.5 h-1.5 -ml-0.75 -mt-0.75 rounded-full bg-teal-600 pointer-events-none z-[9999] opacity-0 hidden md:block"
         style={{ willChange: 'transform' }}
       />
     </>

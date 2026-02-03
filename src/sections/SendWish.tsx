@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import confetti from 'canvas-confetti';
 import { toast } from 'sonner';
-import { Send, User, Mail, MessageSquare, Heart, Sparkles, CheckCircle } from 'lucide-react';
+import { Send, User, Mail, MessageSquare, Heart, CheckCircle } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,12 +44,12 @@ const SendWish = () => {
   useEffect(() => {
     gsap.fromTo(
       headerRef.current,
-      { opacity: 0, y: 50 },
+      { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power3.out',
+        duration: 0.8,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: headerRef.current,
           start: 'top 80%',
@@ -60,12 +60,12 @@ const SendWish = () => {
 
     gsap.fromTo(
       formRef.current,
-      { opacity: 0, y: 80 },
+      { opacity: 0, y: 40 },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power3.out',
+        duration: 0.8,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: formRef.current,
           start: 'top 85%',
@@ -127,7 +127,7 @@ const SendWish = () => {
     const sanitizedWish = sanitizeInput(formData.wish, true);
 
     // Prepare email content
-    const subject = `Happy Birthday Wish for Zuyairia from ${sanitizedName}`;
+    const subject = `Happy Birthday Wish for Bubu from ${sanitizedName}`;
 
     try {
       const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
@@ -154,23 +154,17 @@ const SendWish = () => {
       setIsSubmitting(false);
       setIsSubmitted(true);
       
-      // Trigger confetti celebration
+      // Simple confetti celebration
       confetti({
-        particleCount: 150,
-        spread: 70,
+        particleCount: 100,
+        spread: 60,
         origin: { y: 0.6 },
-        colors: ['#b026ff', '#ff2d95', '#00d4ff', '#ffd700'],
+        colors: ['#0f766e', '#14b8a6'],
         disableForReducedMotion: true
       });
     } catch (error) {
       console.error('Error sending wish:', error);
       setIsSubmitting(false);
-      // Optional: show error to user or fallback to mailto
-      // For now, we'll just show the success state to keep the experience positive 
-      // (or maybe show an error state if we want to be strict)
-      // Given the celebratory nature, maybe falling back to mailto would be safer if ajax fails?
-      // But the user specifically asked for "without manual selection".
-      // Let's assume it works or just alert.
       toast.error("Something went wrong. Please try again later.");
     }
   };
@@ -202,30 +196,26 @@ const SendWish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen py-24 overflow-hidden flex items-center"
+      className="relative w-full py-24 bg-white flex items-center"
     >
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[150px]" />
-      </div>
-
       {/* Content */}
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-12 opacity-0">
           <div className="inline-flex items-center gap-3 mb-6">
-            <Heart className="w-5 h-5 text-purple-400 fill-purple-400" />
-            <span className="text-sm font-space tracking-[0.3em] uppercase text-white/50">Send Your Love</span>
-            <Heart className="w-5 h-5 text-pink-400 fill-pink-400" />
+            <div className="w-8 h-px bg-neutral-300" />
+            <Heart className="w-5 h-5 text-neutral-600" />
+            <span className="text-sm font-medium uppercase tracking-wider text-neutral-500">Send Your Love</span>
+            <Heart className="w-5 h-5 text-neutral-600" />
+            <div className="w-8 h-px bg-neutral-300" />
           </div>
           
-          <h2 className="text-5xl md:text-6xl font-playfair font-bold mb-4">
-            Send a <span className="text-gradient">Wish</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-4">
+            Send a <span className="text-teal-600">Wish</span>
           </h2>
           
-          <p className="text-white/50 max-w-md mx-auto">
-            Write your heartfelt birthday message and send it directly to Zuyairia&apos;s email.
+          <p className="text-neutral-600 max-w-md mx-auto">
+            Write your heartfelt birthday message and send it directly to Bubu's email.
           </p>
         </div>
 
@@ -234,15 +224,15 @@ const SendWish = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="glass-card rounded-3xl p-8 md:p-10 opacity-0"
+            className="bg-white rounded-lg border border-neutral-200 p-8 md:p-10 opacity-0 shadow-minimal"
           >
             {/* Name Field */}
             <div className="mb-6">
-              <label className="block text-sm font-space text-white/60 mb-2 uppercase tracking-wider">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
                 Your Name
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                 <input
                   type="text"
                   name="name"
@@ -250,25 +240,25 @@ const SendWish = () => {
                   onChange={handleChange}
                   placeholder="Enter your name"
                   maxLength={MAX_NAME_LENGTH}
-                  className={`w-full bg-white/5 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 transition-all ${
                     errors.name
-                      ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20'
-                      : 'border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20'
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                      : 'border-neutral-300 focus:border-teal-500 focus:ring-teal-500/20'
                   }`}
                 />
               </div>
               {errors.name && (
-                <p className="mt-2 text-sm text-red-400 font-space">{errors.name}</p>
+                <p className="mt-2 text-sm text-red-600">{errors.name}</p>
               )}
             </div>
 
             {/* Email Field */}
             <div className="mb-6">
-              <label className="block text-sm font-space text-white/60 mb-2 uppercase tracking-wider">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
                 Your Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                 <input
                   type="email"
                   name="email"
@@ -276,25 +266,25 @@ const SendWish = () => {
                   onChange={handleChange}
                   placeholder="Enter your email"
                   maxLength={MAX_EMAIL_LENGTH}
-                  className={`w-full bg-white/5 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 transition-all ${
                     errors.email
-                      ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20'
-                      : 'border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20'
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                      : 'border-neutral-300 focus:border-teal-500 focus:ring-teal-500/20'
                   }`}
                 />
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-red-400 font-space">{errors.email}</p>
+                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
               )}
             </div>
 
             {/* Wish Field */}
             <div className="mb-8">
-              <label className="block text-sm font-space text-white/60 mb-2 uppercase tracking-wider">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
                 Your Birthday Wish
               </label>
               <div className="relative">
-                <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-white/30" />
+                <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-neutral-400" />
                 <textarea
                   name="wish"
                   value={formData.wish}
@@ -302,17 +292,17 @@ const SendWish = () => {
                   rows={5}
                   placeholder="Write your heartfelt birthday message..."
                   maxLength={MAX_WISH_LENGTH}
-                  className={`w-full bg-white/5 border rounded-xl py-4 pl-12 pr-4 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all resize-none ${
+                  className={`w-full border rounded-lg py-3 pl-10 pr-4 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 transition-all resize-none ${
                     errors.wish
-                      ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/20'
-                      : 'border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20'
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                      : 'border-neutral-300 focus:border-teal-500 focus:ring-teal-500/20'
                   }`}
                 />
               </div>
               {errors.wish && (
-                <p className="mt-2 text-sm text-red-400 font-space">{errors.wish}</p>
+                <p className="mt-2 text-sm text-red-600">{errors.wish}</p>
               )}
-              <p className="mt-2 text-xs text-white/30 font-space text-right">
+              <p className="mt-2 text-xs text-neutral-500 text-right">
                 {formData.wish.length}/{MAX_WISH_LENGTH} characters
               </p>
             </div>
@@ -321,11 +311,7 @@ const SendWish = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 rounded-xl font-space text-sm tracking-wider uppercase transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              style={{
-                background: 'linear-gradient(135deg, #b026ff 0%, #ff2d95 100%)',
-                boxShadow: '0 0 30px rgba(176, 38, 255, 0.4)',
-              }}
+              className="w-full py-3 rounded-lg font-medium text-white transition-all hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-teal-600"
             >
               {isSubmitting ? (
                 <>
@@ -341,51 +327,33 @@ const SendWish = () => {
             </button>
 
             {/* Note */}
-            <p className="text-center text-white/30 text-xs mt-4">
+            <p className="text-center text-neutral-500 text-sm mt-4">
               Your email will be sent automatically
             </p>
           </form>
         ) : (
-          <div className="glass-card rounded-3xl p-10 text-center animate-fade-in">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-10 h-10 text-white" />
+          <div className="bg-white rounded-lg border border-neutral-200 p-10 text-center shadow-minimal">
+            <div className="w-16 h-16 rounded-full bg-teal-600 flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-8 h-8 text-white" />
             </div>
-            <h3 className="text-2xl font-playfair font-bold text-white mb-2">
+            <h3 className="text-2xl font-bold text-neutral-900 mb-2">
               Wish Sent!
             </h3>
-            <p className="text-white/60 mb-8">
-              Your warm wish has been sent to Zuyairia! Thank you for sharing your love.
+            <p className="text-neutral-600 mb-8">
+              Your warm wish has been sent to Bubu! Thank you for sharing your love.
             </p>
             <button
               onClick={() => {
                 setIsSubmitted(false);
                 setFormData({ name: '', email: '', wish: '' });
               }}
-              className="mt-6 text-white/50 hover:text-white text-sm font-space transition-colors"
+              className="mt-6 text-teal-600 hover:text-teal-700 text-sm font-medium transition-colors"
             >
               Send another wish
             </button>
           </div>
         )}
-
-        {/* Decorative Elements */}
-        <div className="absolute -top-4 -right-4 animate-spin" style={{ animationDuration: '6s' }}>
-          <Sparkles className="w-8 h-8 text-purple-400/50" />
-        </div>
-        <div className="absolute -bottom-4 -left-4 animate-spin" style={{ animationDuration: '8s' }}>
-          <Sparkles className="w-6 h-6 text-pink-400/50" />
-        </div>
       </div>
-
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.5s ease-out;
-        }
-      `}</style>
     </section>
   );
 };

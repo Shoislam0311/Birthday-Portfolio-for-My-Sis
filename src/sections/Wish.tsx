@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Gift, Heart, Sparkles } from 'lucide-react';
+import { Gift, Heart } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +25,7 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
               } else {
                 clearInterval(interval);
               }
-            }, 20);
+            }, 30);
             
             return () => clearInterval(interval);
           }, delay);
@@ -46,12 +46,12 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
   return (
     <p 
       ref={containerRef}
-      className="text-lg md:text-xl text-white/80 leading-relaxed"
-      style={{ fontFamily: "'Noto Sans Bengali', 'Inter', sans-serif", lineHeight: 2.2 }}
+      className="text-base md:text-lg text-neutral-700 leading-relaxed"
+      style={{ fontFamily: "'Inter', sans-serif", lineHeight: 1.8 }}
     >
       {displayText}
       {started && displayText.length < text.length && (
-        <span className="animate-pulse text-purple-400">|</span>
+        <span className="animate-pulse text-teal-600">|</span>
       )}
     </p>
   );
@@ -63,17 +63,17 @@ const Wish = () => {
   const cardRef = useRef<HTMLDivElement>(null);
   const heartRef = useRef<HTMLDivElement>(null);
 
-  const bengaliWish = `বুবু,শুভ জন্মদিন। তুই আমার জীবনের ওই মানুষটা,যে একচের প্যানা পোডে কিন্তু না থাকলেই সব ঠিকঠাক লাগে। তোর বকা দেওয়ায় আছে রাগ,নাই যত্ন;তুই হাসলে গরিলা এর মত দেখায় তাই irritated লাগে বুকটা। আমি যদি দুষ্ট হই,হালে তুই হলি নিম নিম্যা শয়তান—এই দুইটাই মিলেই ব্যালান্স। আজ তোর দিন,তাই বেশি কিছু বললাম না যদি রাগ হইয়া ট্রিট টা না দাও—শুধু এটা জান,তুই না থাকলে আমার জীবনটা একটু বেশি শক্ত,একটু বেশি ঠিকঠাক হয়। ভালো থাকিস,যেইরকম আছো সেইরকম থাকিস,দুলাভাইরে বিয়ার পর আমার চে বেশি জ্বালাবি,হাসিখুশি থাকিস। আর তারতারি বিয়া করলে ভালোই হয় অনেক দিন কোনো বিয়া খাই না। সর্বশেষ শুভ জন্মদিন,বুবু।`;
+  const bengaliWish = `বুবু,শুভ জন্মদিন। তুই আমার জীবনের ওই মানুষটা,যে একচের প্যানা পোডে কিন্তু না থাকলেই সব ঠিকঠাক লাগে। তোর বকা দেওয়ায় আছে রাগ,নাই যত্ন;তুই হাসলে গরিলা এর মত দেখায় তাই irritated লাগে বুকটা। আমি যদি দুষ্ট হই,হালে তুই হলি নিম নিম্যা শয়তান—এই দুইটাই মিলেই ব্যালান্স। আজ তোর দিন,তাই বেশি কিছু বললাম না যদি রাগ হইয়া ট্রিট টা না দাও—শুধু এটা জান,তুই না থাকলে আমার জীবনটা একটু বেশি শক্ত,একটু বেশি ঠিকঠাক হয়। ভালো থাকিস,যেইরকম আছো সেইরকম থাকিস,দুলাভাইরে বিয়ার পর আমার চে বেশি জ্বালাবি,হাসিখুশি থাকিস। আর তারতারি বিয়া করলে ভালোই হয় অনেক দিন কোনো বিয়া খাই না। সর্বশেষ শুভ জন্মদিন,বুবু।`;
 
   useEffect(() => {
     gsap.fromTo(
       headerRef.current,
-      { opacity: 0, y: 50 },
+      { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power3.out',
+        duration: 0.8,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: headerRef.current,
           start: 'top 80%',
@@ -84,12 +84,12 @@ const Wish = () => {
 
     gsap.fromTo(
       heartRef.current,
-      { opacity: 0, scale: 0 },
+      { opacity: 0, scale: 0.8 },
       {
         opacity: 1,
         scale: 1,
-        duration: 1.2,
-        ease: 'elastic.out(1, 0.5)',
+        duration: 0.6,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: heartRef.current,
           start: 'top 80%',
@@ -98,23 +98,14 @@ const Wish = () => {
       }
     );
 
-    gsap.to(heartRef.current, {
-      scale: 1.05,
-      duration: 1.5,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut',
-      delay: 1.5,
-    });
-
     gsap.fromTo(
       cardRef.current,
-      { opacity: 0, y: 80 },
+      { opacity: 0, y: 40 },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power3.out',
+        duration: 0.8,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: cardRef.current,
           start: 'top 85%',
@@ -127,148 +118,55 @@ const Wish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen py-24 overflow-hidden flex items-center"
+      className="relative w-full py-24 bg-white flex items-center"
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[150px]" />
-      </div>
-
-      {/* Floating Hearts */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(10)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-float-heart"
-            style={{
-              left: `${5 + i * 10}%`,
-              animationDelay: `${i * 0.7}s`,
-              animationDuration: `${5 + Math.random() * 3}s`,
-            }}
-          >
-            <Heart 
-              className="text-purple-500/20 fill-purple-500/20" 
-              size={20 + Math.random() * 30}
-            />
-          </div>
-        ))}
-      </div>
-
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-12 opacity-0">
           <div className="inline-flex items-center gap-3 mb-6">
-            <Gift className="w-5 h-5 text-purple-400" />
-            <span className="text-sm font-space tracking-[0.3em] uppercase text-white/50">A Special Message</span>
-            <Gift className="w-5 h-5 text-pink-400" />
+            <div className="w-8 h-px bg-neutral-300" />
+            <Gift className="w-5 h-5 text-neutral-600" />
+            <span className="text-sm font-medium uppercase tracking-wider text-neutral-500">A Special Message</span>
+            <Gift className="w-5 h-5 text-neutral-600" />
+            <div className="w-8 h-px bg-neutral-300" />
           </div>
           
-          <h2 className="text-5xl md:text-7xl font-playfair font-bold mb-4">
-            A Wish For <span className="text-gradient">You</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-4">
+            A Wish For <span className="text-teal-600">You</span>
           </h2>
         </div>
 
-        {/* Crystal Heart */}
+        {/* Simple Heart Icon */}
         <div ref={heartRef} className="flex justify-center mb-12 opacity-0">
-          <div className="relative w-28 h-28 md:w-36 md:h-36">
-            <svg
-              viewBox="0 0 100 100"
-              className="w-full h-full drop-shadow-2xl"
-            >
-              <defs>
-                <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#b026ff" />
-                  <stop offset="50%" stopColor="#ff2d95" />
-                  <stop offset="100%" stopColor="#00d4ff" />
-                </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              
-              <path
-                d="M50 85 C50 85 20 60 20 40 C20 25 30 15 42 15 C47 15 50 20 50 20 C50 20 53 15 58 15 C70 15 80 25 80 40 C80 60 50 85 50 85Z"
-                fill="url(#heartGradient)"
-                filter="url(#glow)"
-              />
-              
-              <path
-                d="M35 30 Q40 25 45 35"
-                fill="none"
-                stroke="rgba(255,255,255,0.6)"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-            </svg>
-            
-            <div className="absolute -top-2 -right-2 animate-spin" style={{ animationDuration: '4s' }}>
-              <Sparkles className="w-6 h-6 text-purple-400" />
-            </div>
+          <div className="relative w-16 h-16 md:w-20 md:h-20">
+            <Heart className="w-full h-full text-teal-600 fill-teal-600" />
           </div>
         </div>
 
         {/* Wish Card */}
         <div ref={cardRef} className="relative opacity-0">
-          <div className="relative glass-card rounded-3xl p-8 md:p-12">
-            {/* Corner decorations */}
-            <div className="absolute top-4 left-4 w-10 h-10 border-l-2 border-t-2 border-purple-500/40" />
-            <div className="absolute top-4 right-4 w-10 h-10 border-r-2 border-t-2 border-pink-500/40" />
-            <div className="absolute bottom-4 left-4 w-10 h-10 border-l-2 border-b-2 border-cyan-500/40" />
-            <div className="absolute bottom-4 right-4 w-10 h-10 border-r-2 border-b-2 border-purple-500/40" />
-            
+          <div className="relative bg-white rounded-lg border border-neutral-200 p-8 md:p-12 shadow-minimal">
             {/* Bengali Wish */}
             <div className="mb-8">
-              <TypewriterText text={bengaliWish} delay={500} />
+              <TypewriterText text={bengaliWish} delay={300} />
             </div>
             
-            {/* Divider */}
+            {/* Simple Divider */}
             <div className="flex items-center gap-4 my-8">
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
-              <Heart className="w-5 h-5 text-pink-400 fill-pink-400" />
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-pink-500/40 to-transparent" />
+              <div className="flex-1 h-px bg-neutral-200" />
+              <Heart className="w-4 h-4 text-teal-600 fill-teal-600" />
+              <div className="flex-1 h-px bg-neutral-200" />
             </div>
             
             {/* Signature */}
             <div className="text-right">
-              <p className="font-script text-2xl text-gradient">With Love,</p>
-              <p className="text-white/60 mt-1 font-space">Your Brother</p>
+              <p className="text-lg font-medium text-neutral-900">With Love,</p>
+              <p className="text-neutral-600 mt-1">Your Brother</p>
             </div>
-          </div>
-          
-          {/* Sparkles */}
-          <div className="absolute -top-4 -right-4 animate-spin" style={{ animationDuration: '5s' }}>
-            <Sparkles className="w-8 h-8 text-purple-400" />
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes float-heart {
-          0% {
-            transform: translateY(100vh) scale(0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.3;
-          }
-          90% {
-            opacity: 0.3;
-          }
-          100% {
-            transform: translateY(-100vh) scale(1);
-            opacity: 0;
-          }
-        }
-        .animate-float-heart {
-          animation: float-heart linear infinite;
-        }
-      `}</style>
     </section>
   );
 };
