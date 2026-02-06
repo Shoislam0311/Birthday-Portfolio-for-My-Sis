@@ -85,14 +85,14 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-luxury-black hero-section"
+      className="relative w-full h-screen h-[100dvh] flex items-center justify-center overflow-hidden bg-luxury-black hero-section"
     >
       <RetroGrid />
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-        <div className="mb-8 flex justify-center opacity-0 animate-fade-in">
-          <div className="px-5 py-2 rounded-full border border-luxury-blue/20 bg-luxury-blue/5 flex items-center gap-3 text-luxury-blue/80 text-xs font-medium tracking-wider uppercase">
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pb-32 md:pb-0">
+        <div className="mb-6 md:mb-8 flex justify-center opacity-0 animate-fade-in">
+          <div className="px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-luxury-blue/20 bg-luxury-blue/5 flex items-center gap-3 text-luxury-blue/80 text-[10px] md:text-xs font-medium tracking-wider uppercase">
             <Sparkles className="w-3 h-3 text-luxury-blue" />
             <span>A Celebration of Excellence</span>
             <Sparkles className="w-3 h-3 text-luxury-blue" />
@@ -102,7 +102,7 @@ const Hero = () => {
         {/* Main Title */}
         <h1
           ref={titleRef}
-          className="font-serif-display text-5xl md:text-7xl lg:text-9xl xl:text-[10rem] font-semibold text-white mb-6 md:mb-8 tracking-tight opacity-0 text-gradient-premium"
+          className="font-serif-display text-5xl md:text-7xl lg:text-9xl xl:text-[10rem] font-semibold text-white mb-4 md:mb-8 tracking-tight opacity-0 text-gradient-premium"
         >
           {name}
         </h1>
@@ -110,13 +110,13 @@ const Hero = () => {
         {/* Subtitle */}
         <p
           ref={subtitleRef}
-          className="font-serif-body text-base md:text-xl lg:text-2xl text-white/80 mb-12 md:mb-16 opacity-0 max-w-xl md:max-w-2xl mx-auto leading-relaxed"
+          className="font-serif-body text-sm md:text-xl lg:text-2xl text-white/80 mb-6 md:mb-16 opacity-0 max-w-xl md:max-w-2xl mx-auto leading-relaxed"
         >
           Happy Birthday to an extraordinary soul who illuminates every moment with grace and brilliance
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center opacity-0 animate-fade-in [animation-delay:1.2s]">
+        <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center opacity-0 animate-fade-in [animation-delay:1.2s]">
           <ShimmerButton
             className="shadow-premium-lg glow-blue"
             background="#0066ff"
@@ -143,7 +143,7 @@ const Hero = () => {
       {/* Scroll Indicator */}
       <div
         ref={scrollIndicatorRef}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-0"
+        className="absolute bottom-20 md:bottom-16 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-4 opacity-0"
       >
         <span className="text-xs text-luxury-blue/50 uppercase tracking-[0.3em] font-medium">Scroll to Explore</span>
         <div className="w-6 h-10 rounded-full border border-luxury-blue/30 flex justify-center pt-2 bg-luxury-blue/5">

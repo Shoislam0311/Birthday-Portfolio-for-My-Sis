@@ -26,6 +26,8 @@ const photos = [
   { id: 16, src: 'https://i.imgur.com/a0prz59.jpeg', caption: 'Two ghost in one frame' },
   { id: 17, src: 'https://i.imgur.com/cm497bY.jpeg', caption: 'Good Moment' },
   { id: 18, src: 'https://i.imgur.com/EvpJbQ8.png', caption: 'Birthday Girl' },
+  { id: 19, src: 'https://i.imgur.com/XU2ISAE.jpeg', caption: 'দুই অবিবাহিতা' },
+  { id: 20, src: 'https://i.imgur.com/xqwDFOa.png', caption: 'অন্ধ মহিলা' },
 ];
 
 const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
@@ -98,7 +100,7 @@ const Gallery = () => {
     <section
       id="gallery"
       ref={sectionRef}
-      className="relative w-full py-32 bg-luxury-black overflow-hidden"
+      className="relative w-full py-20 md:py-32 bg-luxury-black overflow-hidden"
     >
       {/* Background decoration */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-luxury-blue/5 rounded-full blur-3xl opacity-60 -translate-y-1/2" />

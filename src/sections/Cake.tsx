@@ -255,7 +255,7 @@ const Cake = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-luxury-black flex items-center justify-center"
+      className="relative w-full py-16 md:py-24 bg-luxury-black flex items-center justify-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

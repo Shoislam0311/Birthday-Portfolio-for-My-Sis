@@ -142,7 +142,7 @@ const SendWish = () => {
     const subject = `Happy Birthday Wish for Bubu from ${sanitizedName}`;
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
+      const response = await fetch("/api/send-wish", {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
@@ -152,14 +152,13 @@ const SendWish = () => {
           name: sanitizedName,
           email: sanitizedEmail,
           message: sanitizedWish,
-          _subject: subject,
-          _captcha: "false",
-          _template: "table"
+          subject: subject
         })
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send wish');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send wish');
       }
 
       // Show success state
@@ -209,7 +208,7 @@ const SendWish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-luxury-white flex items-center"
+      className="relative w-full py-16 md:py-24 bg-luxury-white flex items-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 w-full">

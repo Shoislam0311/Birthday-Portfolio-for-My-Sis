@@ -5,7 +5,15 @@
   "private": true,
   "type": "module",
   "author": "Made with ❤️ for Bubu",
-  "keywords": ["birthday", "celebration", "react", "typescript", "gsap", "tailwind", "animation"],
+  "keywords": [
+    "birthday",
+    "celebration",
+    "react",
+    "typescript",
+    "gsap",
+    "tailwind",
+    "animation"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -75,6 +83,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
+    "@vercel/node": "^5.5.32",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.23",
     "eslint": "^9.39.1",

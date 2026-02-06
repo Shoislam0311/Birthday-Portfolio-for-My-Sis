@@ -119,7 +119,7 @@ const Wish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-luxury-white flex items-center"
+      className="relative w-full py-16 md:py-24 bg-luxury-white flex items-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -48,11 +48,10 @@ const MobileNavigation = () => {
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-luxury-blue/90 backdrop-blur-sm text-white px-6 py-3 rounded-full flex items-center gap-3 shadow-premium glow-blue hover:bg-luxury-blue transition-all"
+          className="bg-luxury-blue/90 backdrop-blur-sm text-white p-3.5 rounded-full flex items-center justify-center shadow-premium glow-blue hover:bg-luxury-blue transition-all"
           aria-label="Open navigation menu"
         >
-          <Menu className="w-5 h-5" />
-          <span className="font-medium text-sm tracking-wide">Navigate</span>
+          <Menu className="w-6 h-6" />
         </button>
       ) : (
         <div className="w-64 bg-luxury-black/95 backdrop-blur-lg rounded-xl border border-luxury-blue/20 shadow-premium overflow-hidden">
