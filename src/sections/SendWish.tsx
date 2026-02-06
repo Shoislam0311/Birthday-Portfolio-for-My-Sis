@@ -228,7 +228,7 @@ const SendWish = () => {
           </h2>
 
           <p className="font-serif-body text-black/70 max-w-md mx-auto text-base md:text-lg">
-            Write your heartfelt birthday message and send it directly to Bubu's email.
+            Write your heartfelt birthday message and send it directly to Zuyairia's email.
           </p>
         </div>
 
@@ -352,7 +352,7 @@ const SendWish = () => {
               Wish Sent!
             </h3>
             <p className="text-black/70 mb-8 font-serif-body">
-              Your warm wish has been sent to Bubu! Thank you for sharing your love.
+              Your warm wish has been sent to Zuyairia! Thank you for sharing your love.
             </p>
             <button
               onClick={() => {
