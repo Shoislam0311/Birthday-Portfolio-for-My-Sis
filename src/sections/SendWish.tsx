@@ -133,33 +133,32 @@ const SendWish = () => {
 
     setIsSubmitting(true);
 
-    // Security: Use sanitized inputs for mailto link
+    // Security: Use sanitized inputs
     const sanitizedName = sanitizeInput(formData.name);
     const sanitizedEmail = sanitizeInput(formData.email).toLowerCase();
     const sanitizedWish = sanitizeInput(formData.wish, true);
 
-    // Prepare email content
-    const subject = `Happy Birthday Wish for Bubu from ${sanitizedName}`;
-
     try {
-      const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
+      // Try to use backend API first
+      const response = await fetch("/api/contact-form", {
         method: "POST",
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
         body: JSON.stringify({
           name: sanitizedName,
           email: sanitizedEmail,
           message: sanitizedWish,
-          _subject: subject,
-          _captcha: "false",
-          _template: "table"
         })
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send wish');
+        throw new Error('Failed to send wish via API');
+      }
+
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to send wish');
       }
 
       // Show success state
@@ -175,10 +174,52 @@ const SendWish = () => {
         disableForReducedMotion: true,
         decay: 0.95,
       });
+
+      toast.success("Wish sent successfully! 🎉");
     } catch (error) {
-      console.error('Error sending wish:', error);
-      setIsSubmitting(false);
-      toast.error("Something went wrong. Please try again later.");
+      console.error('Error sending wish via API:', error);
+
+      // Fallback to formsubmit.co if API fails
+      try {
+        const subject = `Happy Birthday Wish for Bubu from ${sanitizedName}`;
+        const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: sanitizedName,
+            email: sanitizedEmail,
+            message: sanitizedWish,
+            _subject: subject,
+            _captcha: "false",
+            _template: "table"
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to send wish');
+        }
+
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+
+        confetti({
+          particleCount: 100,
+          spread: 60,
+          origin: { y: 0.6 },
+          colors: ['#0066ff', '#003d99', '#ffffff'],
+          disableForReducedMotion: true,
+          decay: 0.95,
+        });
+
+        toast.success("Wish sent successfully! 🎉");
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+        setIsSubmitting(false);
+        toast.error("Something went wrong. Please try again later.");
+      }
     }
   };
 

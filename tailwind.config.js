@@ -138,33 +138,57 @@ module.exports = {
           },
         },
         "fade-in": {
-          "0%": { 
+          "0%": {
             opacity: "0",
             transform: "translateY(20px)"
           },
-          "100%": { 
+          "100%": {
             opacity: "1",
             transform: "translateY(0)"
           },
         },
         "slide-in-left": {
-          "0%": { 
+          "0%": {
             opacity: "0",
             transform: "translateX(-30px)"
           },
-          "100%": { 
+          "100%": {
             opacity: "1",
             transform: "translateX(0)"
           },
         },
         "slide-in-right": {
-          "0%": { 
+          "0%": {
             opacity: "0",
             transform: "translateX(30px)"
           },
-          "100%": { 
+          "100%": {
             opacity: "1",
             transform: "translateX(0)"
+          },
+        },
+        shimmer: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
+        "spin-slow": {
+          "0%": {
+            transform: "rotate(0deg)",
+          },
+          "100%": {
+            transform: "rotate(360deg)",
+          },
+        },
+        loading: {
+          "0%": {
+            left: "-100%",
+          },
+          "100%": {
+            left: "100%",
           },
         },
       },
@@ -182,6 +206,9 @@ module.exports = {
         "fade-in": "fade-in 0.6s ease-out forwards",
         "slide-in-left": "slide-in-left 0.6s ease-out forwards",
         "slide-in-right": "slide-in-right 0.6s ease-out forwards",
+        shimmer: "shimmer 2s linear infinite",
+        "spin-slow": "spin-slow 3s linear infinite",
+        loading: "loading 1.5s ease-in-out infinite",
       },
     },
   },

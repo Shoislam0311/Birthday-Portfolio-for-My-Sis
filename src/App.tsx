@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Analytics } from '@vercel/analytics/react';
@@ -16,16 +16,63 @@ import MusicPlayer from './components/MusicPlayer';
 import CustomCursor from './components/CustomCursor';
 import MobileNavigation from './components/MobileNavigation';
 
+// Hooks
+import { useAnalytics } from './hooks/useAnalytics';
+import { usePreferences } from './hooks/usePreferences';
+
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [musicEnabled, setMusicEnabled] = useState(false);
+  const { trackPageView, trackSectionView } = useAnalytics();
+  const { preferences, loading: preferencesLoading } = usePreferences();
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
-    setTimeout(() => setMusicEnabled(true), 500);
+    // Enable music based on preferences after loading
+    setTimeout(() => {
+      if (preferences?.musicEnabled) {
+        setMusicEnabled(true);
+      }
+    }, 500);
   };
+
+  // Track page view on mount
+  useEffect(() => {
+    if (!isLoading) {
+      trackPageView();
+    }
+  }, [isLoading, trackPageView]);
+
+  // Track section views on scroll
+  useEffect(() => {
+    if (isLoading) return;
+
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section');
+      const sectionNames = ['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'];
+
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          const sectionName = sectionNames[index];
+          if (sectionName) {
+            trackSectionView(sectionName);
+          }
+        }
+      });
+    };
+
+    const timeoutId = setTimeout(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isLoading, trackSectionView]);
 
   return (
     <div className="relative bg-luxury-black min-h-screen text-white overflow-x-hidden">
@@ -35,8 +82,11 @@ function App() {
       {/* Loading Screen */}
       {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
-      {/* Background Music Player */}
-      <MusicPlayer enabled={musicEnabled} />
+      {/* Background Music Player - controlled by preferences */}
+      <MusicPlayer
+        enabled={musicEnabled}
+        autoPlay={preferences?.autoPlay || false}
+      />
 
       {/* Subtle Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
@@ -61,6 +111,7 @@ function App() {
             onClick={() => {
               const sections = document.querySelectorAll('section');
               sections[index]?.scrollIntoView({ behavior: 'smooth' });
+              trackSectionView(section);
             }}
             className="group relative flex items-center justify-end"
             aria-label={`Go to ${section}`}
@@ -76,6 +127,7 @@ function App() {
       {/* Mobile Navigation */}
       <MobileNavigation />
 
+      {/* Vercel Analytics */}
       <Analytics />
       <SpeedInsights />
       <Toaster position="bottom-center" theme="dark" />
