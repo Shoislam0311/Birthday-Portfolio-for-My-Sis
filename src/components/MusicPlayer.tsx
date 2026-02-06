@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { Volume2, VolumeX, Music, Play, Pause } from 'lucide-react';
+import { Volume2, VolumeX, Music, Play, Pause, SkipForward } from 'lucide-react';
 
 interface MusicPlayerProps {
   enabled: boolean;
 }
 
-// Chill/Lo-fi playlist for birthday vibes
 const tracks = [
   {
     name: 'Birthday Vibes',
-    url: 'https://drive.usercontent.google.com/download?id=1n8u8dgkgujYnRK33N9YwefuHnV8B2dwk&export=download&authuser=0&confirm=t&uuid=32dadaad-fabf-42e9-96ec-40b2990043c7&at=APcXIO1hxQ3qS0iyIiwLgV3zqW6Q:1770379342002',
+    url: 'https://drive.google.com/uc?export=download&id=1n8u8dgkgujYnRK33N9YwefuHnV8B2dwk', // Cleaned Direct Link
   },
   {
     name: 'Chill Moments',
@@ -22,129 +21,116 @@ const tracks = [
 ];
 
 const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(new Audio(tracks[0].url));
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
 
-  const nextTrack = () => {
-    setCurrentTrack((prev) => (prev + 1) % tracks.length);
-    setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.play().catch(() => {});
-        setIsPlaying(true);
-      }
-    }, 100);
-  };
-
+  // Sync Audio Instance with State
   useEffect(() => {
-    audioRef.current = new Audio(tracks[currentTrack].url);
-    audioRef.current.loop = false;
-    audioRef.current.volume = 0.4;
+    const audio = audioRef.current;
+    audio.volume = 0.4;
 
-    const handleTrackEnd = () => {
-      nextTrack();
-    };
-
-    const handlePlay = () => {
-      setIsPlaying(true);
-    };
-
-    const handlePause = () => {
-      setIsPlaying(false);
-    };
-
-    if (audioRef.current) {
-      audioRef.current.addEventListener('ended', handleTrackEnd);
-      audioRef.current.addEventListener('play', handlePlay);
-      audioRef.current.addEventListener('pause', handlePause);
-    }
-
-    if (enabled && currentTrack === 0 && audioRef.current) {
-      audioRef.current.play().catch(() => {});
-    }
+    const handleEnded = () => nextTrack();
+    audio.addEventListener('ended', handleEnded);
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.removeEventListener('ended', handleTrackEnd);
-        audioRef.current.removeEventListener('play', handlePlay);
-        audioRef.current.removeEventListener('pause', handlePause);
-        audioRef.current = null;
-      }
+      audio.removeEventListener('ended', handleEnded);
+      audio.pause();
     };
-  }, [currentTrack, enabled]);
+  }, []);
+
+  // Handle Track Change
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.src = tracks[currentTrack].url;
+    audio.load();
+    if (isPlaying || (enabled && currentTrack === 0)) {
+      playAudio();
+    }
+  }, [currentTrack]);
+
+  // Handle Enable/Disable & Playback
+  useEffect(() => {
+    if (enabled && !isPlaying && currentTrack === 0) {
+      playAudio();
+    } else if (!enabled) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  }, [enabled]);
+
+  const playAudio = async () => {
+    try {
+      await audioRef.current.play();
+      setIsPlaying(true);
+    } catch (err) {
+      console.warn("Autoplay blocked. User interaction required.");
+      setIsPlaying(false);
+    }
+  };
 
   const togglePlay = () => {
-    if (!audioRef.current) return;
-
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play().catch(() => {});
-      setIsPlaying(true);
+      playAudio();
     }
   };
 
-  const toggleMute = () => {
-    if (!audioRef.current) return;
+  const nextTrack = () => {
+    setCurrentTrack((prev) => (prev + 1) % tracks.length);
+  };
 
-    if (isMuted) {
-      audioRef.current.muted = false;
-      setIsMuted(false);
-    } else {
-      audioRef.current.muted = true;
-      setIsMuted(true);
-    }
+  const toggleMute = () => {
+    const newState = !isMuted;
+    audioRef.current.muted = newState;
+    setIsMuted(newState);
   };
 
   if (!enabled) return null;
 
   return (
-    <div className="fixed bottom-8 right-8 z-50">
-      {/* Main Player */}
-      <div className="card-premium p-4 flex items-center gap-4 border border-luxury-blue bg-black/80 backdrop-blur-sm">
-        {/* Simple Icon */}
-        <div className="w-10 h-10 rounded-full bg-luxury-blue flex items-center justify-center shadow-premium glow-blue">
-          <Music className="w-5 h-5 text-white" />
+    <div className="fixed bottom-8 right-8 z-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="card-premium p-4 flex items-center gap-4 border border-luxury-blue bg-black/90 backdrop-blur-md shadow-2xl rounded-2xl">
+        {/* Visualizer Icon */}
+        <div className={`w-10 h-10 rounded-full bg-luxury-blue flex items-center justify-center shadow-premium glow-blue ${isPlaying ? 'animate-pulse' : ''}`}>
+          <Music className={`w-5 h-5 text-white ${isPlaying ? 'animate-bounce' : ''}`} />
         </div>
 
         {/* Track Info */}
-        <div className="hidden sm:block">
-          <p className="text-xs text-luxury-blue/60 uppercase tracking-[0.2em]">Now Playing</p>
-          <p className="text-sm text-white font-medium">{tracks[currentTrack].name}</p>
+        <div className="hidden sm:block min-w-[120px]">
+          <p className="text-[10px] text-luxury-blue/60 uppercase tracking-[0.2em] font-bold">Now Playing</p>
+          <p className="text-sm text-white font-medium truncate max-w-[150px]">{tracks[currentTrack].name}</p>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <button
             onClick={togglePlay}
-            className="w-9 h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
-            aria-label={isPlaying ? 'Pause' : 'Play'}
+            className="w-10 h-10 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/20 flex items-center justify-center transition-all group"
           >
-            {isPlaying ? <Pause className="w-3.5 h-3.5 text-luxury-blue" /> : <Play className="w-3.5 h-3.5 text-luxury-blue ml-0.5" />}
+            {isPlaying ? 
+              <Pause className="w-4 h-4 text-luxury-blue fill-luxury-blue" /> : 
+              <Play className="w-4 h-4 text-luxury-blue fill-luxury-blue ml-0.5" />
+            }
           </button>
 
           <button
             onClick={nextTrack}
-            className="w-9 h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
-            aria-label="Next track"
+            className="w-10 h-10 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/20 flex items-center justify-center transition-all"
           >
-            <svg className="w-3.5 h-3.5 text-luxury-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 4l10 8-10 8V4z" />
-              <path d="M19 5v14" />
-            </svg>
+            <SkipForward className="w-4 h-4 text-luxury-blue fill-luxury-blue" />
           </button>
 
-          <div className="w-px h-5 bg-luxury-blue/20 mx-2" />
+          <div className="w-px h-6 bg-white/10 mx-1" />
 
           <button
             onClick={toggleMute}
-            className="w-9 h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
-            aria-label={isMuted ? 'Unmute' : 'Mute'}
+            className="w-10 h-10 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/20 flex items-center justify-center transition-all"
           >
-            {isMuted ? <VolumeX className="w-3.5 h-3.5 text-luxury-blue" /> : <Volume2 className="w-3.5 h-3.5 text-luxury-blue" />}
+            {isMuted ? <VolumeX className="w-4 h-4 text-red-400" /> : <Volume2 className="w-4 h-4 text-luxury-blue" />}
           </button>
         </div>
       </div>
