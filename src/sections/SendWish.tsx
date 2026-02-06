@@ -214,8 +214,8 @@ const SendWish = () => {
       {/* Content */}
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Header */}
-        <div ref={headerRef} className="text-center mb-12 opacity-0">
-          <div className="inline-flex items-center gap-4 mb-8">
+        <div ref={headerRef} className="text-center mb-8 md:mb-12 opacity-0">
+          <div className="inline-flex items-center gap-4 mb-6 md:mb-8">
             <div className="w-12 h-px bg-luxury-blue" />
             <Heart className="w-5 h-5 text-luxury-blue" />
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">Send Your Love</span>
@@ -223,11 +223,11 @@ const SendWish = () => {
             <div className="w-12 h-px bg-luxury-blue" />
           </div>
 
-          <h2 className="font-serif-display text-4xl md:text-6xl font-semibold text-black mb-6">
+          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-6xl font-semibold text-black mb-4 md:mb-6">
             Send a <span className="text-gradient-blue">Wish</span>
           </h2>
 
-          <p className="font-serif-body text-black/70 max-w-md mx-auto text-lg">
+          <p className="font-serif-body text-black/70 max-w-md mx-auto text-base md:text-lg">
             Write your heartfelt birthday message and send it directly to Bubu's email.
           </p>
         </div>
@@ -254,7 +254,7 @@ const SendWish = () => {
                   onChange={handleChange}
                   placeholder="Enter your name"
                   maxLength={MAX_NAME_LENGTH}
-                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all ${
+                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all text-base md:text-lg ${
                     errors.name
                       ? 'border-red-500/50 focus:border-red-500'
                       : 'border-black focus:border-luxury-blue'
@@ -279,7 +279,7 @@ const SendWish = () => {
                   onChange={handleChange}
                   placeholder="Enter your email"
                   maxLength={MAX_EMAIL_LENGTH}
-                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all ${
+                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all text-base md:text-lg ${
                     errors.email
                       ? 'border-red-500/50 focus:border-red-500'
                       : 'border-black focus:border-luxury-blue'
@@ -301,10 +301,10 @@ const SendWish = () => {
                   name="wish"
                   value={formData.wish}
                   onChange={handleChange}
-                  rows={5}
+                  rows={4}
                   placeholder="Write your heartfelt birthday message..."
                   maxLength={MAX_WISH_LENGTH}
-                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all resize-none ${
+                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all resize-none text-base md:text-lg ${
                     errors.wish
                       ? 'border-red-500/50 focus:border-red-500'
                       : 'border-black focus:border-luxury-blue'

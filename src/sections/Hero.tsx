@@ -85,7 +85,7 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-luxury-black"
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-luxury-black hero-section"
     >
       <RetroGrid />
 
@@ -102,7 +102,7 @@ const Hero = () => {
         {/* Main Title */}
         <h1
           ref={titleRef}
-          className="font-serif-display text-7xl md:text-9xl lg:text-[10rem] font-semibold text-white mb-8 tracking-tight opacity-0 text-gradient-premium"
+          className="font-serif-display text-5xl md:text-7xl lg:text-9xl xl:text-[10rem] font-semibold text-white mb-6 md:mb-8 tracking-tight opacity-0 text-gradient-premium"
         >
           {name}
         </h1>
@@ -110,7 +110,7 @@ const Hero = () => {
         {/* Subtitle */}
         <p
           ref={subtitleRef}
-          className="font-serif-body text-xl md:text-2xl text-white/80 mb-16 opacity-0 max-w-2xl mx-auto leading-relaxed"
+          className="font-serif-body text-base md:text-xl lg:text-2xl text-white/80 mb-12 md:mb-16 opacity-0 max-w-xl md:max-w-2xl mx-auto leading-relaxed"
         >
           Happy Birthday to an extraordinary soul who illuminates every moment with grace and brilliance
         </p>

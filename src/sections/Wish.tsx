@@ -124,8 +124,8 @@ const Wish = () => {
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-12 opacity-0">
-          <div className="inline-flex items-center gap-4 mb-8">
+        <div ref={headerRef} className="text-center mb-8 md:mb-12 opacity-0">
+          <div className="inline-flex items-center gap-4 mb-6 md:mb-8">
             <div className="w-12 h-px bg-luxury-blue" />
             <Gift className="w-5 h-5 text-luxury-blue" />
             <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">A Special Message</span>
@@ -133,7 +133,7 @@ const Wish = () => {
             <div className="w-12 h-px bg-luxury-blue" />
           </div>
 
-          <h2 className="font-serif-display text-4xl md:text-6xl font-semibold text-black mb-6">
+          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-6xl font-semibold text-black mb-4 md:mb-6">
             A Wish For <span className="text-gradient-blue">You</span>
           </h2>
         </div>

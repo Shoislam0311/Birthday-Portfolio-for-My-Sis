@@ -32,13 +32,13 @@ const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div className="relative w-64 md:w-80 flex-shrink-0 cursor-pointer group">
-      <div className="relative overflow-hidden rounded-2xl border border-luxury-blue/20 bg-black transition-all duration-300 group-hover:shadow-blue-glow group-hover:-translate-y-3 group-hover:scale-102">
+    <div className="relative w-48 md:w-64 lg:w-80 flex-shrink-0 cursor-pointer group">
+      <div className="relative overflow-hidden rounded-xl md:rounded-2xl border border-luxury-blue/20 bg-black transition-all duration-300 group-hover:shadow-blue-glow group-hover:-translate-y-2 group-hover:scale-102">
         {/* Image Container */}
         <div className="relative aspect-[3/4] overflow-hidden">
           {!imageLoaded && (
             <div className="absolute inset-0 bg-black animate-pulse flex items-center justify-center">
-              <Camera className="w-8 h-8 text-luxury-blue/30" />
+              <Camera className="w-6 h-6 md:w-8 md:h-8 text-luxury-blue/30" />
             </div>
           )}
           <img
@@ -55,12 +55,12 @@ const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
           {/* Caption */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-            <p className="text-white text-lg font-semibold tracking-tight font-serif-display">
+          <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 translate-y-4 md:translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <p className="text-white text-sm md:text-lg font-semibold tracking-tight font-serif-display">
               {photo.caption}
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <div className="h-px w-8 bg-luxury-blue" />
+              <div className="h-px w-6 md:w-8 bg-luxury-blue" />
               <span className="text-luxury-blue text-xs font-bold uppercase tracking-widest">Memory</span>
             </div>
           </div>
@@ -107,7 +107,7 @@ const Gallery = () => {
       {/* Content */}
       <div className="relative z-10 w-full">
         {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-24 px-4 opacity-0">
+        <div ref={headerRef} className="text-center mb-16 md:mb-24 px-4 opacity-0">
           <div className="inline-flex items-center gap-4 mb-8">
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-luxury-blue to-transparent" />
             <Camera className="w-6 h-6 text-luxury-blue" />
@@ -116,11 +116,11 @@ const Gallery = () => {
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-luxury-blue to-transparent" />
           </div>
 
-          <h2 className="font-serif-display text-5xl md:text-7xl font-semibold text-white mb-8 tracking-tight">
+          <h2 className="font-serif-display text-4xl md:text-5xl lg:text-7xl font-semibold text-white mb-6 md:mb-8 tracking-tight">
             Our Precious <span className="text-gradient-blue">Moments</span>
           </h2>
 
-          <p className="font-serif-body text-white/80 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">
+          <p className="font-serif-body text-white/80 max-w-xl md:max-w-2xl mx-auto text-base md:text-lg lg:text-xl leading-relaxed">
             Every picture tells a story of laughter, growth, and the beautiful bond we share.
             Scroll to see the highlights of our journey together.
           </p>
