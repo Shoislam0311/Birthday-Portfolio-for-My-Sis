@@ -197,6 +197,7 @@ const SendWish = () => {
 
   return (
     <section
+      id="send-wish"
       ref={sectionRef}
       className="relative w-full py-24 bg-luxury-white flex items-center"
     >
@@ -232,11 +233,15 @@ const SendWish = () => {
 
             {/* Name Field */}
             <div className="mb-6">
-              <label className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display">
+              <label
+                htmlFor="name"
+                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+              >
                 Your Name
               </label>
               <div className="relative">
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   value={formData.name}
@@ -257,11 +262,15 @@ const SendWish = () => {
 
             {/* Email Field */}
             <div className="mb-6">
-              <label className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display">
+              <label
+                htmlFor="email"
+                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+              >
                 Your Email
               </label>
               <div className="relative">
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
@@ -282,11 +291,15 @@ const SendWish = () => {
 
             {/* Wish Field */}
             <div className="mb-8">
-              <label className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display">
+              <label
+                htmlFor="wish-message"
+                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+              >
                 Your Birthday Wish
               </label>
               <div className="relative">
                 <textarea
+                  id="wish-message"
                   name="wish"
                   value={formData.wish}
                   onChange={handleChange}
