@@ -14,6 +14,7 @@ import SendWish from './sections/SendWish';
 import LoadingScreen from './sections/LoadingScreen';
 import MusicPlayer from './components/MusicPlayer';
 import CustomCursor from './components/CustomCursor';
+import MobileNavigation from './components/MobileNavigation';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,7 +53,7 @@ function App() {
         <SendWish />
       </main>
 
-      {/* Fixed Navigation */}
+      {/* Desktop Navigation */}
       <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6">
         {['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
           <button
@@ -71,6 +72,10 @@ function App() {
           </button>
         ))}
       </nav>
+
+      {/* Mobile Navigation */}
+      <MobileNavigation />
+
       <Analytics />
       <SpeedInsights />
       <Toaster position="bottom-center" theme="dark" />

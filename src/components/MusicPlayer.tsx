@@ -120,18 +120,18 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
         <div className="flex items-center gap-2">
           <button
             onClick={togglePlay}
-            className="w-9 h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
+            className="w-10 h-10 md:w-9 md:h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
-            {isPlaying ? <Pause className="w-3.5 h-3.5 text-luxury-blue" /> : <Play className="w-3.5 h-3.5 text-luxury-blue ml-0.5" />}
+            {isPlaying ? <Pause className="w-4 h-4 md:w-3.5 md:h-3.5 text-luxury-blue" /> : <Play className="w-4 h-4 md:w-3.5 md:h-3.5 text-luxury-blue ml-0.5" />}
           </button>
 
           <button
             onClick={nextTrack}
-            className="w-9 h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
+            className="w-10 h-10 md:w-9 md:h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
             aria-label="Next track"
           >
-            <svg className="w-3.5 h-3.5 text-luxury-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-4 h-4 md:w-3.5 md:h-3.5 text-luxury-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 4l10 8-10 8V4z" />
               <path d="M19 5v14" />
             </svg>
@@ -141,10 +141,10 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
 
           <button
             onClick={toggleMute}
-            className="w-9 h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
+            className="w-10 h-10 md:w-9 md:h-9 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/10 flex items-center justify-center transition-all"
             aria-label={isMuted ? 'Unmute' : 'Mute'}
           >
-            {isMuted ? <VolumeX className="w-3.5 h-3.5 text-luxury-blue" /> : <Volume2 className="w-3.5 h-3.5 text-luxury-blue" />}
+            {isMuted ? <VolumeX className="w-4 h-4 md:w-3.5 md:h-3.5 text-luxury-blue" /> : <Volume2 className="w-4 h-4 md:w-3.5 md:h-3.5 text-luxury-blue" />}
           </button>
         </div>
       </div>

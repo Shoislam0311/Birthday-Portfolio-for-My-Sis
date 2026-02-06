@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    // Check if touch device
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouch) return;
+    // Don't initialize on mobile devices
+    if (isMobile) return;
 
     const cursor = cursorRef.current;
     const cursorDot = cursorDotRef.current;
@@ -53,10 +54,10 @@ const CustomCursor = () => {
       document.removeEventListener('mouseenter', onMouseEnter);
       document.removeEventListener('mouseleave', onMouseLeave);
     };
-  }, []);
+  }, [isMobile]);
 
-  // Don't render on touch devices
-  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+  // Don't render on mobile devices
+  if (isMobile) {
     return null;
   }
 

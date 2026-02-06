@@ -51,15 +51,15 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
       <div ref={textRef} className="text-center">
         <BlurIn
           word="Celebrating Bubu"
-          className="font-serif-display text-5xl md:text-7xl font-semibold text-white mb-6 text-gradient-premium"
+          className="font-serif-display text-4xl md:text-5xl lg:text-7xl font-semibold text-white mb-4 md:mb-6 text-gradient-premium"
         />
-        <p className="text-luxury-blue/60 font-light tracking-[0.4em] uppercase text-xs">
+        <p className="text-luxury-blue/60 font-light tracking-[0.4em] uppercase text-xs md:text-sm">
           Please wait a moment
         </p>
       </div>
 
       {/* Simple Progress Bar */}
-      <div className="mt-16 w-80 h-1 bg-luxury-blue/10 rounded-full overflow-hidden">
+      <div className="mt-12 md:mt-16 w-64 md:w-80 h-1 bg-luxury-blue/10 rounded-full overflow-hidden">
         <div
           ref={progressRef}
           className="h-full rounded-full bg-gradient-to-r from-luxury-blue-dark via-luxury-blue to-luxury-blue-dark glow-blue"
