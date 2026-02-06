@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Analytics } from '@vercel/analytics/react';
@@ -20,27 +20,6 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [musicEnabled, setMusicEnabled] = useState(false);
-  const [activeSection, setActiveSection] = useState(0);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section, index) => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top center',
-        end: 'bottom center',
-        onToggle: (self) => {
-          if (self.isActive) setActiveSection(index);
-        },
-      });
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
-  }, [isLoading]);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
@@ -75,7 +54,7 @@ function App() {
 
       {/* Fixed Navigation */}
       <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6">
-        {['Home', 'Gallery', 'Gift', 'Celebrate', 'Send Wish'].map((section, index) => (
+        {['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
           <button
             key={section}
             onClick={() => {
@@ -85,16 +64,10 @@ function App() {
             className="group relative flex items-center justify-end"
             aria-label={`Go to ${section}`}
           >
-            <span className={`absolute right-10 text-xs transition-opacity whitespace-nowrap font-medium tracking-wide ${
-              activeSection === index ? 'text-luxury-blue opacity-100' : 'text-luxury-blue/60 opacity-0 group-hover:opacity-100'
-            }`}>
+            <span className="absolute right-10 text-xs text-luxury-blue/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium tracking-wide">
               {section}
             </span>
-            <div className={`rounded-full transition-all duration-300 ${
-              activeSection === index
-                ? 'w-4 h-2 bg-luxury-blue glow-blue'
-                : 'w-2 h-2 bg-luxury-grey group-hover:bg-luxury-blue group-hover:w-4'
-            }`} />
+            <div className="w-2 h-2 rounded-full bg-luxury-grey group-hover:bg-luxury-blue group-hover:w-4 transition-all duration-200" />
           </button>
         ))}
       </nav>

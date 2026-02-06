@@ -254,7 +254,6 @@ const Cake = () => {
 
   return (
     <section
-      id="celebrate"
       ref={sectionRef}
       className="relative w-full py-24 bg-luxury-black flex items-center justify-center"
     >
