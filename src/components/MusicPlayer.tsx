@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Volume2, VolumeX, Music, Play, Pause, SkipForward } from 'lucide-react';
 
 interface MusicPlayerProps {
@@ -21,20 +21,24 @@ const tracks = [
 ];
 
 const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
-  // Use a single persistent audio instance
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
 
-  // Initialize Audio once
+  // 1. Initialize Audio Instance (Persistent)
   useEffect(() => {
     audioRef.current = new Audio(tracks[currentTrack].url);
     audioRef.current.volume = 0.4;
+    audioRef.current.preload = "auto";
 
     const audio = audioRef.current;
 
-    const handleEnded = () => nextTrack();
+    const handleEnded = () => {
+      // Loop Logic: Go to next track, or back to 0 if at the end
+      setCurrentTrack((prev) => (prev + 1) % tracks.length);
+    };
+
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
 
@@ -42,53 +46,50 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
     audio.addEventListener('play', handlePlay);
     audio.addEventListener('pause', handlePause);
 
+    // Global listener to bypass Autoplay Policy
+    const startOnInteraction = () => {
+      if (enabled && !isPlaying) {
+        attemptPlay();
+        window.removeEventListener('click', startOnInteraction);
+      }
+    };
+    window.addEventListener('click', startOnInteraction);
+
     return () => {
       audio.pause();
       audio.removeEventListener('ended', handleEnded);
       audio.removeEventListener('play', handlePlay);
       audio.removeEventListener('pause', handlePause);
+      window.removeEventListener('click', startOnInteraction);
     };
   }, []);
 
-  // Sync Track Changes
+  // 2. Handle Track Changes & Sequential Auto-play
   useEffect(() => {
     if (!audioRef.current) return;
     
-    const wasPlaying = isPlaying;
     audioRef.current.src = tracks[currentTrack].url;
     audioRef.current.load();
     
-    if (wasPlaying || (enabled && currentTrack === 0)) {
+    // Only auto-start if enabled or if we were already playing
+    if (enabled || isPlaying) {
       attemptPlay();
     }
   }, [currentTrack]);
 
-  // Handle Global Enable/Disable
-  useEffect(() => {
-    if (enabled && currentTrack === 0) {
-      attemptPlay();
-    } else if (!enabled && audioRef.current) {
-      audioRef.current.pause();
-    }
-  }, [enabled]);
-
+  // 3. Robust Play Function
   const attemptPlay = async () => {
     if (!audioRef.current) return;
     try {
       await audioRef.current.play();
     } catch (err) {
-      console.warn("Autoplay blocked. Waiting for user interaction.");
-      setIsPlaying(false);
+      console.log("Autoplay blocked. Waiting for user interaction.");
     }
   };
 
   const togglePlay = () => {
     if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      attemptPlay();
-    }
+    isPlaying ? audioRef.current.pause() : attemptPlay();
   };
 
   const nextTrack = () => {
@@ -97,51 +98,41 @@ const MusicPlayer = ({ enabled }: MusicPlayerProps) => {
 
   const toggleMute = () => {
     if (!audioRef.current) return;
-    const newState = !isMuted;
-    audioRef.current.muted = newState;
-    setIsMuted(newState);
+    audioRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
   };
 
   if (!enabled) return null;
 
   return (
-    <div className="fixed bottom-8 right-8 z-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="card-premium p-4 flex items-center gap-4 border border-luxury-blue bg-black/90 backdrop-blur-md rounded-2xl shadow-2xl">
-        {/* Visualizer Effect */}
-        <div className={`w-10 h-10 rounded-full bg-luxury-blue flex items-center justify-center shadow-premium glow-blue ${isPlaying ? 'animate-pulse' : ''}`}>
-          <Music className={`w-5 h-5 text-white ${isPlaying ? 'animate-bounce' : ''}`} />
+    <div className="fixed bottom-6 right-6 z-50 animate-in fade-in slide-in-from-bottom-8 duration-700">
+      <div className="p-3 pr-5 flex items-center gap-4 border border-luxury-blue/40 bg-black/80 backdrop-blur-xl rounded-full shadow-[0_0_30px_rgba(0,198,255,0.2)]">
+        
+        {/* Animated Music Icon */}
+        <div className={`w-12 h-12 rounded-full bg-luxury-blue flex items-center justify-center shadow-premium ${isPlaying ? 'animate-spin-slow' : ''}`}>
+           <Music className={`w-5 h-5 text-white ${isPlaying ? 'animate-bounce' : ''}`} />
         </div>
 
-        {/* Track Info */}
-        <div className="hidden sm:block min-w-[140px]">
-          <p className="text-[10px] text-luxury-blue/60 uppercase tracking-[0.2em] font-bold">Now Playing</p>
-          <p className="text-sm text-white font-medium truncate max-w-[150px]">{tracks[currentTrack].name}</p>
-        </div>
-
-        {/* Logic Controls */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={togglePlay}
-            className="w-10 h-10 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/20 flex items-center justify-center transition-all"
-          >
-            {isPlaying ? <Pause className="w-4 h-4 text-luxury-blue fill-luxury-blue" /> : <Play className="w-4 h-4 text-luxury-blue fill-luxury-blue ml-0.5" />}
-          </button>
-
-          <button
-            onClick={nextTrack}
-            className="w-10 h-10 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/20 flex items-center justify-center transition-all"
-          >
-            <SkipForward className="w-4 h-4 text-luxury-blue fill-luxury-blue" />
-          </button>
-
-          <div className="w-px h-6 bg-white/10 mx-1" />
-
-          <button
-            onClick={toggleMute}
-            className="w-10 h-10 rounded-full border border-luxury-blue/30 hover:border-luxury-blue hover:bg-luxury-blue/20 flex items-center justify-center transition-all"
-          >
-            {isMuted ? <VolumeX className="w-4 h-4 text-red-400" /> : <Volume2 className="w-4 h-4 text-luxury-blue" />}
-          </button>
+        {/* Info & Controls */}
+        <div className="flex flex-col">
+          <p className="text-[10px] text-luxury-blue font-bold uppercase tracking-widest opacity-70">Playing Loop</p>
+          <div className="flex items-center gap-3">
+             <span className="text-sm text-white font-medium truncate max-w-[120px]">
+              {tracks[currentTrack].name}
+            </span>
+            
+            <div className="flex items-center gap-2 ml-2">
+              <button onClick={togglePlay} className="hover:scale-110 transition-transform">
+                {isPlaying ? <Pause size={18} className="text-luxury-blue fill-luxury-blue" /> : <Play size={18} className="text-luxury-blue fill-luxury-blue" />}
+              </button>
+              <button onClick={nextTrack} className="hover:scale-110 transition-transform">
+                <SkipForward size={18} className="text-luxury-blue fill-luxury-blue" />
+              </button>
+              <button onClick={toggleMute} className="hover:scale-110 transition-transform">
+                {isMuted ? <VolumeX size={18} className="text-red-400" /> : <Volume2 size={18} className="text-luxury-blue" />}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
