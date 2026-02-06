@@ -9,7 +9,9 @@ interface MusicPlayerProps {
 const tracks = [
   {
     name: 'Birthday Vibes',
-    url: 'https://cdn.pixabay.com/download/audio/2026/02/06/audio_998d779763.mp3?filename=u_0b2jhroke8-a-wish-you-happy-happy-birthday-480228.mp3',
+    url: 'https://music.youtube.com/watch?v=mb6fgpTtj1M', 
+    start: 20,
+    end: 61,
   },
   {
     name: 'Chill Moments',
