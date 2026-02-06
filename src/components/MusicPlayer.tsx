@@ -11,9 +11,7 @@ const tracks = [
     name: 'Happy Birthday',
     // Note: Using the direct YouTube link. For production, you'd usually use a direct .mp3 link.
     // However, I've structured the logic to handle the 20s start and 61s end.
-    url: 'https://music.youtube.com/watch?v=mb6fgpTtj1M', 
-    start: 20,
-    end: 61,
+    url: 'https://drive.usercontent.google.com/download?id=1n8u8dgkgujYnRK33N9YwefuHnV8B2dwk&export=download&authuser=0&confirm=t&uuid=32dadaad-fabf-42e9-96ec-40b2990043c7&at=APcXIO1hxQ3qS0iyIiwLgV3zqW6Q:1770379342002?filename=Happy-Birthday.mp3,
   },
   {
     name: 'Chill Moments',
