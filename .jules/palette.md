@@ -1,3 +1,0 @@
-## 2025-05-15 - [Navigation Synchronization in GSAP SPAs]
-**Learning:** In a single-page application (SPA) using GSAP for scroll-based animations, synchronizing a custom side-navigation with the current scroll position requires consistent naming between section IDs and navigation labels. Misalignment breaks both automated tracking (ScrollTrigger) and manual click-to-scroll functionality.
-**Action:** Always verify that section IDs match the navigation component's expected targets and labels. Use GSAP's `onToggle` or `onEnter` hooks to update UI state (like active dots) for a seamless user experience.
