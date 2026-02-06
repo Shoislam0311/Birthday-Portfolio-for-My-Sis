@@ -139,7 +139,7 @@ const SendWish = () => {
     const sanitizedWish = sanitizeInput(formData.wish, true);
 
     // Prepare email content
-    const subject = `Happy Birthday Wish for Bubu from ${sanitizedName}`;
+    const subject = `A Birthday Wish For You from ${sanitizedName}`;
 
     try {
       const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
