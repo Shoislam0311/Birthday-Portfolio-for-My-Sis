@@ -84,6 +84,7 @@ const Hero = () => {
 
   return (
     <section
+      id="home"
       ref={sectionRef}
       className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-luxury-black"
     >
@@ -122,7 +123,7 @@ const Hero = () => {
             background="#0066ff"
             shimmerColor="#003d99"
             onClick={() => {
-              document.querySelector('#wish')?.scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#gift')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
             <span className="relative z-10 text-white font-semibold tracking-wide">Explore Wishes</span>
