@@ -14,11 +14,22 @@ const MAX_EMAIL_LENGTH = 100;
 const MAX_WISH_LENGTH = 500;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Security: Sanitize user input to prevent header injection and other attacks
+// Security: Sanitize user input to prevent XSS and other injection attacks
 const sanitizeInput = (input: string, allowNewlines = false): string => {
-  let sanitized = input.replace(/[<>]/g, ''); // Remove potential HTML tags
+  if (!input) return '';
+  
+  // Remove HTML tags and potentially dangerous characters
+  let sanitized = input
+    .replace(/<[^>]*>?/gm, '') // Remove all HTML tags
+    .replace(/[<>]/g, '');     // Extra safety for remaining brackets
+    
   if (!allowNewlines) {
     sanitized = sanitized.replace(/[\r\n]/g, ' '); // Normalize line breaks
+  }
+  
+  // Trim and limit consecutive spaces if not allowing newlines
+  if (!allowNewlines) {
+    return sanitized.trim().replace(/\s+/g, ' ');
   }
   return sanitized.trim();
 };
