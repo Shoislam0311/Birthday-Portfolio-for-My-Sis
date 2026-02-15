@@ -243,17 +243,23 @@ const SendWish = () => {
 
             {/* Name Field */}
             <div className="mb-6">
-              <label className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display">
+              <label
+                htmlFor="name-input"
+                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+              >
                 Your Name
               </label>
               <div className="relative">
                 <input
+                  id="name-input"
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
                   maxLength={MAX_NAME_LENGTH}
+                  aria-invalid={errors.name ? "true" : "false"}
+                  aria-describedby={errors.name ? "name-error" : undefined}
                   className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all text-base md:text-lg ${
                     errors.name
                       ? 'border-red-500/50 focus:border-red-500'
@@ -262,23 +268,29 @@ const SendWish = () => {
                 />
               </div>
               {errors.name && (
-                <p className="mt-2 text-sm text-luxury-blue">{errors.name}</p>
+                <p id="name-error" className="mt-2 text-sm text-red-500">{errors.name}</p>
               )}
             </div>
 
             {/* Email Field */}
             <div className="mb-6">
-              <label className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display">
+              <label
+                htmlFor="email-input"
+                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+              >
                 Your Email
               </label>
               <div className="relative">
                 <input
+                  id="email-input"
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
                   maxLength={MAX_EMAIL_LENGTH}
+                  aria-invalid={errors.email ? "true" : "false"}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                   className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all text-base md:text-lg ${
                     errors.email
                       ? 'border-red-500/50 focus:border-red-500'
@@ -287,23 +299,29 @@ const SendWish = () => {
                 />
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-luxury-blue">{errors.email}</p>
+                <p id="email-error" className="mt-2 text-sm text-red-500">{errors.email}</p>
               )}
             </div>
 
             {/* Wish Field */}
             <div className="mb-8">
-              <label className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display">
+              <label
+                htmlFor="wish-input"
+                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+              >
                 Your Birthday Wish
               </label>
               <div className="relative">
                 <textarea
+                  id="wish-input"
                   name="wish"
                   value={formData.wish}
                   onChange={handleChange}
                   rows={4}
                   placeholder="Write your heartfelt birthday message..."
                   maxLength={MAX_WISH_LENGTH}
+                  aria-invalid={errors.wish ? "true" : "false"}
+                  aria-describedby={errors.wish ? "wish-error" : undefined}
                   className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all resize-none text-base md:text-lg ${
                     errors.wish
                       ? 'border-red-500/50 focus:border-red-500'
@@ -312,7 +330,7 @@ const SendWish = () => {
                 />
               </div>
               {errors.wish && (
-                <p className="mt-2 text-sm text-luxury-blue">{errors.wish}</p>
+                <p id="wish-error" className="mt-2 text-sm text-red-500">{errors.wish}</p>
               )}
               <p className="mt-2 text-xs text-black/40 text-right">
                 {formData.wish.length}/{MAX_WISH_LENGTH} characters
@@ -344,7 +362,11 @@ const SendWish = () => {
             </p>
           </form>
         ) : (
-          <div className="card-premium bg-white/50 backdrop-blur-sm rounded-xl p-12 text-center border-2 border-black">
+          <div
+            className="card-premium bg-white/50 backdrop-blur-sm rounded-xl p-12 text-center border-2 border-black"
+            role="status"
+            aria-live="polite"
+          >
             <div className="w-16 h-16 rounded-full bg-luxury-blue flex items-center justify-center mx-auto mb-6 glow-blue">
               <CheckCircle className="w-8 h-8 text-white" />
             </div>
