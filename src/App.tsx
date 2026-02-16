@@ -8,7 +8,6 @@ import { Toaster } from 'sonner';
 // Sections
 import Hero from './sections/Hero';
 import Gallery from './sections/Gallery';
-import Music from './sections/Music';
 import Wish from './sections/Wish';
 import Cake from './sections/Cake';
 import SendWish from './sections/SendWish';
@@ -57,7 +56,6 @@ function App() {
       <main className="relative z-10">
         <Hero />
         <Gallery />
-        <Music />
         <Wish />
         <Cake />
         <SendWish />
@@ -68,7 +66,6 @@ function App() {
         {[
           { name: 'Hero', id: 'hero' },
           { name: 'Gallery', id: 'gallery' },
-          { name: 'Music', id: 'music' },
           { name: 'Wish', id: 'wish' },
           { name: 'Cake', id: 'cake' },
           { name: 'Send Wish', id: 'send-wish' }

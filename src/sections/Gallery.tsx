@@ -95,8 +95,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <section
-      id="gallery"
+    <section id="gallery"
       ref={sectionRef}
       className="relative w-full py-32 bg-luxury-black overflow-hidden"
     >

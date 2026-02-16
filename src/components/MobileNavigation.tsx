@@ -5,7 +5,6 @@ import { useIsMobile } from '../hooks/useIsMobile';
 const sections = [
   { name: 'Hero', id: 'hero' },
   { name: 'Gallery', id: 'gallery' },
-  { name: 'Music', id: 'music' },
   { name: 'Wish', id: 'wish' },
   { name: 'Cake', id: 'cake' },
   { name: 'Send Wish', id: 'send-wish' }
