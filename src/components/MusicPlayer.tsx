@@ -9,7 +9,7 @@ interface MusicPlayerProps {
 const tracks = [
  {
     name: 'Sob Kanar Hat Bazar',
-    url: 'https://vocaroo.com/embed/17keJbAY9slH?autoplay=0',
+    url: 'https://ucf9abf611efb39541324e87c647.dl.dropboxusercontent.com/cd/0/get/C7CHgLOgwboNr8Hyf5kAkUBGaitzpkJxRZw9vPOeoqf4fzJGrnKANW0rNkAWweR2-YGxA9NfIFF-51zzC32AxML_YoXBVVPgumv6-fug5oQ06M-sT3aUy9UpGt75Ed87De3pfGjJ3IXZZDxnF3uCHtk0LYk6f5Kl4SHCXvY4R3vplw/file?_download_id=5786113967873765415495954917788232142372576818781895615444714304&_log_download_success=1#',
   },
   {
     name: 'Birthday Vibes',
