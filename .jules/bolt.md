@@ -1,0 +1,3 @@
+## 2025-05-22 - [Gallery Rendering Optimization]
+**Learning:** High-repetition components like Marquees often default to excessive repeat factors (e.g., 4) which can lead to significant DOM bloat when the child items are large (like images). For a standard row of 9 images, 2 repeats are sufficient to cover even ultra-wide screens, reducing DOM nodes by 50%. Additionally, memoizing repeated components like `PhotoCard` prevents redundant re-renders when the parent section is refreshed during initial application load.
+**Action:** Always evaluate the actual needed repeat factor for Marquees based on item width and screen coverage, and prioritize memoization for components rendered within high-frequency loops.

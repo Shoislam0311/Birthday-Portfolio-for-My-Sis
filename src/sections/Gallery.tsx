@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Camera, Heart } from 'lucide-react';
@@ -28,7 +28,7 @@ const photos = [
   { id: 18, src: 'https://i.imgur.com/EvpJbQ8.png', caption: 'Birthday Girl' },
 ];
 
-const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
+const PhotoCard = memo(({ photo }: { photo: typeof photos[0] }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
@@ -68,7 +68,10 @@ const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
       </div>
     </div>
   );
-};
+});
+
+const firstRow = photos.slice(0, photos.length / 2);
+const secondRow = photos.slice(photos.length / 2);
 
 const Gallery = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -90,9 +93,6 @@ const Gallery = () => {
       }
     );
   }, []);
-
-  const firstRow = photos.slice(0, photos.length / 2);
-  const secondRow = photos.slice(photos.length / 2);
 
   return (
     <section
@@ -128,12 +128,12 @@ const Gallery = () => {
 
         {/* Photo Marquees */}
         <div className="relative flex flex-col gap-12 md:gap-16">
-          <Marquee pauseOnHover className="[--duration:60s]">
+          <Marquee pauseOnHover repeat={2} className="[--duration:60s]">
             {firstRow.map((photo) => (
               <PhotoCard key={photo.id} photo={photo} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover className="[--duration:60s]">
+          <Marquee reverse pauseOnHover repeat={2} className="[--duration:60s]">
             {secondRow.map((photo) => (
               <PhotoCard key={photo.id} photo={photo} />
             ))}
