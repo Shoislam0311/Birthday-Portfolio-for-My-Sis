@@ -166,12 +166,12 @@ const SendWish = () => {
       setIsSubmitting(false);
       setIsSubmitted(true);
 
-      // Premium confetti celebration - blue and white only
+      // Premium confetti celebration - violet and white only
       confetti({
         particleCount: 100,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#0066ff', '#003d99', '#ffffff'],
+        colors: ['#6C3CF0', '#4C1D95', '#ffffff'],
         disableForReducedMotion: true,
         decay: 0.95,
       });
@@ -209,25 +209,25 @@ const SendWish = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-24 bg-luxury-white flex items-center"
+      className="relative w-full py-24 bg-electric-charcoal flex items-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-8 md:mb-12 opacity-0">
           <div className="inline-flex items-center gap-4 mb-6 md:mb-8">
-            <div className="w-12 h-px bg-luxury-blue" />
-            <Heart className="w-5 h-5 text-luxury-blue" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">Send Your Love</span>
-            <Heart className="w-5 h-5 text-luxury-blue" />
-            <div className="w-12 h-px bg-luxury-blue" />
+            <div className="w-12 h-px bg-electric-violet" />
+            <Heart className="w-5 h-5 text-electric-violet" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-electric-violet">Send Your Love</span>
+            <Heart className="w-5 h-5 text-electric-violet" />
+            <div className="w-12 h-px bg-electric-violet" />
           </div>
 
-          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-6xl font-semibold text-black mb-4 md:mb-6">
-            Send a <span className="text-gradient-blue">Wish</span>
+          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-6xl font-semibold text-white mb-4 md:mb-6">
+            Send a <span className="text-gradient-violet">Wish</span>
           </h2>
 
-          <p className="font-serif-body text-black/70 max-w-md mx-auto text-base md:text-lg">
+          <p className="font-serif-body text-white/70 max-w-md mx-auto text-base md:text-lg">
             Write your heartfelt birthday message and send it directly to Zuyairia's email.
           </p>
         </div>
@@ -237,7 +237,7 @@ const SendWish = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="relative bg-white/50 backdrop-blur-sm rounded-xl p-8 md:p-12 opacity-0 overflow-hidden border-2 border-black"
+            className="relative bg-electric-deep-plum/20 backdrop-blur-sm rounded-xl p-8 md:p-12 opacity-0 overflow-hidden border-2 border-electric-violet/30"
           >
             <BorderBeam size={300} duration={12} delay={9} />
 
@@ -245,7 +245,7 @@ const SendWish = () => {
             <div className="mb-6">
               <label
                 htmlFor="name-input"
-                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+                className="block text-sm font-bold text-electric-soft-grey mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
               >
                 Your Name
               </label>
@@ -260,10 +260,10 @@ const SendWish = () => {
                   maxLength={MAX_NAME_LENGTH}
                   aria-invalid={errors.name ? "true" : "false"}
                   aria-describedby={errors.name ? "name-error" : undefined}
-                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all text-base md:text-lg ${
+                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-electric-soft-grey placeholder-electric-soft-grey/40 focus:outline-none focus:border-electric-violet transition-all text-base md:text-lg ${
                     errors.name
                       ? 'border-red-500/50 focus:border-red-500'
-                      : 'border-black focus:border-luxury-blue'
+                      : 'border-electric-violet/30 focus:border-electric-violet'
                   }`}
                 />
               </div>
@@ -276,7 +276,7 @@ const SendWish = () => {
             <div className="mb-6">
               <label
                 htmlFor="email-input"
-                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+                className="block text-sm font-bold text-electric-soft-grey mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
               >
                 Your Email
               </label>
@@ -291,10 +291,10 @@ const SendWish = () => {
                   maxLength={MAX_EMAIL_LENGTH}
                   aria-invalid={errors.email ? "true" : "false"}
                   aria-describedby={errors.email ? "email-error" : undefined}
-                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all text-base md:text-lg ${
+                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-electric-soft-grey placeholder-electric-soft-grey/40 focus:outline-none focus:border-electric-violet transition-all text-base md:text-lg ${
                     errors.email
                       ? 'border-red-500/50 focus:border-red-500'
-                      : 'border-black focus:border-luxury-blue'
+                      : 'border-electric-violet/30 focus:border-electric-violet'
                   }`}
                 />
               </div>
@@ -307,7 +307,7 @@ const SendWish = () => {
             <div className="mb-8">
               <label
                 htmlFor="wish-input"
-                className="block text-sm font-bold text-black mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
+                className="block text-sm font-bold text-electric-soft-grey mb-2 tracking-wide uppercase font-serif-display cursor-pointer"
               >
                 Your Birthday Wish
               </label>
@@ -322,17 +322,17 @@ const SendWish = () => {
                   maxLength={MAX_WISH_LENGTH}
                   aria-invalid={errors.wish ? "true" : "false"}
                   aria-describedby={errors.wish ? "wish-error" : undefined}
-                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-black placeholder-black/40 focus:outline-none focus:border-luxury-blue transition-all resize-none text-base md:text-lg ${
+                  className={`w-full bg-transparent border-b-2 py-3 px-0 text-electric-soft-grey placeholder-electric-soft-grey/40 focus:outline-none focus:border-electric-violet transition-all resize-none text-base md:text-lg ${
                     errors.wish
                       ? 'border-red-500/50 focus:border-red-500'
-                      : 'border-black focus:border-luxury-blue'
+                      : 'border-electric-violet/30 focus:border-electric-violet'
                   }`}
                 />
               </div>
               {errors.wish && (
                 <p id="wish-error" className="mt-2 text-sm text-red-500">{errors.wish}</p>
               )}
-              <p className="mt-2 text-xs text-black/40 text-right">
+              <p className="mt-2 text-xs text-electric-soft-grey/40 text-right">
                 {formData.wish.length}/{MAX_WISH_LENGTH} characters
               </p>
             </div>
@@ -341,7 +341,7 @@ const SendWish = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 rounded-lg font-bold text-white transition-all hover:shadow-blue-glow-soft disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-luxury-blue hover:bg-luxury-blue-dark"
+              className="w-full py-4 rounded-lg font-bold text-white transition-all hover:glow-violet-soft disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-electric-violet hover:bg-electric-violet-dark"
             >
               {isSubmitting ? (
                 <>
@@ -357,23 +357,23 @@ const SendWish = () => {
             </button>
 
             {/* Note */}
-            <p className="text-center text-black/40 text-sm mt-4">
+            <p className="text-center text-electric-soft-grey/40 text-sm mt-4">
               Your email will be sent automatically
             </p>
           </form>
         ) : (
           <div
-            className="card-premium bg-white/50 backdrop-blur-sm rounded-xl p-12 text-center border-2 border-black"
+            className="card-violet bg-electric-deep-plum/20 backdrop-blur-sm rounded-xl p-12 text-center border-2 border-electric-violet/30"
             role="status"
             aria-live="polite"
           >
-            <div className="w-16 h-16 rounded-full bg-luxury-blue flex items-center justify-center mx-auto mb-6 glow-blue">
+            <div className="w-16 h-16 rounded-full bg-electric-violet flex items-center justify-center mx-auto mb-6 glow-violet">
               <CheckCircle className="w-8 h-8 text-white" />
             </div>
-            <h3 className="font-serif-display text-2xl font-semibold text-black mb-3">
+            <h3 className="font-serif-display text-2xl font-semibold text-electric-soft-grey mb-3">
               Wish Sent!
             </h3>
-            <p className="text-black/70 mb-8 font-serif-body">
+            <p className="text-electric-soft-grey/70 mb-8 font-serif-body">
               Your warm wish has been sent to Zuyairia! Thank you for sharing your love.
             </p>
             <button
@@ -381,7 +381,7 @@ const SendWish = () => {
                 setIsSubmitted(false);
                 setFormData({ name: '', email: '', wish: '' });
               }}
-              className="mt-6 text-luxury-blue hover:text-luxury-blue-dark text-sm font-bold uppercase tracking-wider transition-colors"
+              className="mt-6 text-electric-violet hover:text-electric-violet-light text-sm font-bold uppercase tracking-wider transition-colors"
             >
               Send another wish
             </button>
