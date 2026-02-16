@@ -10,7 +10,7 @@ const tracks = [
  {
     name: 'Sob Kanar Hat Bazar',
     url: 'https://media1.vocaroo.com/mp3/17keJbAY9slH',
-  }
+  },
   {
     name: 'Birthday Vibes',
     url: 'https://cdn.pixabay.com/download/audio/2026/02/06/audio_998d779763.mp3?filename=u_0b2jhroke8-a-wish-you-happy-happy-birthday-480228.mp3',
