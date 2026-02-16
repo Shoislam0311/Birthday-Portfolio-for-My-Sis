@@ -7,17 +7,13 @@ interface MusicPlayerProps {
 
 // Chill/Lo-fi playlist for birthday vibes
 const tracks = [
+ {
+    name: 'Sob Kanar Hat Bazar',
+    url: 'https://media1.vocaroo.com/mp3/17keJbAY9slH',
+  }
   {
     name: 'Birthday Vibes',
     url: 'https://cdn.pixabay.com/download/audio/2026/02/06/audio_998d779763.mp3?filename=u_0b2jhroke8-a-wish-you-happy-happy-birthday-480228.mp3',
-  },
-  {
-    name: 'Chill Moments',
-    url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-chill-medium-version-159456.mp3',
-  },
-  {
-    name: 'Dreamy Night',
-    url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=relaxing-mountains-rivers-streams-running-water-18178.mp3',
   },
 ];
 
