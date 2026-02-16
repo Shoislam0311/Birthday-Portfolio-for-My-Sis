@@ -44,7 +44,7 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => {
         >
           <div className="relative">
             <div
-              className="w-4 h-8 rounded-full bg-gradient-to-t from-electric-violet-dark to-electric-violet glow-violet"
+              className="w-4 h-8 rounded-full bg-gradient-to-t from-luxury-blue-dark to-luxury-blue glow-blue"
             />
             <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-2 h-4 rounded-full bg-white opacity-80" />
           </div>
@@ -55,7 +55,7 @@ const Candle = ({ lit, onClick }: { lit: boolean; onClick: () => void }) => {
         <div className="w-full h-full bg-gradient-to-t from-black to-gray-900">
           <div className="h-full w-full flex flex-col justify-evenly">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="w-full h-0.5 bg-electric-violet/40" />
+              <div key={i} className="w-full h-0.5 bg-luxury-blue/40" />
             ))}
           </div>
         </div>
@@ -98,7 +98,7 @@ const BirthdayCake = () => {
       if (newState.every(c => !c)) {
         setAllCandlesBlown(true);
 
-        // Violet and white confetti only - refined burst
+        // Blue and white confetti only - refined burst
         const duration = 2000;
         const end = Date.now() + duration;
 
@@ -108,7 +108,7 @@ const BirthdayCake = () => {
             angle: 60,
             spread: 55,
             origin: { x: 0 },
-            colors: ['#6C3CF0', '#4C1D95', '#ffffff'],
+            colors: ['#0066ff', '#003d99', '#ffffff'],
             decay: 0.95,
           });
           confetti({
@@ -116,7 +116,7 @@ const BirthdayCake = () => {
             angle: 120,
             spread: 55,
             origin: { x: 1 },
-            colors: ['#6C3CF0', '#4C1D95', '#ffffff'],
+            colors: ['#0066ff', '#003d99', '#ffffff'],
             decay: 0.95,
           });
 
@@ -140,7 +140,7 @@ const BirthdayCake = () => {
     <div ref={cakeRef} className="relative flex flex-col items-center opacity-0">
       {allCandlesBlown && (
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 whitespace-nowrap">
-          <span className="font-serif-display text-3xl md:text-4xl font-semibold text-gradient-violet">
+          <span className="font-serif-display text-3xl md:text-4xl font-semibold text-gradient-blue">
             Make a Wish!
           </span>
         </div>
@@ -161,13 +161,13 @@ const BirthdayCake = () => {
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
           }}
         >
-          {/* Minimalist Violet Frosting Line */}
+          {/* Minimalist Blue Frosting Line */}
           <div
-            className="absolute top-0 left-0 right-0 h-6 md:h-8 rounded-t-full bg-electric-violet-light border-b-2 border-electric-violet"
+            className="absolute top-0 left-0 right-0 h-6 md:h-8 rounded-t-full bg-luxury-blue-light border-b-2 border-luxury-blue"
           />
 
-          {/* Minimalist Violet Decoration */}
-          <div className="absolute top-8 md:top-12 left-1/2 -translate-x-1/2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-electric-violet glow-violet" />
+          {/* Minimalist Blue Decoration */}
+          <div className="absolute top-8 md:top-12 left-1/2 -translate-x-1/2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-luxury-blue glow-blue" />
         </div>
 
         {/* Minimalist Plate */}
@@ -183,14 +183,14 @@ const BirthdayCake = () => {
       <div className="mt-6 md:mt-8 text-center">
         {!allCandlesBlown ? (
           <p className="text-white/80 text-sm md:text-base flex items-center justify-center gap-2">
-            <span className="w-2 h-2 bg-electric-violet rounded-full glow-violet-soft"></span>
+            <span className="w-2 h-2 bg-luxury-blue rounded-full glow-blue"></span>
             Tap the candles to blow them out
           </p>
         ) : (
           <div className="mt-4">
             <RainbowButton
               onClick={resetCake}
-              className="flex items-center gap-2 mx-auto shadow-premium glow-violet-soft text-sm md:text-base py-2 px-4"
+              className="flex items-center gap-2 mx-auto shadow-premium glow-blue text-sm md:text-base py-2 px-4"
             >
               <RotateCcw className="w-4 h-4" />
               Light Candles Again
@@ -240,13 +240,13 @@ const Cake = () => {
       }
     );
 
-    // Initial refined confetti - violet and white only
+    // Initial refined confetti - blue and white only
     setTimeout(() => {
       confetti({
         particleCount: 50,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#6C3CF0', '#4C1D95', '#ffffff'],
+        colors: ['#0066ff', '#003d99', '#ffffff'],
         decay: 0.95,
       });
     }, 1000);
@@ -262,15 +262,15 @@ const Cake = () => {
         {/* Header */}
         <div ref={headerRef} className="mb-12 md:mb-16 opacity-0">
           <div className="inline-flex items-center gap-4 mb-6 md:mb-8">
-            <div className="w-12 h-px bg-electric-violet" />
-            <Sparkles className="w-5 h-5 text-electric-violet" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-electric-violet">The Finale</span>
-            <Sparkles className="w-5 h-5 text-electric-violet" />
-            <div className="w-12 h-px bg-electric-violet" />
+            <div className="w-12 h-px bg-luxury-blue" />
+            <Sparkles className="w-5 h-5 text-luxury-blue" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">The Finale</span>
+            <Sparkles className="w-5 h-5 text-luxury-blue" />
+            <div className="w-12 h-px bg-luxury-blue" />
           </div>
 
           <h2 className="font-serif-display text-3xl md:text-4xl lg:text-6xl font-semibold text-white mb-4 md:mb-6">
-            Make a <span className="text-gradient-violet">Wish</span>
+            Make a <span className="text-gradient-blue">Wish</span>
           </h2>
 
           <p className="font-serif-body text-white/80 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
@@ -283,12 +283,12 @@ const Cake = () => {
 
         {/* Message */}
         <div ref={messageRef} className="mt-20 opacity-0">
-          <div className="card-violet p-10 max-w-lg mx-auto">
-            <CakeIcon className="w-10 h-10 text-electric-violet mx-auto mb-4 glow-violet" />
+          <div className="card-premium p-10 max-w-lg mx-auto">
+            <CakeIcon className="w-10 h-10 text-luxury-blue mx-auto mb-4 glow-blue" />
             <p className="text-white/80 text-lg mb-3 font-serif-body">
               Wishing you a day filled with love, laughter, and lots of cake!
             </p>
-            <p className="text-gradient-violet font-medium text-2xl font-serif-display">
+            <p className="text-gradient-blue font-medium text-2xl font-serif-display">
               Happy Birthday, Bubu!
             </p>
           </div>
