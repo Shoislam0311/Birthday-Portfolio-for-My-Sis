@@ -17,7 +17,7 @@ const MobileNavigation = () => {
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
         if (rect.top <= 100 && rect.bottom >= 100) {
-          const sectionNames = ['Hero', 'Gallery', 'Timeline', 'Wish', 'Cake'];
+          const sectionNames = ['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'];
           currentSection = sectionNames[index] || 'Hero';
         }
       });
@@ -41,29 +41,29 @@ const MobileNavigation = () => {
 
   if (!isMobile) return null;
 
-  const sections = ['Hero', 'Gallery', 'Timeline', 'Wish', 'Cake'];
+  const sections = ['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'];
 
   return (
     <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden">
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-electric-violet/90 backdrop-blur-sm text-white px-6 py-3 rounded-full flex items-center gap-3 shadow-premium glow-violet hover:bg-electric-violet transition-all"
+          className="bg-luxury-blue/90 backdrop-blur-sm text-white px-6 py-3 rounded-full flex items-center gap-3 shadow-premium glow-blue hover:bg-luxury-blue transition-all"
           aria-label="Open navigation menu"
         >
           <Menu className="w-5 h-5" />
           <span className="font-medium text-sm tracking-wide">Navigate</span>
         </button>
       ) : (
-        <div className="w-64 bg-electric-charcoal/95 backdrop-blur-lg rounded-xl border border-electric-violet/20 shadow-premium overflow-hidden">
-          <div className="p-4 border-b border-electric-violet/10">
+        <div className="w-64 bg-luxury-black/95 backdrop-blur-lg rounded-xl border border-luxury-blue/20 shadow-premium overflow-hidden">
+          <div className="p-4 border-b border-luxury-blue/10">
             <button
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-between w-full text-white"
               aria-label="Close navigation menu"
             >
               <span className="font-serif-display text-lg">Navigation</span>
-              <X className="w-5 h-5 text-electric-violet/60" />
+              <X className="w-5 h-5 text-luxury-blue/60" />
             </button>
           </div>
 
@@ -76,20 +76,20 @@ const MobileNavigation = () => {
                   onClick={() => scrollToSection(index)}
                   className={`w-full flex items-center justify-between px-6 py-3 text-left transition-all ${
                     isActive
-                      ? 'bg-electric-violet/10 text-electric-violet font-medium'
-                      : 'text-white/70 hover:text-electric-violet hover:bg-electric-violet/5'
+                      ? 'bg-luxury-blue/10 text-luxury-blue font-medium'
+                      : 'text-white/70 hover:text-luxury-blue hover:bg-luxury-blue/5'
                   }`}
                 >
                   <span className="font-serif-body">{section}</span>
                   {isActive && (
-                    <ChevronUp className="w-4 h-4 text-electric-violet" />
+                    <ChevronUp className="w-4 h-4 text-luxury-blue" />
                   )}
                 </button>
               );
             })}
           </div>
 
-          <div className="p-4 border-t border-electric-violet/10">
+          <div className="p-4 border-t border-luxury-blue/10">
             <p className="text-xs text-white/50 text-center tracking-wide uppercase">
               Scroll or tap to navigate
             </p>

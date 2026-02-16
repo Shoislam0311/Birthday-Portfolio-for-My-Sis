@@ -33,12 +33,12 @@ const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
 
   return (
     <div className="relative w-48 md:w-64 lg:w-80 flex-shrink-0 cursor-pointer group">
-      <div className="relative overflow-hidden rounded-xl md:rounded-2xl border border-electric-violet/20 bg-black transition-all duration-300 group-hover:glow-violet-soft group-hover:-translate-y-2 group-hover:scale-102">
+      <div className="relative overflow-hidden rounded-xl md:rounded-2xl border border-luxury-blue/20 bg-black transition-all duration-300 group-hover:shadow-blue-glow group-hover:-translate-y-2 group-hover:scale-102">
         {/* Image Container */}
         <div className="relative aspect-[3/4] overflow-hidden">
           {!imageLoaded && (
             <div className="absolute inset-0 bg-black animate-pulse flex items-center justify-center">
-              <Camera className="w-6 h-6 md:w-8 md:h-8 text-electric-violet/30" />
+              <Camera className="w-6 h-6 md:w-8 md:h-8 text-luxury-blue/30" />
             </div>
           )}
           <img
@@ -60,8 +60,8 @@ const PhotoCard = ({ photo }: { photo: typeof photos[0] }) => {
               {photo.caption}
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <div className="h-px w-6 md:w-8 bg-electric-violet" />
-              <span className="text-electric-violet text-xs font-bold uppercase tracking-widest">Memory</span>
+              <div className="h-px w-6 md:w-8 bg-luxury-blue" />
+              <span className="text-luxury-blue text-xs font-bold uppercase tracking-widest">Memory</span>
             </div>
           </div>
         </div>
@@ -98,26 +98,26 @@ const Gallery = () => {
     <section
       id="gallery"
       ref={sectionRef}
-      className="relative w-full py-32 bg-electric-charcoal overflow-hidden"
+      className="relative w-full py-32 bg-luxury-black overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-electric-violet/5 rounded-full blur-3xl opacity-60 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-electric-violet/5 rounded-full blur-3xl opacity-60 translate-y-1/2" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-luxury-blue/5 rounded-full blur-3xl opacity-60 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-luxury-blue/5 rounded-full blur-3xl opacity-60 translate-y-1/2" />
 
       {/* Content */}
       <div className="relative z-10 w-full">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-16 md:mb-24 px-4 opacity-0">
           <div className="inline-flex items-center gap-4 mb-8">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-electric-violet to-transparent" />
-            <Camera className="w-6 h-6 text-electric-violet" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-electric-violet">Visual Journey</span>
-            <Camera className="w-6 h-6 text-electric-violet" />
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-electric-violet to-transparent" />
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-luxury-blue to-transparent" />
+            <Camera className="w-6 h-6 text-luxury-blue" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">Visual Journey</span>
+            <Camera className="w-6 h-6 text-luxury-blue" />
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-luxury-blue to-transparent" />
           </div>
 
           <h2 className="font-serif-display text-4xl md:text-5xl lg:text-7xl font-semibold text-white mb-6 md:mb-8 tracking-tight">
-            Our Precious <span className="text-gradient-violet">Moments</span>
+            Our Precious <span className="text-gradient-blue">Moments</span>
           </h2>
 
           <p className="font-serif-body text-white/80 max-w-xl md:max-w-2xl mx-auto text-base md:text-lg lg:text-xl leading-relaxed">
@@ -140,35 +140,35 @@ const Gallery = () => {
           </Marquee>
 
           {/* Fading Edges Overlay */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-electric-charcoal" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-electric-charcoal" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-luxury-black" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-luxury-black" />
         </div>
 
         {/* Stats & Interactive element */}
         <div className="mt-32 flex flex-col items-center gap-12 px-4">
           <div className="flex flex-wrap justify-center gap-12 md:gap-24">
             <div className="text-center group">
-              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-electric-violet transition-colors duration-300">
+              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-luxury-blue transition-colors duration-300">
                 {photos.length}
               </div>
-              <div className="text-xs font-bold text-electric-violet/60 uppercase tracking-[0.4em] mt-3">Frames</div>
+              <div className="text-xs font-bold text-luxury-blue/60 uppercase tracking-[0.4em] mt-3">Frames</div>
             </div>
             <div className="text-center group">
-              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-electric-violet transition-colors duration-300 italic">
+              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-luxury-blue transition-colors duration-300 italic">
                 ∞
               </div>
-              <div className="text-xs font-bold text-electric-violet/60 uppercase tracking-[0.4em] mt-3">Laughter</div>
+              <div className="text-xs font-bold text-luxury-blue/60 uppercase tracking-[0.4em] mt-3">Laughter</div>
             </div>
             <div className="text-center group">
-              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-electric-violet transition-colors duration-300">
+              <div className="font-serif-display text-5xl md:text-7xl font-semibold text-white group-hover:text-luxury-blue transition-colors duration-300">
                 1
               </div>
-              <div className="text-xs font-bold text-electric-violet/60 uppercase tracking-[0.4em] mt-3">Queen</div>
+              <div className="text-xs font-bold text-luxury-blue/60 uppercase tracking-[0.4em] mt-3">Queen</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 px-6 py-3 card-violet rounded-full text-sm font-medium">
-            <Heart className="w-4 h-4 text-electric-violet fill-electric-violet" />
+          <div className="flex items-center gap-3 px-6 py-3 card-premium rounded-full text-sm font-medium">
+            <Heart className="w-4 h-4 text-luxury-blue fill-luxury-blue" />
             <span className="text-white/80">Keep scrolling, there's more!</span>
           </div>
         </div>
