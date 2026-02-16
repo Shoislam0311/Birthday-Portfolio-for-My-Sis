@@ -45,24 +45,24 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] bg-luxury-black flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[100] bg-electric-charcoal flex flex-col items-center justify-center"
     >
       {/* Content */}
       <div ref={textRef} className="text-center">
         <BlurIn
           word="Celebrating Bubu"
-          className="font-serif-display text-4xl md:text-5xl lg:text-7xl font-semibold text-white mb-4 md:mb-6 text-gradient-premium"
+          className="font-serif-display text-4xl md:text-5xl lg:text-7xl font-semibold text-white mb-4 md:mb-6 text-gradient-premium-violet"
         />
-        <p className="text-luxury-blue/60 font-light tracking-[0.4em] uppercase text-xs md:text-sm">
+        <p className="text-electric-violet/60 font-light tracking-[0.4em] uppercase text-xs md:text-sm">
           Please wait a moment
         </p>
       </div>
 
       {/* Simple Progress Bar */}
-      <div className="mt-12 md:mt-16 w-64 md:w-80 h-1 bg-luxury-blue/10 rounded-full overflow-hidden">
+      <div className="mt-12 md:mt-16 w-64 md:w-80 h-1 bg-electric-violet/10 rounded-full overflow-hidden">
         <div
           ref={progressRef}
-          className="h-full rounded-full bg-gradient-to-r from-luxury-blue-dark via-luxury-blue to-luxury-blue-dark glow-blue"
+          className="h-full rounded-full bg-gradient-to-r from-electric-violet-dark via-electric-violet to-electric-violet-dark glow-violet"
           style={{
             width: '0%',
           }}

@@ -47,12 +47,12 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
   return (
     <p
       ref={containerRef}
-      className="font-serif-body text-lg md:text-xl text-black leading-relaxed"
+      className="font-serif-body text-lg md:text-xl text-electric-soft-grey leading-relaxed"
       style={{ lineHeight: 2 }}
     >
       {displayText}
       {started && displayText.length < text.length && (
-        <span className="animate-pulse text-luxury-blue">|</span>
+        <span className="animate-pulse text-electric-violet">|</span>
       )}
     </p>
   );
@@ -118,39 +118,40 @@ const Wish = () => {
 
   return (
     <section
+      id="wish"
       ref={sectionRef}
-      className="relative w-full py-24 bg-luxury-white flex items-center"
+      className="relative w-full py-24 bg-electric-charcoal flex items-center"
     >
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-8 md:mb-12 opacity-0">
           <div className="inline-flex items-center gap-4 mb-6 md:mb-8">
-            <div className="w-12 h-px bg-luxury-blue" />
-            <Gift className="w-5 h-5 text-luxury-blue" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-luxury-blue">A Special Message</span>
-            <Gift className="w-5 h-5 text-luxury-blue" />
-            <div className="w-12 h-px bg-luxury-blue" />
+            <div className="w-12 h-px bg-electric-violet" />
+            <Gift className="w-5 h-5 text-electric-violet" />
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-electric-violet">A Special Message</span>
+            <Gift className="w-5 h-5 text-electric-violet" />
+            <div className="w-12 h-px bg-electric-violet" />
           </div>
 
-          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-6xl font-semibold text-black mb-4 md:mb-6">
-            A Wish For <span className="text-gradient-blue">You</span>
+          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-6xl font-semibold text-white mb-4 md:mb-6">
+            A Wish For <span className="text-gradient-violet">You</span>
           </h2>
         </div>
 
-        {/* Animated Blue Underline */}
+        {/* Animated Violet Underline */}
         <div ref={heartRef} className="flex justify-center mb-16 opacity-0">
           <div className="relative w-32 h-1">
-            <div className="absolute inset-0 bg-luxury-blue glow-blue" />
+            <div className="absolute inset-0 bg-electric-violet glow-violet" />
           </div>
         </div>
 
         {/* Wish Card */}
         <div ref={cardRef} className="relative opacity-0">
           <MagicCard
-            className="p-10 md:p-14 card-premium bg-white/50 backdrop-blur-sm"
-            gradientFrom="rgba(0, 102, 255, 0.05)"
-            gradientTo="rgba(0, 102, 255, 0.02)"
+            className="p-10 md:p-14 card-violet bg-electric-deep-plum/30 backdrop-blur-sm"
+            gradientFrom="rgba(108, 60, 240, 0.1)"
+            gradientTo="rgba(76, 29, 149, 0.05)"
             gradientSize={400}
           >
             {/* Bengali Wish */}
@@ -160,15 +161,15 @@ const Wish = () => {
 
             {/* Simple Divider */}
             <div className="flex items-center gap-4 my-8">
-              <div className="flex-1 h-px bg-luxury-blue" />
-              <div className="w-4 h-4 border-2 border-luxury-blue rounded-full" />
-              <div className="flex-1 h-px bg-luxury-blue" />
+              <div className="flex-1 h-px bg-electric-violet" />
+              <div className="w-4 h-4 border-2 border-electric-violet rounded-full" />
+              <div className="flex-1 h-px bg-electric-violet" />
             </div>
 
             {/* Signature */}
             <div className="text-right">
-              <p className="text-xl font-semibold text-black tracking-tight">With Love,</p>
-              <p className="text-luxury-blue font-medium mt-2">Your Brother</p>
+              <p className="text-xl font-semibold text-electric-soft-grey tracking-tight">With Love,</p>
+              <p className="text-electric-violet font-medium mt-2">Your Brother</p>
             </div>
           </MagicCard>
         </div>
