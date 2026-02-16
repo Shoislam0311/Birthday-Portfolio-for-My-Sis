@@ -24,7 +24,8 @@ function App() {
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
-    setTimeout(() => setMusicEnabled(true), 500);
+    // Enable music immediately to catch the user interaction gesture
+    setMusicEnabled(true);
   };
 
   return (
