@@ -11,6 +11,7 @@ const MobileNavigation = () => {
     { name: 'Edition 2026', id: 'home' },
     { name: 'Legacy', id: 'timeline' },
     { name: 'Archives', id: 'gallery' },
+    { name: 'Celebrate', id: 'celebrate' },
     { name: 'Transmission', id: 'send-wish' }
   ], []);
 
@@ -49,7 +50,7 @@ const MobileNavigation = () => {
   if (!isMobile) return null;
 
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden">
+    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 lg:hidden">
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}

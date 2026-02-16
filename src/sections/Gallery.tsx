@@ -3,36 +3,24 @@ import { Camera } from 'lucide-react';
 import { MagicCard } from '@/components/ui/magic-card';
 
 const images = [
-  {
-    url: 'https://i.ibb.co/X7R0S0T/1.jpg',
-    title: 'Our Precious Moments',
-    category: 'Archive 01',
-  },
-  {
-    url: 'https://i.ibb.co/X7R0S0T/1.jpg',
-    title: 'Our Precious Moments',
-    category: 'Archive 02',
-  },
-  {
-    url: 'https://i.ibb.co/X7R0S0T/1.jpg',
-    title: 'Our Precious Moments',
-    category: 'Archive 03',
-  },
-  {
-    url: 'https://i.ibb.co/X7R0S0T/1.jpg',
-    title: 'Our Precious Moments',
-    category: 'Archive 04',
-  },
-  {
-    url: 'https://i.ibb.co/X7R0S0T/1.jpg',
-    title: 'Our Precious Moments',
-    category: 'Archive 05',
-  },
-  {
-    url: 'https://i.ibb.co/X7R0S0T/1.jpg',
-    title: 'Our Precious Moments',
-    category: 'Archive 06',
-  },
+  { url: 'https://i.imgur.com/2gB45PS.jpeg', title: 'The Happiness', category: 'Memory 01' },
+  { url: 'https://i.imgur.com/pBcYNMF.jpeg', title: 'First Time Pookie', category: 'Memory 02' },
+  { url: 'https://i.imgur.com/Zl4lUN8.jpeg', title: 'Lambu and Bauni', category: 'Memory 03' },
+  { url: 'https://i.imgur.com/d7B511v.jpeg', title: 'Trying to be Pookie', category: 'Memory 04' },
+  { url: 'https://i.imgur.com/DpuwGmG.jpeg', title: 'Near Pookie', category: 'Memory 05' },
+  { url: 'https://i.imgur.com/SfuegEC.jpeg', title: 'Trying to Avoid the Sun', category: 'Memory 06' },
+  { url: 'https://i.imgur.com/oMtK9UQ.jpeg', title: 'Still Struggling with Sun', category: 'Memory 07' },
+  { url: 'https://i.imgur.com/Oysxqe3.jpeg', title: 'Almost Pookie', category: 'Memory 08' },
+  { url: 'https://i.imgur.com/6j1w5sD.jpeg', title: 'Before Entering Pookie', category: 'Memory 09' },
+  { url: 'https://i.imgur.com/np4x5eP.jpeg', title: 'Innocent রূপে শয়তান', category: 'Memory 10' },
+  { url: 'https://i.imgur.com/KIeToWt.jpeg', title: 'Three Certified Mathematician', category: 'Memory 11' },
+  { url: 'https://i.imgur.com/iVsb2f8.jpeg', title: 'Twoo Pokies', category: 'Memory 12' },
+  { url: 'https://i.imgur.com/qTYVYzG.jpeg', title: 'Big Father, Queen Mother, Bauni Sister', category: 'Memory 13' },
+  { url: 'https://i.imgur.com/CNsUPMb.jpeg', title: 'হতাশ বিয়ে না হওয়ায়', category: 'Memory 14' },
+  { url: 'https://i.imgur.com/MiKkRKi.jpeg', title: 'Elephant and ant', category: 'Memory 15' },
+  { url: 'https://i.imgur.com/a0prz59.jpeg', title: 'Two ghost in one frame', category: 'Memory 16' },
+  { url: 'https://i.imgur.com/cm497bY.jpeg', title: 'Good Moment', category: 'Memory 17' },
+  { url: 'https://i.imgur.com/EvpJbQ8.png', title: 'Birthday Girl', category: 'Memory 18' },
 ];
 
 const Gallery = () => {
