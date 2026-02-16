@@ -1,75 +1,59 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback } from 'react';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 export interface MagicCardProps extends React.HTMLAttributes<HTMLDivElement> {
   gradientSize?: number;
   gradientColor?: string;
   gradientOpacity?: number;
-  gradientFrom?: string;
-  gradientTo?: string;
 }
 
 export function MagicCard({
   children,
   className,
   gradientSize = 200,
-  gradientOpacity = 0.8,
-  gradientFrom = "#0f766e",
-  gradientTo = "#14b8a6",
+  gradientColor = '#6C3CF0',
+  gradientOpacity = 0.2,
+  ...props
 }: MagicCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const mouseX = useRef<number>(-gradientSize);
-  const mouseY = useRef<number>(-gradientSize);
-
-  const updateGradient = useCallback(() => {
-    if (cardRef.current) {
-      cardRef.current.style.setProperty("--mouse-x", `${mouseX.current}px`);
-      cardRef.current.style.setProperty("--mouse-y", `${mouseY.current}px`);
-    }
-  }, []);
+  const mouseX = useMotionValue(-gradientSize);
+  const mouseY = useMotionValue(-gradientSize);
 
   const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (cardRef.current) {
-        const rect = cardRef.current.getBoundingClientRect();
-        mouseX.current = e.clientX - rect.left;
-        mouseY.current = e.clientY - rect.top;
-        updateGradient();
-      }
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const { left, top } = e.currentTarget.getBoundingClientRect();
+      mouseX.set(e.clientX - left);
+      mouseY.set(e.clientY - top);
     },
-    [updateGradient],
+    [mouseX, mouseY]
   );
 
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [handleMouseMove]);
+  const handleMouseLeave = useCallback(() => {
+    mouseX.set(-gradientSize);
+    mouseY.set(-gradientSize);
+  }, [mouseX, mouseY, gradientSize]);
 
   return (
     <div
-      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className={cn(
-        "group relative flex size-full overflow-hidden rounded-xl border bg-neutral-100 text-black dark:bg-neutral-900 dark:text-white",
-        className,
+        'group relative flex size-full overflow-hidden rounded-xl bg-premium-black border border-white/5 text-white',
+        className
       )}
+      {...props}
     >
       <div className="relative z-10 w-full">{children}</div>
-      <div
+      <motion.div
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(${gradientSize}px circle at var(--mouse-x) var(--mouse-y), ${gradientFrom}, transparent 80%)`,
+          background: useMotionTemplate`
+            radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px, ${gradientColor}, transparent 100%)
+          `,
           opacity: gradientOpacity,
         }}
-      />
-      <div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(${gradientSize}px circle at var(--mouse-x) var(--mouse-y), ${gradientTo}, transparent 80%)`,
-          mixBlendMode: 'overlay'
-        } as React.CSSProperties}
       />
     </div>
   );

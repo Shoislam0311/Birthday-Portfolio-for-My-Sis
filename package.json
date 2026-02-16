@@ -5,7 +5,15 @@
   "private": true,
   "type": "module",
   "author": "Made with ❤️ for Bubu",
-  "keywords": ["birthday", "celebration", "react", "typescript", "gsap", "tailwind", "animation"],
+  "keywords": [
+    "birthday",
+    "celebration",
+    "react",
+    "typescript",
+    "gsap",
+    "tailwind",
+    "animation"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -71,6 +79,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.58.2",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",

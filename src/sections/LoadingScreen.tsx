@@ -16,56 +16,49 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
       onComplete: () => {
         gsap.to(containerRef.current, {
           opacity: 0,
-          duration: 0.5,
-          ease: 'power2.inOut',
+          duration: 0.8,
+          ease: 'power4.inOut',
           onComplete,
         });
       },
     });
 
-    // Text entrance
     tl.fromTo(
       textRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.1 }
+      { opacity: 0, scale: 0.9 },
+      { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }
     );
 
-    // Progress bar
     tl.fromTo(
       progressRef.current,
       { width: '0%' },
-      { width: '100%', duration: 1.5, ease: 'power2.inOut' },
-      '-=0.2'
+      { width: '100%', duration: 2, ease: 'expo.inOut' },
+      '-=0.5'
     );
-
-    // Hold
-    tl.to({}, { duration: 0.3 });
   }, [onComplete]);
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] bg-luxury-black flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[100] bg-premium-black flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Content */}
-      <div ref={textRef} className="text-center">
+      {/* Background Decor */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-premium-violet/10 rounded-full blur-[120px]" />
+
+      <div ref={textRef} className="text-center relative z-10">
         <BlurIn
-          word="Celebrating Bubu"
-          className="font-serif-display text-4xl md:text-5xl lg:text-7xl font-semibold text-white mb-4 md:mb-6 text-gradient-premium"
+          word="EDITION 2026"
+          className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-[0.2em]"
         />
-        <p className="text-luxury-blue/60 font-light tracking-[0.4em] uppercase text-xs md:text-sm">
-          Please wait a moment
+        <p className="text-premium-violet font-bold tracking-[0.6em] uppercase text-[10px] md:text-xs">
+          Initializing Premium Content
         </p>
       </div>
 
-      {/* Simple Progress Bar */}
-      <div className="mt-12 md:mt-16 w-64 md:w-80 h-1 bg-luxury-blue/10 rounded-full overflow-hidden">
+      <div className="mt-16 w-48 md:w-64 h-[2px] bg-white/5 relative overflow-hidden">
         <div
           ref={progressRef}
-          className="h-full rounded-full bg-gradient-to-r from-luxury-blue-dark via-luxury-blue to-luxury-blue-dark glow-blue"
-          style={{
-            width: '0%',
-          }}
+          className="h-full bg-premium-violet glow-violet shadow-[0_0_15px_#6C3CF0]"
         />
       </div>
     </div>

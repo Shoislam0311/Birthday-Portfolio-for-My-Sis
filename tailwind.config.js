@@ -48,14 +48,13 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Luxury Black-White-Blue Color Palette
-        luxury: {
-          black: '#000000',
-          white: '#ffffff',
-          blue: '#0066ff',
-          'blue-dark': '#003d99',
-          'blue-light': '#e6f2ff',
-          grey: '#d4d4d4',
+        // Premium Dark Birthday Theme Palette
+        premium: {
+          black: '#0F0F14', // charcoal black
+          violet: '#6C3CF0', // electric violet
+          teal: '#0F3D3E',   // muted teal
+          grey: '#E6E8EC',   // soft grey
+          plum: '#2A0E3F',   // deep plum
         },
       },
       borderRadius: {
@@ -69,10 +68,10 @@ module.exports = {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
         minimal: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
         "minimal-lg": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-        premium: "0 4px 20px rgba(0, 102, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1)",
-        "premium-lg": "0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 102, 255, 0.1)",
-        "blue-glow": "0 0 30px rgba(0, 102, 255, 0.3), 0 0 60px rgba(0, 102, 255, 0.1)",
-        "blue-glow-soft": "0 0 16px rgba(0, 102, 255, 0.2)",
+        premium: "0 4px 20px rgba(108, 60, 240, 0.15), 0 2px 8px rgba(0, 0, 0, 0.5)",
+        "premium-lg": "0 20px 40px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(108, 60, 240, 0.15)",
+        "violet-glow": "0 0 30px rgba(108, 60, 240, 0.3), 0 0 60px rgba(108, 60, 240, 0.1)",
+        "violet-glow-soft": "0 0 16px rgba(108, 60, 240, 0.2)",
         "dark-soft": "0 4px 12px rgba(0, 0, 0, 0.15)",
         "dark-deep": "0 12px 32px rgba(0, 0, 0, 0.3)",
         elegant: "0 2px 10px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05)",

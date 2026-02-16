@@ -8,13 +8,15 @@ import { Toaster } from 'sonner';
 // Sections
 import Hero from './sections/Hero';
 import Gallery from './sections/Gallery';
-import Wish from './sections/Wish';
-import Cake from './sections/Cake';
+import Timeline from './sections/Timeline';
+import Quote from './sections/Quote';
 import SendWish from './sections/SendWish';
+import Footer from './sections/Footer';
 import LoadingScreen from './sections/LoadingScreen';
 import MusicPlayer from './components/MusicPlayer';
 import CustomCursor from './components/CustomCursor';
 import MobileNavigation from './components/MobileNavigation';
+import Particles from './components/Particles';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,8 +29,16 @@ function App() {
     setTimeout(() => setMusicEnabled(true), 500);
   };
 
+  const navItems = [
+    { name: 'Edition 2026', id: 'home' },
+    { name: 'Legacy', id: 'timeline' },
+    { name: 'Archives', id: 'gallery' },
+    { name: 'Celebrate', id: 'celebrate' },
+    { name: 'Transmission', id: 'send-wish' }
+  ];
+
   return (
-    <div className="relative bg-luxury-black min-h-screen text-white overflow-x-hidden">
+    <div className="relative bg-premium-black min-h-screen text-premium-grey overflow-x-hidden">
       {/* Custom Cursor */}
       <CustomCursor />
 
@@ -38,37 +48,38 @@ function App() {
       {/* Background Music Player */}
       <MusicPlayer enabled={musicEnabled} />
 
-      {/* Subtle Background */}
+      {/* Subtle Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-luxury-blue/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-premium-black" />
+        <Particles />
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,_rgba(108,60,240,0.05),transparent_70%)]" />
       </div>
 
       {/* Main Content */}
       <main className="relative z-10">
         <Hero />
+        <Timeline />
+        <Quote />
         <Gallery />
-        <Wish />
-        <Cake />
         <SendWish />
+        <Footer />
       </main>
 
       {/* Desktop Navigation */}
-      <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6">
-        {['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
+      <nav className="fixed right-12 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-8">
+        {navItems.map((item) => (
           <button
-            key={section}
+            key={item.id}
             onClick={() => {
-              const sections = document.querySelectorAll('section');
-              sections[index]?.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
             }}
             className="group relative flex items-center justify-end"
-            aria-label={`Go to ${section}`}
+            aria-label={`Go to ${item.name}`}
           >
-            <span className="absolute right-10 text-xs text-luxury-blue/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium tracking-wide">
-              {section}
+            <span className="absolute right-12 text-[10px] text-premium-violet/40 uppercase tracking-[0.4em] font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">
+              {item.name}
             </span>
-            <div className="w-2 h-2 rounded-full bg-luxury-grey group-hover:bg-luxury-blue group-hover:w-4 transition-all duration-200" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-premium-violet group-hover:scale-150 transition-all duration-300" />
           </button>
         ))}
       </nav>
@@ -78,7 +89,7 @@ function App() {
 
       <Analytics />
       <SpeedInsights />
-      <Toaster position="bottom-center" theme="dark" />
+      <Toaster position="bottom-center" theme="dark" expand={false} richColors />
     </div>
   );
 }
