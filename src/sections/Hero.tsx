@@ -1,7 +1,9 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronDown, Sparkles, Crown } from 'lucide-react';
+import { ChevronDown, Sparkles } from 'lucide-react';
+import RetroGrid from '@/components/ui/retro-grid';
+import ShimmerButton from '@/components/ui/shimmer-button';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,7 +12,6 @@ const Hero = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
-  const particleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5 });
@@ -19,8 +20,8 @@ const Hero = () => {
     if (titleRef.current) {
       tl.fromTo(
         titleRef.current,
-        { opacity: 0, y: 80, filter: 'blur(20px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'expo.out' }
+        { opacity: 0, y: 50, filter: 'blur(10px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'expo.out' }
       );
     }
     
@@ -28,9 +29,9 @@ const Hero = () => {
     if (subtitleRef.current) {
       tl.fromTo(
         subtitleRef.current,
-        { opacity: 0, y: 40, filter: 'blur(15px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'expo.out' },
-        '-=0.8'
+        { opacity: 0, y: 30, filter: 'blur(10px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'expo.out' },
+        '-=0.6'
       );
     }
     
@@ -39,8 +40,8 @@ const Hero = () => {
       tl.fromTo(
         scrollIndicatorRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 0.8 },
-        '-=0.5'
+        { opacity: 1, duration: 0.5 },
+        '-=0.3'
       );
     }
 
@@ -48,8 +49,8 @@ const Hero = () => {
     const bounceArrow = scrollIndicatorRef.current?.querySelector('.bounce-arrow');
     if (bounceArrow) {
       gsap.to(bounceArrow, {
-        y: 8,
-        duration: 2,
+        y: 6,
+        duration: 1.5,
         repeat: -1,
         yoyo: true,
         ease: 'power1.inOut',
@@ -63,8 +64,8 @@ const Hero = () => {
       end: 'bottom top',
       scrub: true,
       onUpdate: (self) => {
-        const opacity = 1 - self.progress * 0.8;
-        const scale = 1 + self.progress * 0.15;
+        const opacity = 1 - self.progress;
+        const scale = 1 + self.progress * 0.1;
         if (titleRef.current) {
           titleRef.current.style.opacity = String(opacity);
           titleRef.current.style.transform = `scale(${scale})`;
@@ -74,112 +75,67 @@ const Hero = () => {
       },
     });
 
-    // Particle animation
-    if (particleRef.current) {
-      const particles = particleRef.current.children;
-      Array.from(particles).forEach((particle) => {
-        const delay = Math.random() * 2;
-        gsap.to(particle, {
-          y: -100,
-          x: () => Math.random() * 100 - 50,
-          opacity: 0,
-          duration: 8 + Math.random() * 4,
-          repeat: -1,
-          delay,
-          ease: 'none',
-        });
-      });
-    }
-
     return () => {
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);
 
-  // Generate particle data once with useMemo
-  const particleData = useMemo(() => {
-    return Array.from({ length: 20 }).map((_, i) => ({
-      id: i,
-      left: `${(i * 5.3) % 100}%`,
-      top: `${(i * 7.1) % 100}%`,
-      delay: `${(i * 0.4) % 8}s`,
-    }));
-  }, []);
+  const name = 'Bubu';
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-luxury-black hero-section"
     >
-      {/* Animated Particle Background */}
-      <div 
-        ref={particleRef}
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `
-            radial-gradient(circle at 20% 80%, rgba(108, 60, 240, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(42, 14, 63, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(15, 61, 62, 0.08) 0%, transparent 50%)
-          `
-        }}
-      >
-        {/* Subtle floating particles */}
-        {particleData.map((particle) => (
-          <div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-luxury-violet rounded-full opacity-20"
-            style={{
-              left: particle.left,
-              top: particle.top,
-              animationDelay: particle.delay,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Cinematic Lighting Overlay */}
-      <div className="absolute inset-0 cinematic-light pointer-events-none" />
+      <RetroGrid />
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-        {/* Premium Badge */}
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         <div className="mb-8 flex justify-center opacity-0 animate-fade-in">
-          <div className="px-6 py-3 rounded-full border border-luxury-violet/30 bg-luxury-violet/10 backdrop-blur-sm flex items-center gap-3 text-luxury-violet text-sm font-bold tracking-[0.2em] uppercase glow-violet-soft">
-            <Crown className="w-4 h-4 text-luxury-violet" />
-            <span>Special Birthday Edition 2026</span>
-            <Crown className="w-4 h-4 text-luxury-violet" />
+          <div className="px-5 py-2 rounded-full border border-luxury-blue/20 bg-luxury-blue/5 flex items-center gap-3 text-luxury-blue/80 text-xs font-medium tracking-wider uppercase">
+            <Sparkles className="w-3 h-3 text-luxury-blue" />
+            <span>A Celebration of Excellence</span>
+            <Sparkles className="w-3 h-3 text-luxury-blue" />
           </div>
         </div>
 
         {/* Main Title */}
         <h1
           ref={titleRef}
-          className="font-bold text-4xl md:text-6xl lg:text-8xl xl:text-[9rem] text-luxury-grey mb-8 tracking-tight opacity-0 text-gradient-premium uppercase"
+          className="font-serif-display text-5xl md:text-7xl lg:text-9xl xl:text-[10rem] font-semibold text-white mb-6 md:mb-8 tracking-tight opacity-0 text-gradient-premium"
         >
-          LIMITED EDITION
+          {name}
         </h1>
 
         {/* Subtitle */}
         <p
           ref={subtitleRef}
-          className="text-lg md:text-xl lg:text-2xl text-luxury-grey/80 mb-12 opacity-0 max-w-3xl mx-auto leading-relaxed font-medium"
+          className="font-serif-body text-base md:text-xl lg:text-2xl text-white/80 mb-12 md:mb-16 opacity-0 max-w-xl md:max-w-2xl mx-auto leading-relaxed"
         >
-          A celebration of excellence, achievement, and the extraordinary journey of success
+          Happy Birthday to an extraordinary soul who illuminates every moment with grace and brilliance
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center opacity-0 animate-fade-in [animation-delay:1.5s]">
-          <button className="group relative px-8 py-4 bg-violet-gradient text-luxury-grey font-bold text-sm tracking-wider uppercase rounded-lg hover-premium-lift btn-neon-glow">
-            <span className="relative z-10 flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              EXPLORE ACHIEVEMENTS
-              <Sparkles className="w-4 h-4" />
-            </span>
-          </button>
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center opacity-0 animate-fade-in [animation-delay:1.2s]">
+          <ShimmerButton
+            className="shadow-premium-lg glow-blue"
+            background="#0066ff"
+            shimmerColor="#003d99"
+            onClick={() => {
+              document.querySelector('#wish')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            <span className="relative z-10 text-white font-semibold tracking-wide">Explore Wishes</span>
+          </ShimmerButton>
 
-          <button className="group px-8 py-4 flex items-center gap-3 text-luxury-violet font-bold text-sm tracking-wider uppercase rounded-lg border border-luxury-violet/30 hover:border-luxury-violet hover:bg-luxury-violet/10 transition-all duration-300 hover-premium-lift glow-violet-soft">
-            <span>VIEW COLLECTION</span>
-            <div className="w-2 h-2 rounded-full bg-luxury-violet/30 group-hover:bg-luxury-violet group-hover:scale-125 transition-all duration-300" />
+          <button
+            className="group px-8 py-3 flex items-center gap-3 text-white/80 font-medium hover:text-luxury-blue transition-colors border border-luxury-blue/20 rounded-lg hover:border-luxury-blue/40 hover:bg-luxury-blue/5"
+            onClick={() => {
+              document.querySelector('#send-wish')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            <span>Send Your Wish</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-luxury-blue/30 group-hover:bg-luxury-blue group-hover:glow-blue transition-all" />
           </button>
         </div>
       </div>
@@ -187,11 +143,11 @@ const Hero = () => {
       {/* Scroll Indicator */}
       <div
         ref={scrollIndicatorRef}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-0"
+        className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-0"
       >
-        <span className="text-xs text-luxury-violet/60 uppercase tracking-[0.3em] font-bold">DISCOVER</span>
-        <div className="w-8 h-12 rounded-full border-2 border-luxury-violet/30 flex justify-center pt-3 bg-luxury-violet/5 hover:bg-luxury-violet/10 transition-all duration-300 hover:border-luxury-violet/60">
-          <ChevronDown className="bounce-arrow w-4 h-4 text-luxury-violet" />
+        <span className="text-xs text-luxury-blue/50 uppercase tracking-[0.3em] font-medium">Scroll to Explore</span>
+        <div className="w-6 h-10 rounded-full border border-luxury-blue/30 flex justify-center pt-2 bg-luxury-blue/5">
+          <ChevronDown className="bounce-arrow w-3 h-3 text-luxury-blue" />
         </div>
       </div>
     </section>
