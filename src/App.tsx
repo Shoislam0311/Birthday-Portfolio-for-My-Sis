@@ -24,7 +24,10 @@ function App() {
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
-    setTimeout(() => setMusicEnabled(true), 500);
+  };
+
+  const handleStarted = () => {
+    setMusicEnabled(true);
   };
 
   return (
@@ -33,7 +36,12 @@ function App() {
       <CustomCursor />
 
       {/* Loading Screen */}
-      {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
+      {isLoading && (
+        <LoadingScreen
+          onComplete={handleLoadingComplete}
+          onStarted={handleStarted}
+        />
+      )}
 
       {/* Background Music Player */}
       <MusicPlayer enabled={musicEnabled} />
