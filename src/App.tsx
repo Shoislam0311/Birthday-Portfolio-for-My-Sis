@@ -8,6 +8,7 @@ import { Toaster } from 'sonner';
 // Sections
 import Hero from './sections/Hero';
 import Gallery from './sections/Gallery';
+import MusicDedication from './sections/MusicDedication';
 import Wish from './sections/Wish';
 import Cake from './sections/Cake';
 import SendWish from './sections/SendWish';
@@ -56,6 +57,7 @@ function App() {
       <main className="relative z-10">
         <Hero />
         <Gallery />
+        <MusicDedication />
         <Wish />
         <Cake />
         <SendWish />
@@ -63,7 +65,7 @@ function App() {
 
       {/* Desktop Navigation */}
       <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6">
-        {['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
+        {['Hero', 'Gallery', 'Song', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
           <button
             key={section}
             onClick={() => {

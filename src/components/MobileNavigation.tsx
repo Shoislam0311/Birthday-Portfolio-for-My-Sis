@@ -17,7 +17,7 @@ const MobileNavigation = () => {
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
         if (rect.top <= 100 && rect.bottom >= 100) {
-          const sectionNames = ['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'];
+          const sectionNames = ['Hero', 'Gallery', 'Song', 'Wish', 'Cake', 'Send Wish'];
           currentSection = sectionNames[index] || 'Hero';
         }
       });
@@ -41,7 +41,7 @@ const MobileNavigation = () => {
 
   if (!isMobile) return null;
 
-  const sections = ['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'];
+  const sections = ['Hero', 'Gallery', 'Song', 'Wish', 'Cake', 'Send Wish'];
 
   return (
     <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden">
