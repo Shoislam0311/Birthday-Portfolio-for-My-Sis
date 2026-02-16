@@ -2,6 +2,15 @@ import { useState, useEffect } from 'react';
 import { Menu, X, ChevronUp } from 'lucide-react';
 import { useIsMobile } from '../hooks/useIsMobile';
 
+const sections = [
+  { name: 'Hero', id: 'hero' },
+  { name: 'Gallery', id: 'gallery' },
+  { name: 'Music', id: 'music' },
+  { name: 'Wish', id: 'wish' },
+  { name: 'Cake', id: 'cake' },
+  { name: 'Send Wish', id: 'send-wish' }
+];
+
 const MobileNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('Hero');
@@ -11,14 +20,15 @@ const MobileNavigation = () => {
     if (!isMobile) return;
 
     const handleScroll = () => {
-      const sections = document.querySelectorAll('section');
       let currentSection = 'Hero';
 
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom >= 100) {
-          const sectionNames = ['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'];
-          currentSection = sectionNames[index] || 'Hero';
+      sections.forEach((section) => {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentSection = section.name;
+          }
         }
       });
 
@@ -33,15 +43,12 @@ const MobileNavigation = () => {
     };
   }, [isMobile]);
 
-  const scrollToSection = (sectionIndex: number) => {
-    const sections = document.querySelectorAll('section');
-    sections[sectionIndex]?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setIsOpen(false);
   };
 
   if (!isMobile) return null;
-
-  const sections = ['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'];
 
   return (
     <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden">
@@ -68,19 +75,19 @@ const MobileNavigation = () => {
           </div>
 
           <div className="py-2">
-            {sections.map((section, index) => {
-              const isActive = activeSection === section;
+            {sections.map((section) => {
+              const isActive = activeSection === section.name;
               return (
                 <button
-                  key={section}
-                  onClick={() => scrollToSection(index)}
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
                   className={`w-full flex items-center justify-between px-6 py-3 text-left transition-all ${
                     isActive
                       ? 'bg-luxury-blue/10 text-luxury-blue font-medium'
                       : 'text-white/70 hover:text-luxury-blue hover:bg-luxury-blue/5'
                   }`}
                 >
-                  <span className="font-serif-body">{section}</span>
+                  <span className="font-serif-body">{section.name}</span>
                   {isActive && (
                     <ChevronUp className="w-4 h-4 text-luxury-blue" />
                   )}

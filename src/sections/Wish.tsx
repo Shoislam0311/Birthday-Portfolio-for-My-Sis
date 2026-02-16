@@ -126,7 +126,7 @@ const Wish = () => {
   }, []);
 
   return (
-    <section
+    <section id="wish"
       ref={sectionRef}
       className="relative w-full py-24 bg-luxury-white flex items-center"
     >

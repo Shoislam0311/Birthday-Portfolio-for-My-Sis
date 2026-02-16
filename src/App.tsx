@@ -8,6 +8,7 @@ import { Toaster } from 'sonner';
 // Sections
 import Hero from './sections/Hero';
 import Gallery from './sections/Gallery';
+import Music from './sections/Music';
 import Wish from './sections/Wish';
 import Cake from './sections/Cake';
 import SendWish from './sections/SendWish';
@@ -56,6 +57,7 @@ function App() {
       <main className="relative z-10">
         <Hero />
         <Gallery />
+        <Music />
         <Wish />
         <Cake />
         <SendWish />
@@ -63,18 +65,24 @@ function App() {
 
       {/* Desktop Navigation */}
       <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6">
-        {['Hero', 'Gallery', 'Wish', 'Cake', 'Send Wish'].map((section, index) => (
+        {[
+          { name: 'Hero', id: 'hero' },
+          { name: 'Gallery', id: 'gallery' },
+          { name: 'Music', id: 'music' },
+          { name: 'Wish', id: 'wish' },
+          { name: 'Cake', id: 'cake' },
+          { name: 'Send Wish', id: 'send-wish' }
+        ].map((section) => (
           <button
-            key={section}
+            key={section.id}
             onClick={() => {
-              const sections = document.querySelectorAll('section');
-              sections[index]?.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth' });
             }}
             className="group relative flex items-center justify-end"
-            aria-label={`Go to ${section}`}
+            aria-label={`Go to ${section.name}`}
           >
             <span className="absolute right-10 text-xs text-luxury-blue/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium tracking-wide">
-              {section}
+              {section.name}
             </span>
             <div className="w-2 h-2 rounded-full bg-luxury-grey group-hover:bg-luxury-blue group-hover:w-4 transition-all duration-200" />
           </button>

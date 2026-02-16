@@ -253,7 +253,7 @@ const Cake = () => {
   }, []);
 
   return (
-    <section
+    <section id="cake"
       ref={sectionRef}
       className="relative w-full py-24 bg-luxury-black flex items-center justify-center"
     >

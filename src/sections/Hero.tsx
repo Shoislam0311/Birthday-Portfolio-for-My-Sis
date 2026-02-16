@@ -83,7 +83,7 @@ const Hero = () => {
   const name = 'Bubu';
 
   return (
-    <section
+    <section id="hero"
       ref={sectionRef}
       className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-luxury-black hero-section"
     >
