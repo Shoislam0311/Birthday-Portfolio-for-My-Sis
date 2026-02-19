@@ -5,6 +5,8 @@ import confetti from 'canvas-confetti';
 import { toast } from 'sonner';
 import { Send, Heart, CheckCircle } from 'lucide-react';
 import { BorderBeam } from '@/components/ui/border-beam';
+import { submitWish } from '@/lib/api';
+import { isSupabaseConfigured } from '@/lib/supabase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -142,24 +144,29 @@ const SendWish = () => {
     const subject = `A Birthday Wish For You from ${sanitizedName}`;
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
+      if (isSupabaseConfigured) {
+        await submitWish({
           name: sanitizedName,
           email: sanitizedEmail,
           message: sanitizedWish,
-          _subject: subject,
-          _captcha: "false",
-          _template: "table"
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send wish');
+        });
+      } else {
+        const response = await fetch("https://formsubmit.co/ajax/zuyairiaislam5@gmail.com", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: sanitizedName,
+            email: sanitizedEmail,
+            message: sanitizedWish,
+            _subject: subject,
+            _captcha: "false",
+            _template: "table"
+          })
+        });
+        if (!response.ok) throw new Error('Failed to send wish');
       }
 
       // Show success state

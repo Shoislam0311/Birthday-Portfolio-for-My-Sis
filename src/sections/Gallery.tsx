@@ -3,33 +3,14 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Camera, Heart } from 'lucide-react';
 import Marquee from '@/components/ui/marquee';
+import { usePhotos } from '@/hooks/usePhotos';
+import type { GalleryPhoto } from '@/hooks/usePhotos';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Real photos from Imgur with custom captions
-const photos = [
-  { id: 1, src: 'https://i.imgur.com/2gB45PS.jpeg', caption: 'The Happiness' },
-  { id: 2, src: 'https://i.imgur.com/pBcYNMF.jpeg', caption: 'First Time Pookie' },
-  { id: 3, src: 'https://i.imgur.com/Zl4lUN8.jpeg', caption: 'Lambu and Bauni' },
-  { id: 4, src: 'https://i.imgur.com/d7B511v.jpeg', caption: 'Trying to be Pookie' },
-  { id: 5, src: 'https://i.imgur.com/DpuwGmG.jpeg', caption: 'Near Pookie' },
-  { id: 6, src: 'https://i.imgur.com/SfuegEC.jpeg', caption: 'Trying to Avoid the Sun' },
-  { id: 7, src: 'https://i.imgur.com/oMtK9UQ.jpeg', caption: 'Still Struggling with Sun' },
-  { id: 8, src: 'https://i.imgur.com/Oysxqe3.jpeg', caption: 'Almost Pookie' },
-  { id: 9, src: 'https://i.imgur.com/6j1w5sD.jpeg', caption: 'Before Entering Pookie' },
-  { id: 10, src: 'https://i.imgur.com/np4x5eP.jpeg', caption: 'Innocent রূপে শয়তান' },
-  { id: 11, src: 'https://i.imgur.com/KIeToWt.jpeg', caption: 'Three Certified Mathematician' },
-  { id: 12, src: 'https://i.imgur.com/iVsb2f8.jpeg', caption: 'Twoo Pokies' },
-  { id: 13, src: 'https://i.imgur.com/qTYVYzG.jpeg', caption: 'Big Father, Queen Mother, Bauni Sister' },
-  { id: 14, src: 'https://i.imgur.com/CNsUPMb.jpeg', caption: 'হতাশ বিয়ে না হওয়ায়' },
-  { id: 15, src: 'https://i.imgur.com/MiKkRKi.jpeg', caption: 'Elephant and ant' },
-  { id: 16, src: 'https://i.imgur.com/a0prz59.jpeg', caption: 'Two ghost in one frame' },
-  { id: 17, src: 'https://i.imgur.com/cm497bY.jpeg', caption: 'Good Moment' },
-  { id: 18, src: 'https://i.imgur.com/EvpJbQ8.png', caption: 'Birthday Girl' },
-];
-
-const PhotoCard = memo(({ photo }: { photo: typeof photos[0] }) => {
+const PhotoCard = memo(({ photo }: { photo: GalleryPhoto }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const src = 'url' in photo ? photo.url : photo.src;
 
   return (
     <div className="relative w-48 md:w-64 lg:w-80 flex-shrink-0 cursor-pointer group">
@@ -42,7 +23,7 @@ const PhotoCard = memo(({ photo }: { photo: typeof photos[0] }) => {
             </div>
           )}
           <img
-            src={photo.src}
+            src={src}
             alt={photo.caption}
             className={`w-full h-full object-cover transition-all duration-300 ${
               imageLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
@@ -70,12 +51,13 @@ const PhotoCard = memo(({ photo }: { photo: typeof photos[0] }) => {
   );
 });
 
-const firstRow = photos.slice(0, photos.length / 2);
-const secondRow = photos.slice(photos.length / 2);
-
 const Gallery = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const { photos } = usePhotos();
+
+  const firstRow = photos.slice(0, Math.ceil(photos.length / 2));
+  const secondRow = photos.slice(Math.ceil(photos.length / 2));
 
   useEffect(() => {
     gsap.fromTo(

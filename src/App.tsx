@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Analytics } from '@vercel/analytics/react';
@@ -16,9 +17,12 @@ import MusicPlayer from './components/MusicPlayer';
 import CustomCursor from './components/CustomCursor';
 import MobileNavigation from './components/MobileNavigation';
 
+// Admin panel - lazy loaded so it has zero impact on public bundle
+const Admin = lazy(() => import('./pages/Admin'));
+
 gsap.registerPlugin(ScrollTrigger);
 
-function App() {
+function PublicSite() {
   const [isLoading, setIsLoading] = useState(true);
   const [musicEnabled, setMusicEnabled] = useState(false);
 
@@ -88,6 +92,28 @@ function App() {
       <SpeedInsights />
       <Toaster position="bottom-center" theme="dark" />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<PublicSite />} />
+      <Route
+        path="/admin"
+        element={
+          <Suspense
+            fallback={
+              <div className="min-h-screen bg-luxury-black flex items-center justify-center">
+                <div className="w-8 h-8 border-2 border-luxury-blue/30 border-t-luxury-blue rounded-full animate-spin" />
+              </div>
+            }
+          >
+            <Admin />
+          </Suspense>
+        }
+      />
+    </Routes>
   );
 }
 

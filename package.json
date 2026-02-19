@@ -5,7 +5,15 @@
   "private": true,
   "type": "module",
   "author": "Made with ❤️ for Bubu",
-  "keywords": ["birthday", "celebration", "react", "typescript", "gsap", "tailwind", "animation"],
+  "keywords": [
+    "birthday",
+    "celebration",
+    "react",
+    "typescript",
+    "gsap",
+    "tailwind",
+    "animation"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -43,6 +51,8 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "@supabase/supabase-js": "^2.97.0",
+    "@types/react-router-dom": "^5.3.3",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^1.3.1",
     "canvas-confetti": "^1.9.4",
@@ -62,6 +72,7 @@
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.70.0",
     "react-resizable-panels": "^4.2.2",
+    "react-router-dom": "^7.13.0",
     "recharts": "^2.15.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",

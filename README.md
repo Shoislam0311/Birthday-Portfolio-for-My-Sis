@@ -10,7 +10,7 @@
 
 **A modern, interactive birthday celebration microsite built with React 19, TypeScript, and GSAP animations**
 
-[🚀 Live Demo](#-live-demo) • [✨ Features](#-features) • [🛠️ Tech Stack](#-tech-stack) • [🏃‍♂️ Getting Started](#-getting-started) • [📧 Email Service](#-email-service)
+[🚀 Live Demo](#-live-demo) • [✨ Features](#-features) • [🛠️ Tech Stack](#-tech-stack) • [🏃‍♂️ Getting Started](#-getting-started) • [🗄️ Supabase Backend](#️-supabase-backend) • [📧 Email Service](#-email-service)
 
 </div>
 
@@ -133,6 +133,36 @@ npm run preview
 yarn preview
 ```
 
+## 🗄️ Supabase Backend
+
+The site includes an optional Supabase backend that adds:
+
+- **Dynamic Gallery** — Manage photos via Supabase Storage instead of hardcoded Imgur URLs.
+- **Wish Submissions** — Birthday wishes are stored in a Supabase database table.
+- **Hidden Admin Panel** — Access `/admin` to view wishes, manage photos, and configure settings.
+- **Graceful Fallback** — If Supabase is not configured, the site works identically to the original using hardcoded fallback data.
+
+### Quick Setup
+
+```bash
+cp .env.example .env
+# Fill in VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
+```
+
+Run `supabase/schema.sql` in your Supabase SQL Editor, then start the dev server.
+
+📖 **Full guide:** [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
+
+### Admin Panel
+
+Navigate to `/admin` on your deployed site. The default password is `admin123` — **change it immediately** via the Settings tab or in your Supabase `site_settings` table.
+
+### Rebrand Config
+
+Edit `src/config/site.config.ts` to change the birthday person's name, notification email, fallback photos, and more — all in one place.
+
+---
+
 ## 📧 Email Service
 
 ### FormSubmit.co Integration
@@ -160,20 +190,41 @@ The website includes a fully functional **automatic email sender** that sends bi
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── ui/             # shadcn-inspired UI primitives
+├── components/
+│   ├── ui/                    # shadcn-inspired UI primitives
+│   ├── admin/                 # Admin panel components
+│   │   ├── LoginForm.tsx
+│   │   ├── WishesManager.tsx
+│   │   ├── PhotosManager.tsx
+│   │   └── SettingsManager.tsx
 │   ├── CustomCursor.tsx
 │   └── MusicPlayer.tsx
-├── sections/           # Main page sections
-│   ├── Hero.tsx        # Welcome section with animations
-│   ├── Gallery.tsx     # Photo gallery with tilt effects
-│   ├── Wish.tsx        # Bengali typewriter message
-│   ├── Cake.tsx        # Interactive cake section
-│   ├── SendWish.tsx    # Email form with validation
+├── config/
+│   └── site.config.ts         # ← Rebrand everything here
+├── hooks/
+│   ├── usePhotos.ts           # Gallery photo fetching
+│   ├── useWishes.ts           # Wish CRUD
+│   ├── useSiteSettings.ts     # Site settings
+│   └── useAdminAuth.ts        # Admin session auth
+├── lib/
+│   ├── api.ts                 # Supabase API helpers
+│   ├── supabase.ts            # Supabase client
+│   └── utils.ts               # cn() utility
+├── pages/
+│   └── Admin.tsx              # Hidden admin page (/admin)
+├── sections/
+│   ├── Hero.tsx
+│   ├── Gallery.tsx            # Now fetches from Supabase
+│   ├── Wish.tsx
+│   ├── Cake.tsx
+│   ├── SendWish.tsx           # Now saves to Supabase
 │   └── LoadingScreen.tsx
-├── hooks/              # Custom React hooks
-├── lib/                # Utility functions
-└── App.tsx            # Main application component
+├── types/
+│   └── database.types.ts      # Supabase table types
+└── App.tsx                    # React Router + public site
+
+supabase/
+└── schema.sql                 # Run this in Supabase SQL Editor
 ```
 
 ## 🌟 Key Features in Detail
