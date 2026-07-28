@@ -1,4 +1,4 @@
-import type { SEOProps } from '../types';
+import type { SEOProps } from '../../types';
 
 export function SEO({
   title = "Bubu's Birthday Celebration",

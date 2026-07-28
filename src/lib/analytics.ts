@@ -12,9 +12,8 @@ class AnalyticsService {
   private queue: AnalyticsEvent[] = [];
   private flushInterval: ReturnType<typeof setInterval> | null = null;
 
-  constructor(enabled = false) {
-    this.enabled = enabled;
-    if (enabled) {
+  constructor() {
+    if (this.enabled) {
       this.flushInterval = setInterval(() => this.flush(), 5000);
     }
   }

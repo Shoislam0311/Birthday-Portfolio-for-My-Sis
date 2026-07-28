@@ -7,7 +7,6 @@ import MusicPlayer from './components/MusicPlayer';
 import CustomCursor from './components/CustomCursor';
 import MobileNavigation from './components/MobileNavigation';
 import { CONFIG } from './config';
-import { trackPageView } from './lib/analytics';
 import '../src/index.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -75,7 +74,7 @@ function App() {
             { id: 'wish', label: 'Wish' },
             { id: 'cake', label: 'Cake' },
             { id: 'send-wish', label: 'Send Wish' },
-          ].map((section, index) => (
+          ].map((section) => (
             <button
               key={section.id}
               onClick={() => {

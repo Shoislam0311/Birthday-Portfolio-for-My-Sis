@@ -107,33 +107,33 @@ export const defaultConfig: BirthdayConfig = {
 };
 
 export function mergeConfig(userConfig: Partial<BirthdayConfig>): BirthdayConfig {
-  return deepMerge(defaultConfig, userConfig);
+  return deepMerge(defaultConfig, userConfig) as BirthdayConfig;
 }
 
-function deepMerge<T extends Record<string, unknown>>(
-  target: T,
-  source: Partial<T>
-): T {
-  const result = { ...target };
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    !Array.isArray(value) &&
+    Object.getPrototypeOf(value) === Object.prototype
+  );
+}
 
-  for (const key of Object.keys(source) as (keyof T)[]) {
+function deepMerge(target: unknown, source: unknown): unknown {
+  if (!isPlainObject(target) || !isPlainObject(source)) {
+    return source !== undefined ? source : target;
+  }
+
+  const result: Record<string, unknown> = { ...target };
+
+  for (const key of Object.keys(source)) {
     const sourceValue = source[key];
     const targetValue = target[key];
 
-    if (
-      sourceValue &&
-      typeof sourceValue === 'object' &&
-      !Array.isArray(sourceValue) &&
-      targetValue &&
-      typeof targetValue === 'object' &&
-      !Array.isArray(targetValue)
-    ) {
-      (result as Record<string, unknown>)[key] = deepMerge(
-        targetValue as Record<string, unknown>,
-        sourceValue as Record<string, unknown>
-      ) as T[keyof T];
+    if (isPlainObject(sourceValue) && isPlainObject(targetValue)) {
+      result[key] = deepMerge(targetValue, sourceValue);
     } else if (sourceValue !== undefined) {
-      (result as Record<string, unknown>)[key] = sourceValue;
+      result[key] = sourceValue;
     }
   }
 
