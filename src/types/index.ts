@@ -59,6 +59,15 @@ export interface CacheEntry<T> {
   expiresAt: number;
 }
 
+export interface SEOProps {
+  title?: string;
+  description?: string;
+  url?: string;
+  ogImage?: string;
+  type?: string;
+  twitterHandle?: string;
+}
+
 export interface Config {
   siteName: string;
   birthdayPerson: string;
