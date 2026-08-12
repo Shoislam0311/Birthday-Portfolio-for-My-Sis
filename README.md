@@ -1,51 +1,42 @@
-# Birthday Portfolio — Modern Interactive Celebration Website
+# Birthday Portfolio for My Sis
 
-A modern, production-ready, interactive birthday celebration microsite built with React 19, TypeScript, GSAP animations, and Tailwind CSS. Designed to be deployable anywhere and fully configurable.
+A responsive, interactive birthday portfolio designed as a personal celebration experience. The project combines a polished visual layout with reusable React components, animation, responsive styling, and a dedicated mobile-compatibility guide.
 
-## ✨ Features
+## Technology Stack
 
-- **Luxury Black-White-Blue Design** — Premium aesthetic with custom color palette
-- **GSAP Animations** — Smooth, professional scroll-triggered animations
-- **PWA Support** — Installable on any device with manifest and service worker
-- **SEO Optimized** — Full Open Graph, Twitter Cards, and meta tags
-- **Error Boundaries** — Graceful error recovery UI
-- **Lazy Loading** — Code-split sections with React.lazy and Suspense
-- **Input Sanitization** — XSS prevention on all form fields
-- **Cache Layer** — In-memory cache manager with TTL support
-- **Mobile Optimized** — WCAG-compliant touch targets, reduced motion support
+| Layer | Technology | Evidence in repository |
+|---|---|---|
+| Application | React 18+ with TypeScript | `src/**/*.tsx`, `tsconfig.json` |
+| Build tool | Vite | `vite.config.ts`, `package.json` |
+| Styling | Tailwind CSS with PostCSS | `tailwind.config.js`, `postcss.config.js` |
+| UI system | shadcn/ui-style component configuration and Radix primitives | `components.json`, `src/components/ui/` |
+| Interaction | Framer Motion, Embla Carousel, React Day Picker | `package.json` |
+| Icons and feedback | Lucide React, Sonner | `package.json` |
+| Package manager | pnpm | `pnpm-lock.yaml`, `.npmrc` |
 
-## 🛠️ Tech Stack
+## Local Development
 
-React 19 + TypeScript 5 + Vite 7 + Tailwind CSS 3 + GSAP 3 + Canvas Confetti + Radix UI + Lucide React + Sonner
-
-## ⚙️ Configuration
-
-The website is fully configurable via `src/config/birthday-config.ts`. Change the following to customize:
-
-```typescript
-const config: BirthdayConfig = {
-  site: { name: "Your Celebration", url: "https://yoursite.vercel.app" },
-  birthdayPerson: { name: "Your Name", nickname: "Your Nick" },
-  email: { recipient: "your@email.com" },
-  form: { maxNameLength: 50, maxEmailLength: 100, maxWishLength: 500 },
-  colors: { primary: "#0066ff" },
-  features: { music: true, customCursor: true, loadingScreen: true },
-};
-```
-
-## 🏃 Getting Started
+Install dependencies and start the Vite development server:
 
 ```bash
 pnpm install
-pnpm dev        # Development at localhost:5173
-pnpm build      # Production build
-pnpm preview    # Preview build
+pnpm dev
 ```
 
-## 🚀 Deployment
+Create a production build with:
 
-Optimized for Vercel, Netlify, GitHub Pages, or any static host.
+```bash
+pnpm build
+```
 
-## 📄 License
+## Documentation
 
-MIT License. Feel free to use, modify, and distribute for personal or commercial purposes.
+The repository includes [mobile compatibility guidance](MOBILE_COMPATIBILITY.md) and [contribution guidance](CONTRIBUTING.md). These documents describe the supported responsive behavior and the expected workflow for making changes without breaking the celebration experience.
+
+## Project Structure
+
+The main application entry points are in `src/main.tsx` and `src/App.tsx`. Shared visual primitives live under `src/components/ui`, while page-specific sections and styling are organized under `src/components` and `src/*.css`.
+
+## License
+
+See [LICENSE](LICENSE) for the applicable terms.

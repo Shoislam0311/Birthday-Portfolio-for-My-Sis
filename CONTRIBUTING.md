@@ -1,71 +1,21 @@
-# Contributing to Bubu's Birthday Celebration Website
+# Contributing
 
-Thank you for your interest in contributing to this project! This is a special birthday celebration website, and we appreciate any improvements or suggestions.
+Thank you for helping improve the Birthday Portfolio for My Sis. Contributions should preserve the project’s personal tone, responsive behavior, accessibility, and straightforward Vite development workflow.
 
-## Getting Started
+## Before Opening a Change
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Test your changes thoroughly
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
+Run `pnpm install` and confirm the project starts with `pnpm dev`. Keep UI changes componentized, prefer the existing styling and UI primitives, and avoid introducing a new dependency when an existing package already covers the requirement.
 
-## Development Guidelines
+## Validation
 
-### Code Style
-- Use TypeScript for all new code
-- Follow the existing ESLint configuration
-- Use meaningful variable and function names
-- Add comments for complex logic
+Before opening a pull request, run:
 
-### Component Guidelines
-- Create reusable components in `src/components/ui/`
-- Keep components focused and single-purpose
-- Use proper TypeScript interfaces
-- Follow the existing naming conventions
+```bash
+pnpm build
+```
 
-### Styling
-- Use Tailwind CSS classes
-- Follow the existing design system
-- Maintain consistency with the luxury color scheme
-- Ensure responsive design
+Test the changed experience at narrow and wide viewport sizes. For layout changes, also review [MOBILE_COMPATIBILITY.md](MOBILE_COMPATIBILITY.md) and update it when supported behavior changes.
 
-### Testing
-- Test your changes on multiple screen sizes
-- Verify animations work smoothly
-- Check form functionality
-- Test the email submission feature
+## Pull Requests
 
-### Accessibility
-- Ensure keyboard navigation works
-- Check color contrast ratios
-- Add proper ARIA labels where needed
-- Support reduced motion preferences
-
-## Features to Consider
-
-### Potential Improvements
-- Additional animation sequences
-- More interactive elements
-- Enhanced mobile experience
-- Performance optimizations
-- Additional language support
-- More customization options
-
-### Current Functionality
-- ✅ Email form with FormSubmit.co integration
-- ✅ GSAP animations and scroll triggers
-- ✅ Responsive design
-- ✅ Interactive cake section
-- ✅ Photo gallery with tilt effects
-- ✅ Bengali typewriter message
-
-## Questions?
-
-If you have questions about contributing, please open an issue or contact the maintainers.
-
-## Thank You
-
-Every contribution helps make this birthday celebration even more special! 🎂✨
+Describe the user-facing change, list the validation performed, and include screenshots or a short recording when the change is visual. Do not commit secrets, generated credentials, or unrelated build output.
